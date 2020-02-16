@@ -65,6 +65,7 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
+            'SoftDelete\\' => 11,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
         ),
@@ -113,6 +114,7 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
         ),
         'B' => 
         array (
+            'BootstrapUI\\' => 12,
             'Bake\\' => 5,
         ),
         'A' => 
@@ -198,6 +200,10 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
         'Symfony\\Component\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'SoftDelete\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pgbi/cakephp3-soft-delete/src',
         ),
         'Seld\\PharUtils\\' => 
         array (
@@ -318,6 +324,10 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
         'CakePHP\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/cakephp-codesniffer/CakePHP',
+        ),
+        'BootstrapUI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofcake/bootstrap-ui/src',
         ),
         'Bake\\' => 
         array (

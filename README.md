@@ -15,3 +15,19 @@
     ```
 4. access  
 http://givelog-plus.local
+
+
+# Migration
+
+```
+export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake migrations migrate
+export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake migrations rollback
+
+export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake bake migration_diff XXXXXXX
+```
+
+# Seed 
+
+```
+export CAKE_ENV="development"; /srv/httpd/htdocs/salon_dealer/bin/cake migrations seed
+```
