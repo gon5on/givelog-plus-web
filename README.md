@@ -2,7 +2,7 @@
 
 1. download
     ```
-    git clone https://github.com/gon5on/givelog-plus-web.git
+    git clone git@github.com:gon5on/givelog-plus-web.git
     ```
 2. vagrant up
     ```
@@ -29,5 +29,23 @@ export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake bake migration_d
 # Seed 
 
 ```
-export CAKE_ENV="development"; /srv/httpd/htdocs/salon_dealer/bin/cake migrations seed
+export CAKE_ENV="development"; /srv/httpd/htdocs/givelog-plus/bin/cake migrations seed
 ```
+
+
+# TODO
+
+* TOPへ戻るがコンソールエラー
+* プレゼント追加の人物複数選択
+* プレゼントリストの検索、ソート
+* 設定
+  * About
+  * 退会
+  * ライセンス
+
+* ロゴ
+* 毎回メニューが開く
+* カラーピッカーのswichみたいなのが消えない
+* メニューが上すぎる
+* 人物詳細のあげたもらったの見せ方
+* プレゼントリストの見せ方

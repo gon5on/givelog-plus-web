@@ -1,0 +1,62 @@
+.card-body {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.badge-area {
+    margin-bottom: 5px;
+}
+
+.label-area {
+    margin-bottom: 5px;
+}
+
+.btn-user {
+    font-size: .8rem;
+    border-radius: 10rem;
+    padding: .75rem 1rem;
+}
+
+img {
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:100%;
+}
+
+.form-group-mergin-minus {
+    margin-top: -16px;
+}
+
+i {
+    margin-right: 5px;
+}
+
+.custom-file {
+    margin-bottom: 1rem;
+}
+
+.table td,
+.table th {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    padding-right: .25rem;
+    padding-left: .25rem;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.person-gift-table td,
+.person-gift-table th {
+    border-top: 0;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.person-gift-table {
+    margin-top: -10px;
+}
+
+.flex-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}

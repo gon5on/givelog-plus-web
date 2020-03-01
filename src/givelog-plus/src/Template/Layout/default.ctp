@@ -1,57 +1,66 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+<?= $this->Html->charset() ?>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<?= $this->fetch('meta') ?>
+<title>givelog plus | <?= $this->fetch('page_title') ?></title>
+<?= $this->Html->css('/vendor/fontawesome-free/css/all.min.css') ?>
+<?= $this->Html->css('/vendor/sb-admin-2/sb-admin-2.min.css') ?>
+<?= $this->Html->css('custom.css') ?>
+<?= $this->fetch('css') ?>
 </head>
+
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
-        </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-    <footer>
-    </footer>
+<div id="wrapper">
+
+<?= $this->element('menu') ?>
+
+<div id="content-wrapper" class="d-flex flex-column">
+<div id="content">
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+<i class="fa fa-bars"></i>
+</button>
+<?= $this->Html->link('givelog plus', ['controller' => 'GiftList']) ?>
+</nav>
+
+<div class="container-fluid">
+
+<div class="d-sm-flex align-items-center mb-4 flex-title">
+<h1 class="h3 mb-0 text-gray-800"><?= $this->fetch('page_title') ?></h1>
+&nbsp;&nbsp;<?= $this->fetch('person_category_label') ?>
+</div>
+
+<?= $this->fetch('content'); ?>
+
+</div>
+</div>
+
+<footer class="sticky-footer bg-white">
+<div class="container my-auto">
+<div class="copyright text-center my-auto">
+<span>Copyright &copy; givelog plus 2020</span>
+</div>
+</div>
+</footer>
+
+</div>
+</div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+<?= $this->Html->script('/vendor/jquery/jquery.min') ?>
+<?= $this->Html->script('/vendor/bootstrap/js/bootstrap.bundle.min') ?>
+<?= $this->Html->script('/vendor/jquery-easing/jquery.easing.min') ?>
+<?= $this->Html->script('/vendor/sb-admin-2/sb-admin-2.min.js') ?>
+<?= $this->fetch('script') ?>
+
 </body>
 </html>
