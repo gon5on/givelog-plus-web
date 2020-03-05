@@ -28,7 +28,6 @@
 
 </div>
 <div class="modal-footer">
-<?= $this->AppForm->button('削除', ['class' => 'btn btn-danger']) ?>&nbsp;
 <?= $this->AppForm->button('保存', ['class' => 'btn btn-primary']) ?>
 </div>
 </div>

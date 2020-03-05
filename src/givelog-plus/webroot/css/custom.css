@@ -55,8 +55,10 @@ i {
     margin-top: -10px;
 }
 
-.flex-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+.badge-font-size {
+    font-size: 12px;
+}
+
+tr {
+    cursor:pointer;
 }

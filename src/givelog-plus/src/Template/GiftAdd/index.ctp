@@ -1,8 +1,5 @@
 <?php $this->assign('page_title', $page_title) ?>
 
-<div class="row justify-content-md-center">
-<div class="col-xl-6 col-lg-6 col-md-9">
-
 <?= $this->AppForm->create(null) ?>
 
 <div class="label-area">
@@ -78,9 +75,6 @@
 
 <?= $this->AppForm->button('追加', ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
 <?= $this->AppForm->end(); ?>
-
-</div>
-</div>
 
 
 <?= $this->element('person_add_modal') ?>

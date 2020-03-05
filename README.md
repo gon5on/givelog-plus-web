@@ -35,17 +35,10 @@ export CAKE_ENV="development"; /srv/httpd/htdocs/givelog-plus/bin/cake migration
 
 # TODO
 
-* TOPへ戻るがコンソールエラー
 * プレゼント追加の人物複数選択
 * プレゼントリストの検索、ソート
-* 設定
-  * About
-  * 退会
-  * ライセンス
 
 * ロゴ
-* 毎回メニューが開く
-* カラーピッカーのswichみたいなのが消えない
 * メニューが上すぎる
 * 人物詳細のあげたもらったの見せ方
 * プレゼントリストの見せ方

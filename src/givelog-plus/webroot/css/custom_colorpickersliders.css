@@ -1,3 +1,11 @@
-.cp-pills {
+#hslflat .cp-container .cp-pills {
     display: none;
+}
+
+#hslflat .cp-container .cp-swatch {
+    border: none;
+}
+
+#hslflat .btn {
+    border-radius: 50%;
 }

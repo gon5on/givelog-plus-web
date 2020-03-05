@@ -1,14 +1,10 @@
 <?php $this->assign('page_title', $page_title) ?>
-<?php $this->assign('person_category_label', '<span class="badge badge-pill badge-info">親戚</span>') ?>
-
-
-<div class="row justify-content-md-center">
-<div class="col-xl-6 col-lg-6 col-md-9">
+<?php $this->assign('person_category_label', '&nbsp;&nbsp;<span class="badge badge-pill badge-info badge-font-size">親戚</span>') ?>
 
 <div class="text-right">
 <a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
-<a class="small" href="<?= $this->Url->build(['controller' => 'gift-delete']) ?>"><i class="fas fa-fw fa-trash"></i>削除</a>
+<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
 </div>
 
 <hr>
@@ -23,11 +19,11 @@
 
 <hr>
 
-<div class="label-area">
+<div class="label-area mb-2">
 <i class="fas fa-fw fa-gift"></i><span class="text-xs font-weight-bold">プレゼント</span>
 </div>
 
-<div class="table-responsive table-hover">
+<div class="table table-hover">
 <table class="table person-gift-table" id="dataTable" width="100%" cellspacing="0">
 <tbody>
 
@@ -124,10 +120,10 @@
 <?= $this->Html->link('< 戻る', ['controller' => 'PersonList'], ['class' => 'small']) ?>
 </div>
 
-</div>
-</div>
 
 <?= $this->element('person_add_modal') ?>
+
+<?= $this->element('delete_confirm_modal') ?>
 
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
 $("tbody tr").on("click",function(e) {

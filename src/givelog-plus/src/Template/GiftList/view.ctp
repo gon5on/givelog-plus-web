@@ -1,8 +1,5 @@
 <?php $this->assign('page_title', $page_title) ?>
 
-<div class="row justify-content-md-center">
-<div class="col-xl-6 col-lg-6 col-md-9">
-
 <div class="text-right">
 <a class="small" href="<?= $this->Url->build(['controller' => 'gift-edit']) ?>"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
@@ -58,8 +55,4 @@
 
 <div class="text-center mb-4">
 <?= $this->Html->link('< 戻る', ['controller' => 'GiftList'], ['class' => 'small']) ?>
-</div>
-
-</div>
-
 </div>

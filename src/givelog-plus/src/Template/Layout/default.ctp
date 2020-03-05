@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
 <?= $this->Html->charset() ?>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -14,12 +13,13 @@
 <?= $this->fetch('css') ?>
 </head>
 
-<body>
+<body id="page-top">
 <div id="wrapper">
 
 <?= $this->element('menu') ?>
 
 <div id="content-wrapper" class="d-flex flex-column">
+
 <div id="content">
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -30,15 +30,19 @@
 </nav>
 
 <div class="container-fluid">
+<div class="row justify-content-md-center">
+<div class="col-xl-6 col-lg-6 col-md-9">
 
-<div class="d-sm-flex align-items-center mb-4 flex-title">
-<h1 class="h3 mb-0 text-gray-800"><?= $this->fetch('page_title') ?></h1>
-&nbsp;&nbsp;<?= $this->fetch('person_category_label') ?>
-</div>
+<h1 class="h3 mb-4 text-gray-800">
+<?= $this->fetch('page_title') ?><?= $this->fetch('person_category_label') ?>
+</h1>
 
 <?= $this->fetch('content'); ?>
 
 </div>
+</div>
+</div>
+
 </div>
 
 <footer class="sticky-footer bg-white">

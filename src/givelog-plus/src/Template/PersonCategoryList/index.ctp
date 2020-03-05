@@ -1,38 +1,33 @@
 <?php $this->assign('page_title', $page_title) ?>
 
-<div class="row justify-content-md-center">
-<div class="col-xl-6 col-lg-6 col-md-9">
-
 <div class="text-right mb-2">
 <a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personCategoryAddModal"><i class="fas fa-fw fa-plus-circle"></i>人物カテゴリ追加</a>
 </div>
 
-<div class="table-responsive table-hover">
+<div class="table table-hover">
 <table class="table" id="dataTable" width="100%" cellspacing="0">
 <tbody>
 
 <tr>
-<td><span class="badge badge-pill badge-danger">&nbsp;</span>&nbsp;&nbsp;家族</td>
+<td><span class="badge badge-pill badge-danger">&nbsp;</span>&nbsp;&nbsp;<span>家族</span></td>
 </tr>
 
 <tr>
-<td><span class="badge badge-pill badge-warning">&nbsp;</span>&nbsp;&nbsp;親戚</td>
+<td><span class="badge badge-pill badge-warning">&nbsp;</span>&nbsp;&nbsp;<span>親戚</span></td>
 </tr>
 
 <tr>
-<td><span class="badge badge-pill badge-info">&nbsp;</span>&nbsp;&nbsp;友達</td>
+<td><span class="badge badge-pill badge-info">&nbsp;</span>&nbsp;&nbsp;<span>友達</span></td>
 </tr>
 
 <tr>
-<td><span class="badge badge-pill badge-primary">&nbsp;</span>&nbsp;&nbsp;会社</td>
+<td><span class="badge badge-pill badge-primary">&nbsp;</span>&nbsp;&nbsp;<span>会社</span></td>
 </tr>
 
 </tbody>
 </table>
 </div>
- 
-</div>
-</div>
+
 
 <?= $this->element('person_category_add_modal') ?>
 
