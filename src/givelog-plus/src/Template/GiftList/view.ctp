@@ -19,7 +19,8 @@
 <div class="label-area">
 <i class="fas fa-fw fa-user"></i><span class="text-xs font-weight-bold">だれからだれへ</span>
 </div>
-<span><a href="">自分</a> から <a href="">母</a> へ</span>
+<span><?= $this->Html->link('自分', ['controller' => 'PersonList', 'action' => 'view']) ?> から 
+<?= $this->Html->link('母', ['controller' => 'PersonList', 'action' => 'view']) ?> へ</span>
 &nbsp;&nbsp;<span class="badge badge-pill badge-danger">家族</span>
 <hr>
 
@@ -54,5 +55,5 @@
 <hr>
 
 <div class="text-center mb-4">
-<?= $this->Html->link('< 戻る', ['controller' => 'GiftList'], ['class' => 'small']) ?>
+<?= $this->Html->link('< 戻る', ['controller' => 'GiftList', 'action' => 'index'], ['class' => 'small']) ?>
 </div>

@@ -117,7 +117,7 @@
 </div>
 
 <div class="text-center mb-4">
-<?= $this->Html->link('< 戻る', ['controller' => 'PersonList'], ['class' => 'small']) ?>
+<?= $this->Html->link('< 戻る', ['controller' => 'PersonList', 'action' => 'index'], ['class' => 'small']) ?>
 </div>
 
 
