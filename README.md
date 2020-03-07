@@ -19,22 +19,22 @@ http://givelog-plus.local
 
 # Library / Plugin
 
-* Bootstrap4
+* Bootstrap4  
 https://getbootstrap.com/
 
-* BootstrapUI
+* BootstrapUI  
 https://github.com/FriendsOfCake/bootstrap-ui
 
-* SB Admin2
+* SB Admin2  
 https://github.com/BlackrockDigital/startbootstrap-sb-admin-2
 
-* Bootstrap Color Picker Sliders
+* Bootstrap Color Picker Sliders  
 https://www.virtuosoft.eu/code/bootstrap-colorpickersliders/
 
-* Tempus Dominus (datepicker)
+* Tempus Dominus (datepicker)  
 https://tempusdominus.github.io/bootstrap-4/
 
-* Font Awesome Free
+* Font Awesome Free  
 https://fontawesome.com/
 
 
