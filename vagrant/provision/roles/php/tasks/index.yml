@@ -1,0 +1,29 @@
+---
+
+- name: check index.php
+  stat:
+    path: "{{ conf.document_root }}/index.php"
+  register: index_php
+
+
+- block:
+  - name: mkdir {{ conf.document_root }}
+    become: yes
+    file:
+      path: "{{ conf.document_root }}"
+      state: directory
+      owner: "{{ conf.synced_owner }}"
+      group: "{{ conf.synced_group }}"
+      mode: 0755
+
+  - name: copy index.php
+    become: yes
+    template:
+      src: index.php.j2
+      dest: "{{ conf.document_root }}/index.php"
+      owner: "{{ conf.synced_owner }}"
+      group: "{{ conf.synced_group }}"
+      mode: 0644
+
+  when: not index_php.stat.exists
+

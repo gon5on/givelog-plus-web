@@ -1,0 +1,22 @@
+---
+
+- name: copy dev.conf
+  become: yes
+  template: >
+    src=dev.conf.j2
+    dest=/etc/httpd/conf.d/dev.conf
+    owner=root
+    group=root
+    mode=0644
+  notify: restart httpd
+
+- name: copy ssl.conf
+  become: yes
+  template: >
+    src=ssl.conf.j2
+    dest=/etc/httpd/conf.d/ssl.conf
+    owner=root
+    group=root
+    mode=0644
+  notify: restart httpd
+

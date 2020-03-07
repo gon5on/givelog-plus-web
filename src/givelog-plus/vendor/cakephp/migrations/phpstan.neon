@@ -1,0 +1,8 @@
+parameters:
+  level: 1
+  bootstrap: tests/bootstrap.phpstan.php
+services:
+  -
+    class: Migrations\PHPStan\ShellPropertiesClassReflectionExtension
+    tags:
+      - phpstan.broker.propertiesClassReflectionExtension

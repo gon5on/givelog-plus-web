@@ -1,0 +1,11 @@
+---
+
+- include: php.yml
+
+- include: composer.yml
+
+- include: index.yml
+  when:
+    - not conf.use_cakephp
+    - not conf.use_laravel
+

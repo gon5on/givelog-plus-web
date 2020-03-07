@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+
+#
+# migration
+#
+export PATH="/usr/local/bin:${PATH}"
+cd /srv/httpd/app
+export CAKE_ENV=development; bash bin/cake migrations migrate
+

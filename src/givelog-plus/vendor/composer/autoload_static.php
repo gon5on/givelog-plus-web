@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
+class ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -23,7 +23,6 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
         'ede59e3a405fb689cd1cebb7bb1db3fb' => __DIR__ . '/..' . '/cakephp/cakephp/src/Collection/functions.php',
         '90236b492da7ca2983a2ad6e33e4152e' => __DIR__ . '/..' . '/cakephp/cakephp/src/I18n/functions.php',
         'b1fc73705e1bec51cd2b20a32cf1c60a' => __DIR__ . '/..' . '/cakephp/cakephp/src/Utility/bootstrap.php',
-        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
@@ -54,7 +53,6 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
         'S' => 
         array (
             'Symfony\\Polyfill\\Php73\\' => 23,
-            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Service\\' => 26,
@@ -65,7 +63,6 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
-            'SoftDelete\\' => 11,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
         ),
@@ -157,10 +154,6 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
         ),
-        'Symfony\\Polyfill\\Php72\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
-        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -200,10 +193,6 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
         'Symfony\\Component\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
-        ),
-        'SoftDelete\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/pgbi/cakephp3-soft-delete/src',
         ),
         'Seld\\PharUtils\\' => 
         array (
@@ -945,11 +934,11 @@ class ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitf5fbb7e9e348125e64d08fe877ef854c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19::$classMap;
 
         }, null, ClassLoader::class);
     }

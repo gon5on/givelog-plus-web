@@ -1,0 +1,46 @@
+---
+
+- name: install mysql module
+  become: yes
+  yum:
+    name: MySQL-python
+    state: present
+
+- name: copy my.cnf
+  become: yes
+  template: >
+    src=my.cnf.j2
+    dest=/etc/my.cnf
+    owner=root
+    group=root
+    mode=0644
+  notify: restart mysqld
+
+- name: create db
+  mysql_db:
+    name: "{{ conf.db_name }}"
+    encoding: "{{ conf.db_charset }}"
+    collation: "{{ conf.db_collation }}"
+    login_user: root
+    login_password: root
+    state: present
+
+- name: create db for test
+  mysql_db:
+    name: "{{ conf.db_name_test }}"
+    encoding: "{{ conf.db_charset }}"
+    collation: "{{ conf.db_collation }}"
+    login_user: root
+    login_password: root
+    state: present
+
+- name: create user
+  mysql_user:
+    name: "{{ conf.db_user }}"
+    password: "{{ conf.db_password }}"
+    priv: '*.*:ALL'
+    host_all: yes
+    login_user: root
+    login_password: root
+    state: present
+

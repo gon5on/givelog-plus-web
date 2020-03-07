@@ -1,0 +1,99 @@
+---
+
+- name: check composer_lock
+  stat:
+    path: "{{ conf.synced_dest }}/composer.lock"
+  register: composer_lock
+
+- block:
+
+  - name: remove garbage
+    shell: rm -rf * && rm -rf .[^.]* && rm -rf .??*
+    args:
+      chdir: "{{ conf.synced_dest }}"
+      warn: no
+
+  - name: composer self update
+    shell: composer self-update
+    args:
+      chdir: "{{ conf.synced_dest }}"
+      warn: no
+
+  - name: create laravel project
+    shell: |
+      export COMPOSER_PROCESS_TIMEOUT=1200
+      composer create-project --prefer-dist "laravel/laravel={{ conf.laravel_version }}" "{{ conf.synced_dest }}"
+    args:
+      chdir: "{{ conf.synced_dest }}"
+      warn: no
+
+  - name: fix app url
+    replace:
+      dest: "{{ conf.synced_dest }}/.env"
+      regexp: "APP_URL=http://localhost"
+      replace: "APP_URL=https://{{ conf.hostname }}"
+
+  - name: fix db database
+    replace:
+      dest: "{{ conf.synced_dest }}/.env"
+      regexp: "DB_DATABASE=homestead"
+      replace: "DB_DATABASE={{ conf.db_name }}"
+
+  - name: fix db username
+    replace:
+      dest: "{{ conf.synced_dest }}/.env"
+      regexp: "DB_USERNAME=homestead"
+      replace: "DB_USERNAME={{ conf.db_user }}"
+
+  - name: fix db password
+    replace:
+      dest: "{{ conf.synced_dest }}/.env"
+      regexp: "DB_PASSWORD=secret"
+      replace: "DB_PASSWORD={{ conf.db_password }}"
+
+  - name: fix db collation
+    replace:
+      dest: "{{ conf.synced_dest }}/config/database.php"
+      regexp: "'collation' => 'utf8mb4_unicode_ci',"
+      replace: "'collation' => '{{ conf.db_collation }}',"
+
+  - name: fix timezone
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "'timezone' => 'UTC',"
+      replace: "'timezone' => '{{ conf.app_timezone }}',"
+
+  - name: fix locale
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "'locale' => 'en',"
+      replace: "'locale' => '{{ conf.app_locale }}',"
+
+  - name: fix faker_locale
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "'faker_locale' => 'en_US',"
+      replace: "'faker_locale' => '{{ conf.app_locale }}',"
+
+  - name: fix mail driver
+    replace:
+      dest: "{{ conf.synced_dest }}/.env"
+      regexp: "MAIL_DRIVER=smtp"
+      replace: "MAIL_DRIVER=sendmail"
+
+  - block:
+    - name: set postgresql driver
+      replace:
+        dest: "{{ conf.synced_dest }}/.env"
+        regexp: "DB_CONNECTION=mysql"
+        replace: "DB_CONNECTION=pgsql"
+
+    - name: set postgresql port
+      replace:
+        dest: "{{ conf.synced_dest }}/.env"
+        regexp: "DB_PORT=3306"
+        replace: "DB_PORT=5432"
+
+    when: conf.use_pgsql
+
+  when: not composer_lock.stat.exists

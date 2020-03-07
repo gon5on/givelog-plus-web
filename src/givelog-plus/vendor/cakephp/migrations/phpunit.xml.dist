@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    colors="true"
+    bootstrap="tests/bootstrap.php"
+    >
+
+    <testsuites>
+        <testsuite name="migrations">
+            <directory>tests/TestCase</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- Setup a listener for fixtures -->
+    <listeners>
+        <listener class="Cake\TestSuite\Fixture\FixtureInjector">
+            <arguments>
+                <object class="Cake\TestSuite\Fixture\FixtureManager"/>
+            </arguments>
+        </listener>
+    </listeners>
+
+    <!-- Prevent coverage reports from looking in tests, vendors, config folders -->
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>

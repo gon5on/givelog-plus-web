@@ -1,0 +1,50 @@
+<?php
+
+use Cake\Cache\Engine\FileEngine;
+use Cake\Database\Connection;
+use Cake\Database\Driver\Mysql;
+use Cake\Error\ExceptionRenderer;
+use Cake\Log\Engine\FileLog;
+use Cake\Mailer\Transport\MailTransport;
+
+return [
+
+    'debug' => true,
+
+    'Datasources' => [
+        'default' => [
+            'className' => Connection::class,
+            'driver' => Mysql::class,
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => '{{ conf.db_user }}',
+            'password' => '{{ conf.db_password }}',
+            'database' => '{{ conf.db_name }}',
+            'encoding' => '{{ conf.db_charset }}',
+            'flags' => [],
+            'cacheMetadata' => true,
+            'log' => false,
+            'quoteIdentifiers' => false,
+            'url' => env('DATABASE_URL', null),
+        ],
+
+        /**
+         * The test connection is used during the test suite.
+         */
+        'test' => [
+            'className' => Connection::class,
+            'driver' => Mysql::class,
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => '{{ conf.db_user }}',
+            'password' => '{{ conf.db_password }}',
+            'database' => '{{ conf.db_name_test }}',
+            'encoding' => '{{ conf.db_charset }}',
+            'cacheMetadata' => true,
+            'quoteIdentifiers' => false,
+            'log' => false,
+            'url' => env('DATABASE_TEST_URL', null),
+        ],
+    ],
+
+];

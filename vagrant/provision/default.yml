@@ -1,0 +1,97 @@
+---
+
+# ホスト名
+# ENV['VAGRANT_HOSTNAME'] で上書き可能
+hostname: vagrant.local
+
+
+# IP アドレス
+# ENV['VAGRANT_IP'] で上書き可能
+ip: 192.168.10.10
+
+
+# httpd ドキュメントルート
+document_root: /srv/httpd/webroot
+# 以下は Laravel のデフォルト
+# document_root: /srv/httpd/public
+
+# 共有フォルダ設定
+synced_src: ../src
+synced_dest: /srv/httpd/
+synced_owner: apache
+synced_group: vagrant
+
+
+# インストールする PHP のバージョン
+# 54, 55, 56, 70, 71, 72, 73, 74
+php_version: 73
+
+# インストールする PHP のパッケージ
+php_packages:
+  - php
+  - php-devel
+  - php-common
+  - php-cli
+  - php-gd
+  - php-mbstring
+  - php-imap
+  - php-intl
+  - php-mcrypt
+  - php-pdo
+  - php-pgsql
+  - php-mysql
+  - php-xml
+  - php-bcmath
+  - php-pecl-xdebug
+
+
+# CakePHP を使用するか
+use_cakephp: false
+# CakePHP のバージョン
+cakephp_version: 3.8
+
+# Laravel を使用するか
+use_laravel: false
+# Laravel のバージョン
+laravel_version: 5.8
+
+
+# DB 設定
+db_name: vagrant_develop
+db_name_test: vagrant_test
+db_user: vagrant
+db_password: vagrant
+
+
+# MySQL を使用するか？
+use_mysql: ture
+
+# MySQL の文字コード関連設定
+db_charset: utf8mb4
+db_collation: utf8mb4_bin
+
+
+# PostgreSQL を使用するか？
+use_pgsql: false
+
+# PostgreSQL の文字コード関連設定
+db_encoding: UTF-8
+
+
+# アプリケーション設定
+app_encoding: UTF-8
+app_locale: ja_JP
+app_timezone: Asia/Tokyo
+
+
+# 使用する box
+box: oppara/CentOS-7-dev
+
+# vm 設定
+vm_memory: 1024
+vm_cpus: 1
+vm_gui: false
+
+
+# MailCatcher を使用するか？  https://mailcatcher.me/
+use_mailcatcher: true

@@ -1,0 +1,33 @@
+---
+# provision/default.yml の設定を上書き
+
+# ホスト名
+# ENV['VAGRANT_HOSTNAME'] で上書き可能
+hostname: vagrant.local
+
+# IP アドレス
+# ENV['VAGRANT_IP'] で上書き可能
+ip: 192.168.10.10
+
+# httpd ドキュメントルート
+document_root: /srv/httpd/public
+
+
+# MySQL を使用するか？
+use_mysql: false
+
+# PostgreSQL を使用するか？
+use_pgsql: true
+
+# 54, 55, 56, 70, 71, 72, 73
+php_version: 73
+
+# CakePHP を使用するか
+use_laravel: true
+
+
+# DB 設定
+db_name: vagrant_develop
+db_name_test: vagrant_test
+db_user: vagrant
+db_password: vagrant

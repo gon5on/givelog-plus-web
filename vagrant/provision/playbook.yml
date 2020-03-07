@@ -1,0 +1,27 @@
+---
+- hosts: all
+
+  roles:
+    - role: init
+
+    - role: mysql
+      tags: mysql
+      when: conf.use_mysql
+
+    - role: pgsql
+      tags: pgsql
+      when: conf.use_pgsql
+
+    - role: php
+      tags: php
+
+    - role: cakephp
+      tags: cakephp
+      when: conf.use_cakephp
+
+    - role: laravel
+      tags: laravel
+      when: conf.use_laravel
+
+    - role: httpd
+      tags: httpd

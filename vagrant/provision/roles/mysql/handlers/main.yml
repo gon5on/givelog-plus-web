@@ -1,0 +1,17 @@
+---
+
+- name: systemd restart mysqld
+  become: yes
+  systemd:
+    name: mysqld
+    state: restarted
+  listen: restart mysqld
+  when: ansible_distribution_major_version > 6
+
+- name: service restart mysqld
+  become: yes
+  service:
+    name: mysqld
+    state: restarted
+  listen: restart mysqld
+  when: ansible_distribution_major_version < 7

@@ -1,108 +1,68 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+require 'yaml'
 
-HOSTNAME = "givelog-plus"
-FQDN = "givelog-plus.local"
-IP_ADDRESS = "192.168.99.99"
+load File.expand_path('lib/util.rb')
 
-# DB設定
-DB_USER = "givelog_plus_user"
-DB_PASS = "givelog_plus_pass"
-DB_NAME = "givelog_plus_development"
-TEST_DB_NAME = "givelog_plus_test"
+_conf = load_config('provision/default.yml', {});
+_conf = load_config('site.yml', _conf);
 
-# synced_folder設定
-SOURCE = "../src"
-TARGET = "/srv/httpd/"
+install_plugin 'dotenv'
+
+# see http://blog.glidenote.com/blog/2014/02/26/vagrant-dotenv/
+if Vagrant.has_plugin?('dotenv')
+  Dotenv.load
+end
 
 
-Vagrant.configure("2") do |config|
+Vagrant.configure('2') do |config|
 
-  config.vm.box = "bento/centos-7"
-
-  if Vagrant.has_plugin?("vagrant-cachier")
+  if Vagrant.has_plugin?('vagrant-cachier')
     config.cache.scope = :box
   end
 
-  if Vagrant.has_plugin?("vagrant-vbguest")
+  if Vagrant.has_plugin?('vagrant-vbguest')
     config.vbguest.auto_update = false
   end
 
-  if Vagrant.has_plugin?("vagrant-hostsupdater")
-    config.hostsupdater.aliases = [
-      FQDN,
-      "salon-dealer.local"
-    ]
-  end
 
-  config.vm.synced_folder SOURCE, TARGET, \
-          create: true, owner: 'vagrant', group: 'vagrant', \
-          mount_options: ['dmode=777,fmode=776']
+  config.vm.box = ENV['VAGRANT_BOX'] || _conf['box']
+  config.vm.hostname = ENV['VAGRANT_HOSTNAME'] || _conf['hostname']
+  config.vm.network :private_network, ip: ENV['VAGRANT_IP'] || _conf['ip']
 
-  if defined? IP_ADDRESS
-    config.vm.network :private_network, ip: IP_ADDRESS
-    config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
-  end
+  config.ssh.forward_agent = true
 
-  if defined? HOSTNAME
-    config.vm.hostname = HOSTNAME
-  end
+  config.vm.synced_folder _conf['synced_src'], _conf['synced_dest'],
+    create: true, mount_options: ['dmode=777,fmode=666'],
+    owner: _conf['synced_owner'], group: _conf['synced_group']
 
   config.vm.provider :virtualbox do |vb|
-    if defined? HOSTNAME
-      vb.name = HOSTNAME
+    vb.gui = _conf['vm_gui']
+    vb.name = ENV['VAGRANT_HOSTNAME'] || _conf['hostname']
+    vb.memory = _conf['vm_memory'].to_i
+    vb.cpus = _conf['vm_cpus'].to_i
+    if 1 < _conf['vm_cpus'].to_i
+      vb.customize ['modifyvm', :id, '--ioapic', 'on']
     end
-    # vb.gui = true
-    # vb.memory = "1024"
-    vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
+    vb.customize ['modifyvm', :id, '--natdnsproxy1', 'on']
+    vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+    vb.customize ['setextradata', :id, 'VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled', 0]
   end
 
-  config.vm.provision "shell" do |s|
-    s.path = "scripts/common.sh"
+  if File.exists?(File.join(File.dirname(__FILE__), 'provision-pre.sh')) then
+    config.vm.provision :shell, :path => File.join( File.dirname(__FILE__), 'provision-pre.sh' )
   end
 
-#  config.vm.provision "shell" do |s|
-#    s.path = "scripts/mailcatcher.sh"
-#  end
-
-  config.vm.provision "shell" do |s|
-    s.name = "setup mysql database and user"
-    s.env = {
-      :DB_NAME => DB_NAME,
-      :TEST_DB_NAME => TEST_DB_NAME,
-      :DB_USER => DB_USER,
-      :DB_PASS => DB_PASS,
+  config.vm.provision 'ansible_local' do |ansible|
+    ansible.compatibility_mode = '2.0'
+    ansible.extra_vars = {
+      conf: _conf
     }
-    s.path = "scripts/mysql.sh"
+    ansible.playbook = 'provision/playbook.yml'
   end
 
-  config.vm.provision "shell" do |s|
-    s.path = "scripts/php.sh"
+  if File.exists?(File.join(File.dirname(__FILE__), 'provision-post.sh')) then
+    config.vm.provision :shell, :privileged => false, :path => File.join( File.dirname(__FILE__), 'provision-post.sh' )
   end
 
-  config.vm.provision "shell" do |s|
-    s.name = "setup composer"
-    s.path = "scripts/php_composer.sh"
-  end
-
-  config.vm.provision :shell, :inline => <<-EOT
-    cp -f /vagrant/etc/dev.conf /etc/httpd/conf.d/
-    cp -f /vagrant/etc/httpd-php.conf /etc/httpd/conf.d/
-
-    conf=/etc/httpd/conf.d/dev.conf
-
-    if [[ -n #{FQDN} ]]; then
-      sed -i -e "s@#ServerName DUMMY@ServerName #{FQDN}@" ${conf}
-    fi
-
-    systemctl restart httpd.service
-
-    export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake migrations migrate
-    export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake migrations seed
-
-  EOT
-
-  config.vm.provision "shell", inline: <<-SHELL
-    yum clean all
-  SHELL
 end

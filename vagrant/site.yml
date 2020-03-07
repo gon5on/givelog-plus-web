@@ -1,0 +1,33 @@
+---
+# provision/default.yml の設定を上書き
+
+# ホスト名
+# ENV['VAGRANT_HOSTNAME'] で上書き可能
+hostname: givelog-plus.local
+
+# IP アドレス
+# ENV['VAGRANT_IP'] で上書き可能
+ip: 192.168.99.99
+
+# httpd ドキュメントルート
+document_root: /srv/httpd/givelog-plus/webroot
+
+
+# MySQL を使用するか？
+use_mysql: true
+
+# PostgreSQL を使用するか？
+use_pgsql: false
+
+# 54, 55, 56, 70, 71, 72, 73, 74
+php_version: 73
+
+# CakePHP を使用するか
+use_cakephp: false
+
+
+# DB 設定
+db_name: givelog_plus_development
+db_name_test: givelog_plus_test
+db_user: vagrant
+db_password: vagrant

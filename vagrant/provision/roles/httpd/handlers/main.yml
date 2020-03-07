@@ -1,0 +1,17 @@
+---
+
+- name: systemd restart httpd
+  become: yes
+  systemd:
+    name: httpd
+    state: restarted
+  listen: restart httpd
+  when: ansible_distribution_major_version > 6
+
+- name: service restart httpd
+  become: yes
+  service:
+    name: httpd
+    state: restarted
+  listen: restart httpd
+  when: ansible_distribution_major_version < 7

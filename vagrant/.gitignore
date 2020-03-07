@@ -1,20 +1,13 @@
-# User specific & automatically generated files #
-#################################################
-.vagrant
-.env
-.idea
-!vagrant
-design
-.env
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-Thumbs.db
-*.BAK
+/.env
+/.DS_Store
+/.bundle
+/.idea/
+/.vagrant
+/.ansible
+/Movefile.yml
+/_site
+/npm-debug.log
+/package.box
+/provision/playbook.retry
+/test.json
+/vendor

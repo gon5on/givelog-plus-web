@@ -17,20 +17,25 @@
 http://givelog-plus.local
 
 
-# Migration
+# Library / Plugin
 
-```
-export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake migrations migrate
-export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake migrations rollback
+* Bootstrap4
+https://getbootstrap.com/
 
-export CAKE_ENV="development"; /srv/httpd/givelog-plus/bin/cake bake migration_diff XXXXXXX
-```
+* BootstrapUI
+https://github.com/FriendsOfCake/bootstrap-ui
 
-# Seed 
+* SB Admin2
+https://github.com/BlackrockDigital/startbootstrap-sb-admin-2
 
-```
-export CAKE_ENV="development"; /srv/httpd/htdocs/givelog-plus/bin/cake migrations seed
-```
+* Bootstrap Color Picker Sliders
+https://www.virtuosoft.eu/code/bootstrap-colorpickersliders/
+
+* Tempus Dominus (datepicker)
+https://tempusdominus.github.io/bootstrap-4/
+
+* Font Awesome Free
+https://fontawesome.com/
 
 
 # TODO

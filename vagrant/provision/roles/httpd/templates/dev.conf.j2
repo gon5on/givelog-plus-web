@@ -1,0 +1,26 @@
+
+EnableMMAP Off
+EnableSendfile Off
+
+
+<VirtualHost *:80>
+
+    ServerName {{ conf.hostname }}
+    DocumentRoot "{{ conf.document_root }}"
+
+    ErrorLog logs/vagrant-error_log
+    CustomLog logs/vagrant-access_log combined
+
+    RewriteEngine on
+    # RewriteLog /tmp/rewrite.log
+    # RewriteLogLevel 6
+
+    <Directory "{{ conf.document_root }}">
+        Options FollowSymlinks Includes
+        AllowOverride All
+        Require all granted
+        SetEnv CAKE_ENV "development"
+        SetEnv APP_ENV "local"
+    </Directory>
+
+</VirtualHost>

@@ -1,0 +1,75 @@
+---
+
+- name: install postgresql module
+  become: yes
+  yum:
+    name: python-psycopg2
+    state: present
+
+
+- name: edit postgresql.conf listen_addresses
+  become: yes
+  become_user: postgres
+  lineinfile:
+    path: /var/lib/pgsql/data/postgresql.conf
+    regexp: ^[#\s]*listen_addresses\s*=
+    line: "listen_addresses = '*'"
+
+- name: edit postgresql.conf log_filename
+  become: yes
+  become_user: postgres
+  lineinfile:
+    path: /var/lib/pgsql/data/postgresql.conf
+    regexp: ^[#\s]*log_filename\s*=
+    line: "log_filename = 'postgresql-%Y-%m-%d_%H%M%S'"
+
+- name: edit pg_hba.conf
+  become: yes
+  become_user: postgres
+  lineinfile:
+    path: /var/lib/pgsql/data/pg_hba.conf
+    regexp: ^host all all
+    line: "host  all  all  0.0.0.0/0    trust"
+  notify: restart postgresql
+
+
+- name: create db
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: "{{ conf.db_name }}"
+    encoding: "{{ conf.db_encoding }}"
+    template: template0
+    state: present
+
+- name: create test db
+  become: yes
+  become_user: postgres
+  postgresql_db:
+    name: "{{ conf.db_name_test }}"
+    encoding: "{{ conf.db_encoding }}"
+    template: template0
+    state: present
+
+- name: create user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    db: "{{ conf.db_name }}"
+    name: "{{ conf.db_user }}"
+    password: "{{ conf.db_password }}"
+    priv: ALL
+    role_attr_flags: CREATEDB,SUPERUSER
+    state: present
+
+- name: create user
+  become: yes
+  become_user: postgres
+  postgresql_user:
+    db: "{{ conf.db_name_test }}"
+    name: "{{ conf.db_user }}"
+    password: "{{ conf.db_password }}"
+    priv: ALL
+    role_attr_flags: CREATEDB,SUPERUSER
+    state: present
+

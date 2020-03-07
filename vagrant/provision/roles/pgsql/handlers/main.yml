@@ -1,0 +1,17 @@
+---
+
+- name: systemd restart postgresql
+  become: yes
+  systemd:
+    name: postgresql
+    state: restarted
+  listen: restart postgresql
+  when: ansible_distribution_major_version > 6
+
+- name: service restart postgresql
+  become: yes
+  service:
+    name: postgresql
+    state: restarted
+  listen: restart postgresql
+  when: ansible_distribution_major_version < 7

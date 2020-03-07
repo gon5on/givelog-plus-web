@@ -1,0 +1,124 @@
+---
+
+- name: check composer_lock
+  stat:
+    path: "{{ conf.synced_dest }}/composer.lock"
+  register: composer_lock
+
+- block:
+
+  - name: remove garbage
+    shell: rm -rf * && rm -rf .[^.]* && rm -rf .??*
+    args:
+      chdir: "{{ conf.synced_dest }}"
+      warn: no
+
+  - name: composer self update
+    shell: composer self-update
+    args:
+      chdir: "{{ conf.synced_dest }}"
+      warn: no
+
+  # - name: composer create project
+    # composer:
+      # command: create-project
+      # arguments: cakephp/app={{ conf.cakephp_version }} {{ conf.synced_dest }}
+      # working_dir: "{{ conf.synced_dest }}"
+      # prefer_dist: yes
+
+  - name: create cakephp project
+    shell: |
+      export COMPOSER_PROCESS_TIMEOUT=1200
+      yes | composer create-project --prefer-dist "cakephp/app={{ conf.cakephp_version }}" "{{ conf.synced_dest }}"
+    args:
+      chdir: "{{ conf.synced_dest }}"
+      warn: no
+
+  - name: composer install
+    shell: yes | composer install
+    args:
+      chdir: "{{ conf.synced_dest }}"
+      warn: no
+
+  - name: copy development.php
+    become: yes
+    template:
+      src: development.php.j2
+      dest: "{{ conf.synced_dest }}/config/development.php"
+      owner: "{{ conf.synced_owner }}"
+      group: "{{ conf.synced_group }}"
+      mode: 0644
+
+  - name: add load config
+    become: true
+    blockinfile:
+      dest: "{{ conf.synced_dest }}/config/bootstrap.php"
+      insertafter: "^\\/\\/Configure::load\\('app_local"
+      marker: "// {mark} ANSIBLE MANAGED BLOCK"
+      block: |
+        if (env('CAKE_ENV') && file_exists(CONFIG . env('CAKE_ENV') . '.php')) {
+            Configure::load(env('CAKE_ENV'), 'default');
+        }
+
+  - name: fix app local
+    become: true
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "'APP_DEFAULT_LOCALE', 'en_US'"
+      replace: "'APP_DEFAULT_LOCALE', '{{ conf.app_locale }}'"
+
+  - name: fix app timezone
+    become: true
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "'APP_DEFAULT_TIMEZONE', 'UTC'"
+      replace: "'APP_DEFAULT_TIMEZONE', '{{ conf.app_timezone }}'"
+
+  - name: set asset timestamp
+    become: true
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "\\/\\/'timestamp' => true,"
+      replace: "'timestamp' => 'force',"
+
+  - name: add cache file mask
+    become: true
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "^(\\s*)'className' => FileEngine::class,"
+      replace: "\\1'className' => FileEngine::class,\n\\1'mask' => 0666,"
+
+  - name: add log file mask
+    become: true
+    replace:
+      dest: "{{ conf.synced_dest }}/config/app.php"
+      regexp: "^(\\s*)'className' => FileLog::class,"
+      replace: "\\1'className' => FileLog::class,\n\\1'mask' => 0666,"
+
+  - name: fix .gitignore
+    become: true
+    lineinfile:
+      path: "{{ conf.synced_dest }}/.gitignore"
+      regexp: "^\\/config\\/app.php"
+      state: absent
+
+
+  - block:
+    - name: set postgresql driver
+      become: true
+      replace:
+        dest: "{{ conf.synced_dest }}/config/development.php"
+        regexp: "'driver' => Mysql::class,"
+        replace: "'driver' => Postgres::class,"
+
+    - name: set postgresql encoding
+      become: true
+      replace:
+        dest: "{{ conf.synced_dest }}/config/development.php"
+        regexp: "'encoding' => '{{ conf.db_charset }}',"
+        replace: "'encoding' => '{{ conf.db_encoding }}',"
+
+    when: conf.use_pgsql
+
+  when: not composer_lock.stat.exists
+

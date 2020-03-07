@@ -1,0 +1,109 @@
+---
+
+- name: install zip & unzip
+  become: yes
+  yum:
+    name:
+      - zip
+      - unzip
+    state: present
+
+- name: install remi repo
+  become: yes
+  yum:
+    name: https://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm
+    state: present
+
+- name: import remi gpg key
+  become: yes
+  rpm_key:
+    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi
+    state: present
+
+- name: enable remi-php{{ conf.php_version }}
+  become: yes
+  shell: yum-config-manager --enable remi-php{{ conf.php_version }}
+
+
+- name: install php packages
+  become: yes
+  yum:
+    name: "{{ conf.php_packages }}"
+    state: present
+
+
+- block:
+  - name: install zend opcache
+    become: yes
+    yum:
+      name: php-opcache
+      state: present
+
+  - name: opcache enable cli
+    become: yes
+    lineinfile:
+      path: "{{ item }}"
+      regexp: ^;opcache.enable_cli=0
+      line: "opcache.enable_cli=1"
+    with_first_found:
+    - files:
+      - /etc/php.d/10-opcache.ini
+      - /etc/php.d/opcache.ini
+      errors: ignore
+      # skip: true
+
+  when: conf.php_version > 54
+
+
+- block:
+  - name: install apc
+    become: yes
+    yum:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+      - php-pecl-apc
+
+  - name: apc enable cli
+    become: yes
+    lineinfile:
+      path: /etc/php.d/apcu.ini
+      regexp: ^;apc.enable_cli=0
+      line: "apc.enable_cli=1"
+
+  when: conf.php_version < 55
+
+
+- name: set error_reporting
+  become: yes
+  lineinfile:
+    path: /etc/php.ini
+    regexp: ^\s*error_reporting = E_ALL &
+    line: "error_reporting = E_ALL"
+
+- name: set display_errors on
+  become: yes
+  lineinfile:
+    path: /etc/php.ini
+    regexp: ^\s*display_errors = Off
+    line: "display_errors = On"
+
+- name: set display_startup_errors on
+  become: yes
+  lineinfile:
+    path: /etc/php.ini
+    regexp: ^\s*display_startup_errors = Off
+    line: "display_startup_errors = On"
+
+
+- name: copy mailcatcher ini
+  become: yes
+  copy:
+    src: 99-mailcatcher.ini
+    dest: /etc/php.d/99-mailcatcher.ini
+    owner: root
+    group: root
+    mode: 0644
+  when: conf.use_mailcatcher
+

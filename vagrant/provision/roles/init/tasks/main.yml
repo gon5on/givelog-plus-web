@@ -1,0 +1,84 @@
+---
+
+- name: init enable_packages
+  set_fact:
+    enable_packages: []
+
+- name: is enabled mysqld ?
+  set_fact:
+    enable_packages: "{{ enable_packages + [ 'mysqld' ] }}"
+  when: conf.use_mysql
+
+- name: is enabled postgresql ?
+  set_fact:
+    enable_packages: "{{ enable_packages + [ 'postgresql' ] }}"
+  when: conf.use_pgsql
+
+- name: is enabled mailcatcher ?
+  set_fact:
+    enable_packages: "{{ enable_packages + [ 'mailcatcher' ] }}"
+  when: conf.use_mailcatcher
+
+
+- name: init disable_packages
+  set_fact:
+    disable_packages: []
+
+- name: is disabled mysqld ?
+  set_fact:
+    disable_packages: "{{ disable_packages + [ 'mysqld' ] }}"
+  when: not conf.use_mysql
+
+- name: is disabled postgresql ?
+  set_fact:
+    disable_packages: "{{ disable_packages + [ 'postgresql' ] }}"
+  when: not conf.use_pgsql
+
+- name: is disabled mailcatcher ?
+  set_fact:
+    disable_packages: "{{ disable_packages + [ 'mailcatcher' ] }}"
+  when: not conf.use_mailcatcher
+
+
+- block:
+  - name: systemctl enable
+    become: yes
+    systemd:
+      name: "{{ item }}"
+      enabled: yes
+      state: started
+    with_items:
+      "{{ enable_packages }}"
+
+  - name: systemctl disable
+    become: yes
+    systemd:
+      name: "{{ item }}"
+      enabled: no
+      state: stopped
+    with_items:
+      "{{ disable_packages }}"
+
+  when: ansible_distribution_major_version > 6
+
+
+- block:
+  - name: service on
+    become: yes
+    service:
+      name: "{{ item }}"
+      enabled: yes
+      state: started
+    with_items:
+      "{{ enable_packages }}"
+
+  - name: service off
+    become: yes
+    service:
+      name: "{{ item }}"
+      enabled: no
+      state: stopped
+    with_items:
+      "{{ disable_packages }}"
+
+  when: ansible_distribution_major_version < 7
