@@ -40,6 +40,9 @@ https://tempusdominus.github.io/bootstrap-4
 * Font Awesome Free  
 https://fontawesome.com
 
+* Firebase Admin SDK for PHP  
+https://github.com/kreait/firebase-php
+
 
 # TODO
 
