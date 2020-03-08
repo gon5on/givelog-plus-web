@@ -28,8 +28,8 @@ https://github.com/FriendsOfCake/bootstrap-ui
 * SB Admin2  
 https://github.com/BlackrockDigital/startbootstrap-sb-admin-2
 
-* Bootstrap Multiselect
-http://davidstutz.de/bootstrap-multiselect  
+* Bootstrap Multiselect  
+http://davidstutz.de/bootstrap-multiselect
 
 * Bootstrap Color Picker Sliders  
 https://www.virtuosoft.eu/code/bootstrap-colorpickersliders
