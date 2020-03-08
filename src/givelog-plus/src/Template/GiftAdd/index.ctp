@@ -1,5 +1,6 @@
 <?php $this->assign('page_title', $page_title) ?>
 
+
 <?= $this->AppForm->create(null) ?>
 
 <div class="label-area">
@@ -21,7 +22,31 @@
 <div class="label-area">
 <i class="fas fa-fw fa-user"></i><span class="text-xs font-weight-bold">だれから</span>
 </div>
-<?= $this->AppForm->control('from', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select', 'options' => []]) ?>
+
+<div class="form-group">
+<select id="example-multiple-optgroups" multiple="multiple">
+<optgroup label="家族">
+<option value="1-1">父</option>
+<option value="1-2">母</option>
+<option value="1-3">兄</option>
+</optgroup>
+<optgroup label="親戚">
+<option value="2-1">おじいちゃん</option>
+<option value="2-2">おばあちゃん</option>
+<option value="2-3">おじさん</option>
+</optgroup>
+<optgroup label="家族">
+<option value="3-1">父</option>
+<option value="3-2">母</option>
+<option value="3-3">兄</option>
+</optgroup>
+<optgroup label="親戚">
+<option value="4-1">おじいちゃん</option>
+<option value="4-2">おばあちゃん</option>
+<option value="4-3">おじさん</option>
+</optgroup>
+</select>
+</div>
 
 <div class="text-right form-group-mergin-minus">
 <a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-plus-circle"></i>人物追加</a>
@@ -30,7 +55,31 @@
 <div class="label-area">
 <i class="fas fa-fw fa-user"></i><span class="text-xs font-weight-bold">だれへ</span>
 </div>
-<?= $this->AppForm->control('to', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select', 'options' => []]) ?>
+
+<div class="form-group">
+<select id="example-multiple-optgroups2" multiple="multiple">
+<optgroup label="家族">
+<option value="1-1">父</option>
+<option value="1-2">母</option>
+<option value="1-3">兄</option>
+</optgroup>
+<optgroup label="親戚">
+<option value="2-1">おじいちゃん</option>
+<option value="2-2">おばあちゃん</option>
+<option value="2-3">おじさん</option>
+</optgroup>
+<optgroup label="家族">
+<option value="3-1">父</option>
+<option value="3-2">母</option>
+<option value="3-3">兄</option>
+</optgroup>
+<optgroup label="親戚">
+<option value="4-1">おじいちゃん</option>
+<option value="4-2">おばあちゃん</option>
+<option value="4-3">おじさん</option>
+</optgroup>
+</select>
+</div>
 
 <div class="text-right form-group-mergin-minus">
 <a href="javascript::void(0)" class="small" data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-plus-circle"></i>人物追加</a>
@@ -73,7 +122,7 @@
 </div>
 <?= $this->AppForm->control('memo', ['label' => false, 'type' => 'textarea', 'class' => 'form-control mb-4', 'rows'=> 5]) ?>
 
-<?= $this->AppForm->button('追加', ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
+<?= $this->AppForm->button('保存', ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
 <?= $this->AppForm->end(); ?>
 
 
@@ -84,3 +133,54 @@
 <?= $this->element('color_picker') ?>
 
 <?= $this->element('date_picker') ?>
+
+
+<!-- multi select -->
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css', ['block' => true]) ?>
+
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js', ['block' => true]) ?>
+
+<?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
+$('#example-multiple-optgroups').multiselect({
+    nonSelectedText: '',
+    buttonWidth: '100%',
+    buttonText: function(options, select) {
+        if (options.length === 0) {
+            return '選択してください';
+        } else {
+            var labels = [];
+            options.each(function() {
+                if ($(this).attr('label') !== undefined) {
+                    labels.push($(this).attr('label'));
+                }
+                else {
+                    labels.push($(this).html());
+                }
+            });
+            return labels.join(', ') + '';
+        }
+    }
+});
+
+$('#example-multiple-optgroups2').multiselect({
+    nonSelectedText: '',
+    buttonWidth: '100%',
+    buttonText: function(options, select) {
+        if (options.length === 0) {
+            return '選択してください';
+        } else {
+            var labels = [];
+            options.each(function() {
+                if ($(this).attr('label') !== undefined) {
+                    labels.push($(this).attr('label'));
+                }
+                else {
+                    labels.push($(this).html());
+                }
+            });
+            return labels.join(', ') + '';
+        }
+    }
+});
+<?= $this->Html->scriptEnd() ?>
+<!-- multi select -->

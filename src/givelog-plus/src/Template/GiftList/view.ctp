@@ -3,7 +3,7 @@
 <div class="text-right">
 <a class="small" href="<?= $this->Url->build(['controller' => 'gift-edit']) ?>"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
-<a class="small" href="<?= $this->Url->build(['controller' => 'gift-delete']) ?>"><i class="fas fa-fw fa-trash"></i>削除</a>
+<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
 </div>
 
 <hr>
@@ -57,3 +57,6 @@
 <div class="text-center mb-4">
 <?= $this->Html->link('< 戻る', ['controller' => 'GiftList', 'action' => 'index'], ['class' => 'small']) ?>
 </div>
+
+
+<?= $this->element('delete_confirm_modal') ?>

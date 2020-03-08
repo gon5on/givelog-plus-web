@@ -60,10 +60,10 @@
 <i class="fas fa-angle-up"></i>
 </a>
 
-<?= $this->Html->script('/vendor/jquery/jquery.min') ?>
-<?= $this->Html->script('/vendor/bootstrap/js/bootstrap.bundle.min') ?>
-<?= $this->Html->script('/vendor/jquery-easing/jquery.easing.min') ?>
-<?= $this->Html->script('/vendor/sb-admin-2/sb-admin-2.min.js') ?>
+<?= $this->Html->script('https://code.jquery.com/jquery-3.4.1.min.js', ['integrity' => 'sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=', 'crossorigin' => 'anonymous']) ?>
+<?= $this->Html->script('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js') ?>
+<?= $this->Html->script('/vendor/sb-admin-2/sb-admin-2.min') ?>
 <?= $this->fetch('script') ?>
 
 </body>

@@ -20,7 +20,7 @@ http://givelog-plus.local
 # Library / Plugin
 
 * Bootstrap4  
-https://getbootstrap.com/
+https://getbootstrap.com
 
 * BootstrapUI  
 https://github.com/FriendsOfCake/bootstrap-ui
@@ -28,22 +28,22 @@ https://github.com/FriendsOfCake/bootstrap-ui
 * SB Admin2  
 https://github.com/BlackrockDigital/startbootstrap-sb-admin-2
 
-* Bootstrap Color Picker Sliders  
-https://www.virtuosoft.eu/code/bootstrap-colorpickersliders/
+* Bootstrap Multiselect
+http://davidstutz.de/bootstrap-multiselect  
 
-* Tempus Dominus (datepicker)  
-https://tempusdominus.github.io/bootstrap-4/
+* Bootstrap Color Picker Sliders  
+https://www.virtuosoft.eu/code/bootstrap-colorpickersliders
+
+* Tempus Dominus (Bootsrep Datepicker)  
+https://tempusdominus.github.io/bootstrap-4
 
 * Font Awesome Free  
-https://fontawesome.com/
+https://fontawesome.com
 
 
 # TODO
 
-* プレゼント追加の人物複数選択
-* プレゼントリストの検索、ソート
-
 * ロゴ
 * メニューが上すぎる
-* 人物詳細のあげたもらったの見せ方
-* プレゼントリストの見せ方
+* 人物詳細の見せ方（あげたもらった）
+* プレゼントリストの見せ方（あげたもらった）

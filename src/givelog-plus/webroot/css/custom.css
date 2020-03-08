@@ -62,3 +62,37 @@ i {
 tr {
     cursor:pointer;
 }
+
+.badge {
+    font-weight: normal;
+}
+
+.badge-primary-outline {
+    border: solid 1px #4e73df;
+    background-color: #fff;
+    color: #4e73df;
+}
+
+.badge-info-outline {
+    border: solid 1px #36b9cc;
+    background-color: #fff;
+    color: #36b9cc;
+}
+
+.badge-success-outline {
+    border: solid 1px #1cc88a;
+    background-color: #fff;
+    color: #1cc88a;
+}
+
+.badge-danger-outline {
+    border: solid 1px #e74a3b;
+    background-color: #fff;
+    color: #e74a3b;
+}
+
+.multiselect {
+    border: 1px solid #d1d3e2;
+    background-color: #fff;
+    text-align: left;
+}

@@ -15,7 +15,7 @@
 
 <p>兄の長男（甥っ子）<br>
 2010/3/12 生まれ<br>
-車が好き、卵アレルギーがあるので食べ物をあげるときは注意</p>
+車が好き、ミニカーを集めているのでプレゼントすると喜ぶ</p>
 
 <hr>
 
@@ -29,86 +29,76 @@
 
 <tr>
 <td>
-<span>2019/03/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">ホワイトデー</span><br>
-<a href="">渡辺まりちゃん</a> と <a href="">自分</a> へ 手作りクッキー
+<span>2019/01/20</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">誕生日</span><br>
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> と
+<?= $this->Html->link('山田はなこちゃん', ['action' => 'view']) ?> から
+<?= $this->Html->link('自分', ['action' => 'view']) ?> へ 手作りクッキー
 </td>
 </tr>
 
 <tr>
 <td>
 <span>2019/02/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">バレンタインデー</span><br>
-<a href="">自分</a> から チロルチョコ詰め合わせ
+<?= $this->Html->link('自分', ['action' => 'view']) ?> から
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ チロルチョコ詰め合わせ
 </td>
 </tr>
 
 <tr>
 <td>
 <span>2016/04/10</span>&nbsp;&nbsp;<span class="badge badge-pill badge-info">入学祝い</span><br>
-<a href="">自分</a> から 文房具セット
+<?= $this->Html->link('自分', ['action' => 'view']) ?> から
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ 文房具セット
 </td>
 </tr>
 
 <tr>
 <td>
-<span>2019/03/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">ホワイトデー</span><br>
-<a href="">自分</a> へ 手作りクッキー
+<span>2019/01/20</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">誕生日</span><br>
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> と
+<?= $this->Html->link('山田はなこちゃん', ['action' => 'view']) ?> から
+<?= $this->Html->link('自分', ['action' => 'view']) ?> へ 手作りクッキー
 </td>
 </tr>
 
 <tr>
 <td>
 <span>2019/02/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">バレンタインデー</span><br>
-<a href="">自分</a> から チロルチョコ詰め合わせ
+<?= $this->Html->link('自分', ['action' => 'view']) ?> から
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ チロルチョコ詰め合わせ
 </td>
 </tr>
 
 <tr>
 <td>
 <span>2016/04/10</span>&nbsp;&nbsp;<span class="badge badge-pill badge-info">入学祝い</span><br>
-<a href="">自分</a> から 文房具セット
+<?= $this->Html->link('自分', ['action' => 'view']) ?> から
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ 文房具セット
 </td>
 </tr>
 
 <tr>
 <td>
-<span>2019/03/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">ホワイトデー</span><br>
-<a href="">自分</a> へ 手作りクッキー
+<span>2019/01/20</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">誕生日</span><br>
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> と
+<?= $this->Html->link('山田はなこちゃん', ['action' => 'view']) ?> から
+<?= $this->Html->link('自分', ['action' => 'view']) ?> へ 手作りクッキー
 </td>
 </tr>
 
 <tr>
 <td>
 <span>2019/02/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">バレンタインデー</span><br>
-<a href="">自分</a> から チロルチョコ詰め合わせ
+<?= $this->Html->link('自分', ['action' => 'view']) ?> から
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ チロルチョコ詰め合わせ
 </td>
 </tr>
 
 <tr>
 <td>
 <span>2016/04/10</span>&nbsp;&nbsp;<span class="badge badge-pill badge-info">入学祝い</span><br>
-<a href="">自分</a> から 文房具セット
-</td>
-</tr>
-
-
-<tr>
-<td>
-<span>2019/03/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">ホワイトデー</span><br>
-<a href="">自分</a> へ 手作りクッキー
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2019/02/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">バレンタインデー</span><br>
-<a href="">自分</a> から チロルチョコ詰め合わせ
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2016/04/10</span>&nbsp;&nbsp;<span class="badge badge-pill badge-info">入学祝い</span><br>
-<a href="">自分</a> から 文房具セット
+<?= $this->Html->link('自分', ['action' => 'view']) ?> から
+<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ 文房具セット
 </td>
 </tr>
 
