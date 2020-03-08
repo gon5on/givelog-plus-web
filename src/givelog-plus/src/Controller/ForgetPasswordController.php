@@ -16,7 +16,9 @@ class ForgetPasswordController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        
+
+        $this->Auth->allow(['index']);
+
         $this->viewBuilder()->setLayout('before_login');
     }
 

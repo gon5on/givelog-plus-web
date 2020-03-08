@@ -16,7 +16,9 @@ class LoginController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        
+
+        $this->Auth->allow(['logout']);
+
         $this->viewBuilder()->setLayout('before_login');
     }
 
@@ -30,7 +32,12 @@ class LoginController extends AppController
         $this->set('page_title', 'ログイン');
 
         if ($this->request->is('post')) {
-            return $this->redirect('/gift-list');
+            $user = $this->Auth->identify();
+
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
         }
     }
 

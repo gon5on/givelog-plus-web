@@ -35,6 +35,10 @@
 <?= $this->Html->script('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js') ?>
 <?= $this->Html->script('/vendor/sb-admin-2/sb-admin-2.min') ?>
+
+<?= $this->Html->script('https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js') ?>
+<?= $this->Html->script('firebase-init') ?>
+
 <?= $this->fetch('script') ?>
 </body>
 </html>
