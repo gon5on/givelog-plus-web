@@ -1,5 +1,5 @@
 <!-- person category add modal -->
-<?= $this->AppForm->create(null) ?>
+<?= $this->AppForm->create(null, ['url' => ['controller' => 'PersonCategoryAdd']]) ?>
 <div class="modal fade" id="personCategoryAddModal" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -14,7 +14,7 @@
 <div class="label-area">
 <i class="fas fa-fw fa-folder-open"></i><span class="text-xs font-weight-bold">人物カテゴリ</span>
 </div>
-<?= $this->AppForm->control('person_category_name', ['label' => false, 'class' => 'form-control', 'placeholder' => '家族']) ?>
+<?= $this->AppForm->control('name', ['label' => false, 'class' => 'form-control', 'placeholder' => '家族']) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-palette"></i><span class="text-xs font-weight-bold">ラベルカラー</span>

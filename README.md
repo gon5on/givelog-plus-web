@@ -50,3 +50,24 @@ https://github.com/kreait/firebase-php
 * メニューが上すぎる
 * 人物詳細の見せ方（あげたもらった）
 * プレゼントリストの見せ方（あげたもらった）
+
+
+gRPC for PHP のインストール
+https://cloud.google.com/php/grpc?hl=ja
+
+からの
+
+composer require google/cloud-firestore
+
+
+
+
+web
+    Controller
+        UseCase(IF)
+        Interactor
+            BusinessLogic
+        UseCase
+    Repository(IF)
+    Repository
+DB

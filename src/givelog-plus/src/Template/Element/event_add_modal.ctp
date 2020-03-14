@@ -1,5 +1,5 @@
 <!-- event add modal -->
-<?= $this->AppForm->create(null) ?>
+<?= $this->AppForm->create(null, ['url' => ['controller' => 'EventAdd']]) ?>
 <div class="modal fade" id="eventAddModal" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -14,7 +14,7 @@
 <div class="label-area">
 <i class="fas fa-fw fa-calendar-check"></i><span class="text-xs font-weight-bold">イベント</span>
 </div>
-<?= $this->AppForm->control('event_name', ['label' => false, 'class' => 'form-control', 'placeholder' => '誕生日']) ?>
+<?= $this->AppForm->control('name', ['label' => false, 'class' => 'form-control', 'placeholder' => '誕生日']) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-palette"></i><span class="text-xs font-weight-bold">ラベルカラー</span>
