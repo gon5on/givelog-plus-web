@@ -5,6 +5,7 @@
 /logs/*
 /tmp/*
 #/vendor/*
+/vendor/**/.git
 
 # OS generated files #
 ######################

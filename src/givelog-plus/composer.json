@@ -11,8 +11,8 @@
         "cakephp/plugin-installer": "^1.0",
         "friendsofcake/bootstrap-ui": "^1.4",
         "google/cloud-firestore": "^1.11",
-        "kreait/firebase-php": "^4.35",
-        "mobiledetect/mobiledetectlib": "2.*"
+        "kreait/firebase-php": "^4.40",
+        "mobiledetect/mobiledetectlib": "^2.8"
     },
     "require-dev": {
         "cakephp/bake": "^1.9.0",
