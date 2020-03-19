@@ -6,8 +6,8 @@
 <hr class="sidebar-divider my-0">
 
 <?= $this->App->menu('人物リスト', ['controller' => 'PersonList', 'action' => 'index'], 'fa-user-friends') ?>
-<?= $this->App->menu('人物カテゴリリスト', ['controller' => 'PersonCategoryList', 'action' => 'index'], 'fa-folder-open') ?>
-<?= $this->App->menu('イベントリスト', ['controller' => 'EventList', 'action' => 'index'], 'fa-calendar-alt') ?>
+<?= $this->App->menu('人物カテゴリリスト', ['controller' => 'PersonCategory', 'action' => 'index'], 'fa-folder-open') ?>
+<?= $this->App->menu('イベントリスト', ['controller' => 'Event', 'action' => 'index'], 'fa-calendar-alt') ?>
 
 <hr class="sidebar-divider my-0">
 

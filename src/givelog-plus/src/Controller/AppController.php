@@ -61,6 +61,7 @@ class AppController extends Controller
                 'Firebase',
             ],
         ]);
+        $this->loadComponent('DIContainer');
 
         /*
          * Enable the following component for recommended CakePHP security settings.

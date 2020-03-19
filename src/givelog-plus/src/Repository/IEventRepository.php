@@ -2,11 +2,11 @@
 namespace App\Repository;
 
 interface IEventRepository {
-    public function save(string $uid/*, Event $event*/);
+    public function add(string $uid, string $name, string $labelColor);
 
-    public function delete(string $documentId);
+    public function delete(string $uid, string $documentId);
 
     public function list(string $uid);
 
-    public function get(string $documentId);
+    public function get(string $uid, string $documentId);
 }
