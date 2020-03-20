@@ -69,4 +69,16 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
     }
+
+    protected function getAjaxResponse($entity) {
+        $status = 200;
+        $data = [];
+
+        if ($entity->getErrors()) {
+            $status = 400;
+            $data = $entity->getErrors();
+        }
+
+        return $this->getResponse()->withStatus($status)->withType('json')->withStringBody(json_encode($data));
+    }
 }

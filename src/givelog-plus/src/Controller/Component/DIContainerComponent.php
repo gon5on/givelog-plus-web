@@ -13,5 +13,8 @@ class DIContainerComponent extends Component {
         if ($controller instanceof \App\Controller\PersonCategoryController) {
             $controller->di(new \App\Interactor\PersonCategoryInteractor(new \App\Repository\PersonCategoryRepository()));
         }
+        elseif ($controller instanceof \App\Controller\EventController) {
+            $controller->di(new \App\Interactor\EventInteractor(new \App\Repository\EventRepository()));
+        }
     }
 }

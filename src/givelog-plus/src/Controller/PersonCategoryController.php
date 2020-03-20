@@ -4,6 +4,7 @@ namespace App\Controller;
 use Cake\Log\Log;
 use App\UseCase\IPersonCategoryUseCase;
 
+
 class PersonCategoryController extends AppController {
     private $personCategoryUseCase;
 
@@ -14,16 +15,10 @@ class PersonCategoryController extends AppController {
     public function index() {
         $this->set('page_title', '人物カテゴリリスト');
 
-        try {
-            $uid = $this->Auth->user('uid');
-            $personCategories = $this->personCategoryUseCase->list($uid);
+        $uid = $this->Auth->user('uid');
+        $personCategories = $this->personCategoryUseCase->list($uid);
 
-            $this->set(compact('personCategories'));
-
-        } catch (FirebaseException $e) {
-            //TODO
-            debug($e->getMessage());
-        }
+        $this->set(compact('personCategories'));
     }
 
     public function add() {
@@ -31,16 +26,11 @@ class PersonCategoryController extends AppController {
             return $this->redirect('/person-category');
         }
 
-        try {
-            $uid = $this->Auth->user('uid');
-            $data = $this->request->getData();
-            $this->personCategoryUseCase->add($uid, $data);
+        $uid = $this->Auth->user('uid');
+        $data = $this->request->getData();
+        $entity = $this->personCategoryUseCase->add($uid, $data);
 
-            return $this->getResponse();
-        } catch (FirebaseException $e) {
-            //TODO
-            debug($e->getMessage());
-        }
+        return $this->getAjaxResponse($entity);
     }
 
     public function edit($documentId) {
@@ -48,28 +38,17 @@ class PersonCategoryController extends AppController {
             return $this->redirect('/person-category');
         }
 
-        try {
-            $uid = $this->Auth->user('uid');
-            $data = $this->request->getData();
-            $this->personCategoryUseCase->edit($uid, $documentId, $data);
+        $uid = $this->Auth->user('uid');
+        $data = $this->request->getData();
+        $entity = $this->personCategoryUseCase->edit($uid, $documentId, $data);
 
-            return $this->getResponse();
-        } catch (FirebaseException $e) {
-            //TODO
-            debug($e->getMessage());
-        }
+        return $this->getAjaxResponse($entity);
     }
 
     public function delete($documentId) {
         if ($this->request->is('post')) {
-            try {
-                $uid = $this->Auth->user('uid');
-                $this->personCategoryUseCase->delete($uid, $documentId);
-    
-            } catch (FirebaseException $e) {
-                //TODO
-                debug($e->getMessage());
-            }
+            $uid = $this->Auth->user('uid');
+            $this->personCategoryUseCase->delete($uid, $documentId);
         }
 
         return $this->redirect('/person-category');

@@ -22,12 +22,16 @@ $('#personCategoryAddModal').find('.save').on('click', function() {
     })
     .done(function(data) {
         location.href = '/person-category';
-        obj.modal('hide');
-        console.log(data);
+        obj.modal('hide');  
     })
-    .fail(function(data) {
-        obj.modal('hide');
-        console.log(data);
+    .fail(function(data, textStatus, xhr) {
+        if (xhr.status === 403) {
+            location.href = '/login';
+        } else if (xhr.status === 400) {
+            console.log(data);
+        } else {
+            console.log(data);
+        }
     });
 });
 
