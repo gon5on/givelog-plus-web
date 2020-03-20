@@ -7,7 +7,7 @@ use Google\Cloud\Firestore\FieldValue;
 class EventRepository extends AppRepository implements IEventRepository {
 
     public function list(string $uid): array {
-        $result = [];
+        $list = [];
 
         $documents = $this->__getQuery($uid)->orderBy('created', 'DESC')->documents();
 
@@ -16,14 +16,14 @@ class EventRepository extends AppRepository implements IEventRepository {
                 continue;
             }
 
-            $result[] = new Event([
+            $list[] = new Event([
                 'id' => $document->id(),
                 'name' => $document->get('name'),
                 'labelColor' => $document->get('label_color'),
             ]);
         }
 
-        return $result;
+        return $list;
     }
 
     public function add(string $uid, Event $entity): string {

@@ -11,10 +11,22 @@ class DIContainerComponent extends Component {
         $controller = $this->_registry->getController();
 
         if ($controller instanceof \App\Controller\PersonCategoryController) {
-            $controller->di(new \App\Interactor\PersonCategoryInteractor(new \App\Repository\PersonCategoryRepository()));
+            $personCategoryRepository = new \App\Repository\PersonCategoryRepository();
+            $personCategoryInteractor = new \App\Interactor\PersonCategoryInteractor($personCategoryRepository);
+
+            $controller->di($personCategoryInteractor);
         }
         elseif ($controller instanceof \App\Controller\EventController) {
-            $controller->di(new \App\Interactor\EventInteractor(new \App\Repository\EventRepository()));
+            $eventRepository = new \App\Repository\EventRepository();
+            $eventInteractor = new \App\Interactor\EventInteractor($eventRepository);
+
+            $controller->di($eventInteractor);
+        }
+        elseif ($controller instanceof \App\Controller\PersonController) {
+            $personRepository = new \App\Repository\PersonRepository();
+            $personInteractor = new \App\Interactor\PersonInteractor($personRepository);
+
+            $controller->di($personInteractor);
         }
     }
 }

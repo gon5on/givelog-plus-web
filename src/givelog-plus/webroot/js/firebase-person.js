@@ -1,12 +1,12 @@
-$('#eventAddModal').find('.save').on('click', function() {
-    let obj = $('#eventAddModal');
+$('#personAddModal').find('.save').on('click', function() {
+    let obj = $('#personAddModal');
     let documentId = obj.find('input[name="document_id"]').val();
 
     let url;
     if (documentId) {
-        url = '/event/edit/' + documentId;
+        url = '/person/edit/' + documentId;
     } else {
-        url = '/event/add';
+        url = '/person/add';
     }
 
     $.ajax({
@@ -14,14 +14,15 @@ $('#eventAddModal').find('.save').on('click', function() {
         type: 'POST',
         data:{
             'name': obj.find('input[name="name"]').val(),
-            'label_color': '#999999',       //TODO
+            'person_category_id': '06927b8ffcd74602b301',       //TODO
+            'memo': obj.find('textarea[name="memo"]').val(),
         },
         beforeSend: function(xhr){
             xhr.setRequestHeader('X-CSRF-Token', obj.find('input[name="_csrfToken"]').val());
         },
     })
     .done(function(data) {
-        location.href = '/event';
+        location.href = '/person';
         obj.modal('hide');  
     })
     .fail(function(data, textStatus, xhr) {
@@ -35,10 +36,10 @@ $('#eventAddModal').find('.save').on('click', function() {
     });
 });
 
-$('#eventAddModal').find('.delete').on('click', function() {
-    let obj = $('#eventAddModal');
+$('#personAddModal').find('.delete').on('click', function() {
+    let obj = $('#personAddModal');
     let documentId = obj.find('input[name="document_id"]').val();
 
-    obj.find('form').attr('action', '/event/delete/' + documentId);
+    obj.find('form').attr('action', '/person/delete/' + documentId);
     obj.find('form').submit();
 });

@@ -13,7 +13,7 @@ class EventDomain {
         $validator
             ->requirePresence('name', '入力してください')
             ->notEmpty('name', '入力してください')
-            ->maxLength('name', 15);
+            ->maxLength('name', 15, '15文字以内で入力してください');
 
         $validator
             ->requirePresence('label_color', '選択してください')

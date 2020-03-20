@@ -7,7 +7,7 @@ use Google\Cloud\Firestore\FieldValue;
 class PersonCategoryRepository extends AppRepository implements IPersonCategoryRepository {
 
     public function list(string $uid): array {
-        $result = [];
+        $list = [];
 
         $documents = $this->__getQuery($uid)->orderBy('created', 'DESC')->documents();
 
@@ -16,14 +16,14 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
                 continue;
             }
 
-            $result[] = new PersonCategory([
+            $list[] = new PersonCategory([
                 'id' => $document->id(),
                 'name' => $document->get('name'),
                 'labelColor' => $document->get('label_color'),
             ]);
         }
 
-        return $result;
+        return $list;
     }
 
     public function add(string $uid, PersonCategory $entity): string {
@@ -55,6 +55,10 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
         $this->__getQuery($uid)->document($documentId)->delete();
 
         return $documentId;
+    }
+
+    public function getRef(string $uid, string $documentId) {
+        return $this->__getQuery($uid)->document($documentId);
     }
 
     private function __getQuery(string $uid) {

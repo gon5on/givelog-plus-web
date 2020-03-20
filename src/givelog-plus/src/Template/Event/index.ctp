@@ -27,21 +27,21 @@
 <?= $this->element('color_picker') ?>
 
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
-$("#add").on("click",function(e) {
+$('#add').on('click', function(e) {
     let obj = $('#eventAddModal');
 
-    obj.find("#delete").hide();
-    obj.find('input[name="name"]').val("");
-    obj.find('input[name="document_id"]').val("");
+    obj.find('.delete').hide();
+    obj.find('input[name="name"]').val('');
+    obj.find('input[name="document_id"]').val('');
     obj.modal('show');
 });
 
-$("tbody tr").on("click",function(e) {
+$('tbody tr').on('click', function(e) {
     let obj = $('#eventAddModal');
 
-    obj.find("#delete").show();
-    obj.find('input[name="name"]').val($(this).data("name"));
-    obj.find('input[name="document_id"]').val($(this).data("document_id"));
+    obj.find(''.delete').show();
+    obj.find('input[name="name"]').val($(this).data('name'));
+    obj.find('input[name="document_id"]').val($(this).data('document_id'));
     obj.modal('show');
 });
 <?= $this->Html->scriptEnd() ?>

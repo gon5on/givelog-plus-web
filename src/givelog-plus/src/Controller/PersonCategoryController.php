@@ -1,9 +1,7 @@
 <?php
 namespace App\Controller;
 
-use Cake\Log\Log;
 use App\UseCase\IPersonCategoryUseCase;
-
 
 class PersonCategoryController extends AppController {
     private $personCategoryUseCase;

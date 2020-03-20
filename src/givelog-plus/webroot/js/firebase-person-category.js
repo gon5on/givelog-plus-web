@@ -14,10 +14,10 @@ $('#personCategoryAddModal').find('.save').on('click', function() {
         type: 'POST',
         data:{
             'name': obj.find('input[name="name"]').val(),
-            'label_color': "#999999",       //TODO
+            'label_color': '#999999',       //TODO
         },
         beforeSend: function(xhr){
-            xhr.setRequestHeader("X-CSRF-Token", obj.find('input[name="_csrfToken"]').val());
+            xhr.setRequestHeader('X-CSRF-Token', obj.find('input[name="_csrfToken"]').val());
         },
     })
     .done(function(data) {

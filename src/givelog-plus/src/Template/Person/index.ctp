@@ -1,0 +1,36 @@
+<?php $this->assign('page_title', $page_title) ?>
+
+<div class="text-right mb-2">
+<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-plus-circle"></i>人物追加</a>
+</div>
+
+<?php if ($persons): ?>
+
+<div class="table table-hover">
+<table class="table" id="dataTable" width="100%" cellspacing="0">
+<tbody>
+
+<?php foreach ($persons as $person): ?>
+<tr data-document_id="<?= $person->id ?>">
+<td>
+<span><?= $person->name ?></span>&nbsp;&nbsp;
+<?php if ($person->personCategory): ?>
+<span class="badge badge-pill badge-danger"><?= $person->personCategory->name ?></span>
+<?php endif; ?>
+</td>
+</tr>
+<?php endforeach; ?>
+
+</tbody>
+</table>
+</div>
+
+<?php endif; ?>
+
+<?= $this->element('person_add_modal') ?>
+
+<?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
+$("tbody tr").on("click",function(e) {
+    window.location.href = "<?= $this->Url->build(['action' => 'view']) ?>/" + $(this).data('document_id');
+});
+<?= $this->Html->scriptEnd() ?>

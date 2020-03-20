@@ -3,9 +3,9 @@ namespace App\Domain;
 
 use Cake\Utility\Hash;
 use Cake\Validation\Validator;
-use App\Model\Entity\PersonCategory;
+use App\Model\Entity\Person;
 
-class PersonCategoryDomain {
+class PersonDomain {
 
     protected function buildValidator() : Validator {
         $validator = new Validator();
@@ -16,14 +16,17 @@ class PersonCategoryDomain {
             ->maxLength('name', 15, '15文字以内で入力してください');
 
         $validator
-            ->requirePresence('label_color', '選択してください')
-            ->notEmpty('label_color', '選択してください');
+            ->allowEmpty('person_category_id');
+
+        $validator
+            ->allowEmpty('memo')
+            ->maxLength('memo', 1000, '1000文字以内で入力してください');
 
         return $validator;
     }
 
     public function createEntity(array $data) {
-        $entity = new PersonCategory();
+        $entity = new Person();
 
         $validator = $this->buildValidator();
         $errors = $validator->errors($data);
@@ -32,7 +35,8 @@ class PersonCategoryDomain {
             $entity->setErrors($errors);
         } else {
             $entity->name = Hash::get($data, 'name');
-            $entity->labelColor = Hash::get($data, 'label_color');
+            $entity->personCategoryId = Hash::get($data, 'person_category_id');
+            $entity->memo = Hash::get($data, 'memo');
         }
 
         return $entity;
