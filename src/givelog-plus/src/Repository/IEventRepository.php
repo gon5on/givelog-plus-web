@@ -1,12 +1,15 @@
 <?php
 namespace App\Repository;
 
+use App\Model\Entity\Event;
+
 interface IEventRepository {
-    public function add(string $uid, string $name, string $labelColor);
+    public function list(string $uid);
+
+    public function add(string $uid, Event $entity);
+
+    public function edit(string $uid, string $documentId, Event $entity);
 
     public function delete(string $uid, string $documentId);
 
-    public function list(string $uid);
-
-    public function get(string $uid, string $documentId);
 }

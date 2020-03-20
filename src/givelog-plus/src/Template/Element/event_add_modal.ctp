@@ -1,6 +1,6 @@
 <!-- event add modal -->
-<?= $this->AppForm->create(null, ['url' => ['controller' => 'EventAdd']]) ?>
 <div class="modal fade" id="eventAddModal" tabindex="-1" role="dialog" aria-hidden="true">
+<?= $this->AppForm->create(null) ?>
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
@@ -21,13 +21,17 @@
 </div>
 <div id="hslflat"></div>
 
+<?= $this->AppForm->control('document_id', ['type' => 'hidden']) ?>
+
 </div>
 <div class="modal-footer">
-<?= $this->AppForm->button('削除', ['class' => 'btn btn-danger']) ?>&nbsp;
-<?= $this->AppForm->button('保存', ['class' => 'btn btn-primary']) ?>
-</div>
+<?= $this->AppForm->button('削除', ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>&nbsp;
+<?= $this->AppForm->button('保存', ['type' => 'button', 'class' => 'btn btn-primary save']) ?>
 </div>
 </div>
 </div>
 <?= $this->AppForm->end(); ?>
+</div>
+
+<?= $this->Html->script('firebase-event', ['block' => true]) ?>
 <!-- event add modal -->

@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository;
 
+use App\Model\Entity\Event;
 use Google\Cloud\Firestore\FieldValue;
 
 class EventRepository extends AppRepository implements IEventRepository {
@@ -8,25 +9,27 @@ class EventRepository extends AppRepository implements IEventRepository {
     public function list(string $uid): array {
         $result = [];
 
-        $documents = $this->__getQuery($uid)->documents();
+        $documents = $this->__getQuery($uid)->orderBy('created', 'DESC')->documents();
 
         foreach ($documents as $document) {
-            if ($document->exists()) {
-                $result[] = new PersonCategory([
-                    'id' => $document->id(),
-                    'name' => $document->name,
-                    'labelColor' => $document->label_color,
-                ]);
+            if (!$document->exists()) {
+                continue;
             }
+
+            $result[] = new Event([
+                'id' => $document->id(),
+                'name' => $document->get('name'),
+                'labelColor' => $document->get('label_color'),
+            ]);
         }
 
         return $result;
     }
 
-    public function add(string $uid, string $name, string $labelColor): string {
+    public function add(string $uid, Event $entity): string {
         $data = [
-            'name' => $name,
-            'label_color' => $labelColor,
+            'name' => $entity->name,
+            'label_color' => $entity->labelColor,
             'created' => FieldValue::serverTimestamp(),
             'modified' => FieldValue::serverTimestamp(),
         ];
@@ -36,12 +39,22 @@ class EventRepository extends AppRepository implements IEventRepository {
         return $ret->id();
     }
 
-    public function delete(string $uid, string $documentId) {
-        //todo
+    public function edit(string $uid, string $documentId, Event $entity): string {
+        $data = [
+            ['path' => 'name', 'value' => $entity->name],
+            ['path' => 'label_color', 'value' => $entity->labelColor],
+            ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
+        ];
+
+        $this->__getQuery($uid)->document($documentId)->update($data);
+
+        return $documentId;
     }
 
-    public function get(string $uid, string $documentId) {
-        //todo
+    public function delete(string $uid, string $documentId): string {
+        $this->__getQuery($uid)->document($documentId)->delete();
+
+        return $documentId;
     }
 
     private function __getQuery(string $uid) {
