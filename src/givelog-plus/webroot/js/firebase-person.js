@@ -1,20 +1,13 @@
 $('#personAddModal').find('.save').on('click', function() {
     let obj = $('#personAddModal');
-    let documentId = obj.find('input[name="document_id"]').val();
-
-    let url;
-    if (documentId) {
-        url = '/person/edit/' + documentId;
-    } else {
-        url = '/person/add';
-    }
+    let id = obj.find('input[name="id"]').val();
 
     $.ajax({
-        url: url,
+        url: (id) ?  '/person/edit/' + id : '/person/add',
         type: 'POST',
         data:{
             'name': obj.find('input[name="name"]').val(),
-            'person_category_id': '06927b8ffcd74602b301',       //TODO
+            'person_category_id': 'd1ccbc6e24a440d4aae7',       //TODO
             'memo': obj.find('textarea[name="memo"]').val(),
         },
         beforeSend: function(xhr){
@@ -22,7 +15,7 @@ $('#personAddModal').find('.save').on('click', function() {
         },
     })
     .done(function(data) {
-        location.href = '/person';
+        location.href = (id) ? '/person/view/' + id : '/person';
         obj.modal('hide');  
     })
     .fail(function(data, textStatus, xhr) {
@@ -38,8 +31,8 @@ $('#personAddModal').find('.save').on('click', function() {
 
 $('#personAddModal').find('.delete').on('click', function() {
     let obj = $('#personAddModal');
-    let documentId = obj.find('input[name="document_id"]').val();
+    let id = obj.find('input[name="id"]').val();
 
-    obj.find('form').attr('action', '/person/delete/' + documentId);
+    obj.find('form').attr('action', '/person/delete/' + id);
     obj.find('form').submit();
 });

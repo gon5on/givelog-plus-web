@@ -1,16 +1,9 @@
 $('#personCategoryAddModal').find('.save').on('click', function() {
     let obj = $('#personCategoryAddModal');
-    let documentId = obj.find('input[name="document_id"]').val();
-
-    let url;
-    if (documentId) {
-        url = '/person-category/edit/' + documentId;
-    } else {
-        url = '/person-category/add';
-    }
+    let id = obj.find('input[name="id"]').val();
 
     $.ajax({
-        url: url,
+        url: (id) ?  '/person-category/edit/' + id : '/person-category/add',
         type: 'POST',
         data:{
             'name': obj.find('input[name="name"]').val(),
@@ -37,8 +30,8 @@ $('#personCategoryAddModal').find('.save').on('click', function() {
 
 $('#personCategoryAddModal').find('.delete').on('click', function() {
     let obj = $('#personCategoryAddModal');
-    let documentId = obj.find('input[name="document_id"]').val();
+    let id = obj.find('input[name="id"]').val();
 
-    obj.find('form').attr('action', '/person-category/delete/' + documentId);
+    obj.find('form').attr('action', '/person-category/delete/' + id);
     obj.find('form').submit();
 });

@@ -1,5 +1,7 @@
-<?php $this->assign('page_title', $page_title) ?>
-<?php $this->assign('person_category_label', '&nbsp;&nbsp;<span class="badge badge-pill badge-info badge-font-size">親戚</span>') ?>
+<?php $this->assign('page_title', $person->name) ?>
+<?php if ($person->personCategory): ?>
+<?php $this->assign('person_category_label', '&nbsp;&nbsp;<span class="badge badge-pill badge-danger badge-font-size">' . $person->personCategory->name . '</span>') ?>
+<?php endif; ?>
 
 <div class="text-right">
 <a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-edit"></i>編集</a>
@@ -13,9 +15,7 @@
 <i class="fas fa-fw fa-pen"></i><span class="text-xs font-weight-bold">メモ</span>
 </div>
 
-<p>兄の長男（甥っ子）<br>
-2010/3/12 生まれ<br>
-車が好き、ミニカーを集めているのでプレゼントすると喜ぶ</p>
+<p><?= nl2br($person->memo) ?></p>
 
 <hr>
 
@@ -107,7 +107,7 @@
 </div>
 
 <div class="text-center mb-4">
-<?= $this->Html->link('< 戻る', ['controller' => 'PersonList', 'action' => 'index'], ['class' => 'small']) ?>
+<?= $this->Html->link('< 戻る', ['controller' => 'Person', 'action' => 'index'], ['class' => 'small']) ?>
 </div>
 
 

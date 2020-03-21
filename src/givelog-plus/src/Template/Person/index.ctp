@@ -11,7 +11,7 @@
 <tbody>
 
 <?php foreach ($persons as $person): ?>
-<tr data-document_id="<?= $person->id ?>">
+<tr data-id="<?= $person->id ?>">
 <td>
 <span><?= $person->name ?></span>&nbsp;&nbsp;
 <?php if ($person->personCategory): ?>
@@ -31,6 +31,6 @@
 
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
 $("tbody tr").on("click",function(e) {
-    window.location.href = "<?= $this->Url->build(['action' => 'view']) ?>/" + $(this).data('document_id');
+    window.location.href = "<?= $this->Url->build(['action' => 'view']) ?>/" + $(this).data('id');
 });
 <?= $this->Html->scriptEnd() ?>

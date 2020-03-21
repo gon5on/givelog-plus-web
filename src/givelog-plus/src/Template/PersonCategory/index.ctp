@@ -11,7 +11,7 @@
 <tbody>
 
 <?php foreach ($personCategories as $personCategory): ?>
-<tr data-document_id="<?= $personCategory->id ?>" data-name="<?= $personCategory->name ?>">
+<tr data-id="<?= $personCategory->id ?>" data-name="<?= $personCategory->name ?>">
 <td><span class="badge badge-pill badge-danger">&nbsp;</span>&nbsp;&nbsp;<span><?= $personCategory->name ?></span></td>
 </tr>
 <?php endforeach; ?>
@@ -32,7 +32,7 @@ $('#add').on('click', function(e) {
 
     obj.find('.delete').hide();
     obj.find('input[name="name"]').val('');
-    obj.find('input[name="document_id"]').val('');
+    obj.find('input[name="id"]').val('');
     obj.modal('show');
 });
 
@@ -41,7 +41,7 @@ $('tbody tr').on('click', function(e) {
 
     obj.find('.delete').show();
     obj.find('input[name="name"]').val($(this).data('name'));
-    obj.find('input[name="document_id"]').val($(this).data('document_id'));
+    obj.find('input[name="id"]').val($(this).data('id'));
     obj.modal('show');
 });
 <?= $this->Html->scriptEnd() ?>

@@ -30,7 +30,7 @@ class PersonCategoryInteractor implements IPersonCategoryUseCase {
         return $entity;
     }
 
-    public function edit(string $uid, string $documentId, array $data): PersonCategory {
+    public function edit(string $uid, string $id, array $data): PersonCategory {
         $personCategoryDomain = new PersonCategoryDomain();
 
         $entity = $personCategoryDomain->createEntity($data);
@@ -38,12 +38,12 @@ class PersonCategoryInteractor implements IPersonCategoryUseCase {
             return $entity;
         }
 
-        $this->personCategoryRepository->edit($uid, $documentId, $entity);
+        $this->personCategoryRepository->edit($uid, $id, $entity);
 
         return $entity;
     }
 
-    public function delete(string $uid, string $documentId) {
-        $this->personCategoryRepository->delete($uid, $documentId);
+    public function delete(string $uid, string $id) {
+        $this->personCategoryRepository->delete($uid, $id);
     }
 }

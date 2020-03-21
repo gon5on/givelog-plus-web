@@ -11,7 +11,7 @@
 <tbody>
 
 <?php foreach ($events as $event): ?>
-<tr data-document_id="<?= $event->id ?>" data-name="<?= $event->name ?>">
+<tr data-id="<?= $event->id ?>" data-name="<?= $event->name ?>">
 <td><span class="badge badge-pill badge-danger">&nbsp;</span>&nbsp;&nbsp;<span><?= $event->name ?></span></td>
 </tr>
 <?php endforeach; ?>
@@ -32,16 +32,16 @@ $('#add').on('click', function(e) {
 
     obj.find('.delete').hide();
     obj.find('input[name="name"]').val('');
-    obj.find('input[name="document_id"]').val('');
+    obj.find('input[name="id"]').val('');
     obj.modal('show');
 });
 
 $('tbody tr').on('click', function(e) {
     let obj = $('#eventAddModal');
 
-    obj.find(''.delete').show();
+    obj.find('.delete').show();
     obj.find('input[name="name"]').val($(this).data('name'));
-    obj.find('input[name="document_id"]').val($(this).data('document_id'));
+    obj.find('input[name="id"]').val($(this).data('id'));
     obj.modal('show');
 });
 <?= $this->Html->scriptEnd() ?>

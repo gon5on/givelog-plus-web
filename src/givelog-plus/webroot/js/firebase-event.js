@@ -1,16 +1,9 @@
 $('#eventAddModal').find('.save').on('click', function() {
     let obj = $('#eventAddModal');
-    let documentId = obj.find('input[name="document_id"]').val();
-
-    let url;
-    if (documentId) {
-        url = '/event/edit/' + documentId;
-    } else {
-        url = '/event/add';
-    }
+    let id = obj.find('input[name="id"]').val();
 
     $.ajax({
-        url: url,
+        url: (id) ?  '/event/edit/' + id : '/event/add',
         type: 'POST',
         data:{
             'name': obj.find('input[name="name"]').val(),
@@ -37,8 +30,8 @@ $('#eventAddModal').find('.save').on('click', function() {
 
 $('#eventAddModal').find('.delete').on('click', function() {
     let obj = $('#eventAddModal');
-    let documentId = obj.find('input[name="document_id"]').val();
+    let id = obj.find('input[name="id"]').val();
 
-    obj.find('form').attr('action', '/event/delete/' + documentId);
+    obj.find('form').attr('action', '/event/delete/' + id);
     obj.find('form').submit();
 });

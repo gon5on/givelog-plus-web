@@ -24,7 +24,8 @@ class DIContainerComponent extends Component {
         }
         elseif ($controller instanceof \App\Controller\PersonController) {
             $personRepository = new \App\Repository\PersonRepository();
-            $personInteractor = new \App\Interactor\PersonInteractor($personRepository);
+            $personCategoryRepository = new \App\Repository\PersonCategoryRepository();
+            $personInteractor = new \App\Interactor\PersonInteractor($personRepository, $personCategoryRepository);
 
             $controller->di($personInteractor);
         }

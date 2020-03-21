@@ -3,6 +3,7 @@ namespace App\Repository;
 
 use App\Model\Entity\PersonCategory;
 use Google\Cloud\Firestore\FieldValue;
+use Google\Cloud\Firestore\DocumentReference;
 
 class PersonCategoryRepository extends AppRepository implements IPersonCategoryRepository {
 
@@ -57,7 +58,11 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
         return $documentId;
     }
 
-    public function getRef(string $uid, string $documentId) {
+    public function exist(string $uid, string $documentId): bool {
+        return $this->getRef($uid, $documentId)->snapshot()->exists();
+    }
+
+    public function getRef(string $uid, string $documentId): DocumentReference {
         return $this->__getQuery($uid)->document($documentId);
     }
 

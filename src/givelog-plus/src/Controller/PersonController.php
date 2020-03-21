@@ -26,12 +26,27 @@ class PersonController extends AppController {
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $entity = $this->personUseCase->add($uid, $data);
+        $person = $this->personUseCase->add($uid, $data);
 
-        return $this->getAjaxResponse($entity);
+        return $this->getAjaxResponse($person);
     }
 
-    public function view() {
-        $this->set('page_title', '山田太郎くん');
+    public function view($id) {
+        $uid = $this->Auth->user('uid');
+        $person = $this->personUseCase->view($uid, $id);
+
+        $this->set(compact('person'));
+    }
+
+    public function edit($id) {
+        if (!$this->request->is('ajax')) {
+            return $this->redirect('/person');
+        }
+
+        $uid = $this->Auth->user('uid');
+        $data = $this->request->getData();
+        $person = $this->personUseCase->edit($uid, $id, $data);
+
+        return $this->getAjaxResponse($person);
     }
 }

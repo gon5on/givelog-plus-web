@@ -30,7 +30,7 @@ class EventInteractor implements IEventUseCase {
         return $entity;
     }
 
-    public function edit(string $uid, string $documentId, array $data): Event {
+    public function edit(string $uid, string $id, array $data): Event {
         $eventDomain = new EventDomain();
 
         $entity = $eventDomain->createEntity($data);
@@ -38,12 +38,12 @@ class EventInteractor implements IEventUseCase {
             return $entity;
         }
 
-        $this->eventRepository->edit($uid, $documentId, $entity);
+        $this->eventRepository->edit($uid, $id, $entity);
 
         return $entity;
     }
 
-    public function delete(string $uid, string $documentId) {
-        $this->eventRepository->delete($uid, $documentId);
+    public function delete(string $uid, string $id) {
+        $this->eventRepository->delete($uid, $id);
     }
 }

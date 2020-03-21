@@ -8,7 +8,9 @@ interface IPersonCategoryRepository {
 
     public function add(string $uid, PersonCategory $entity);
 
-    public function edit(string $uid, string $documentId, PersonCategory $entity);
+    public function edit(string $uid, string $id, PersonCategory $entity);
 
-    public function delete(string $uid, string $documentId);
+    public function delete(string $uid, string $id);
+
+    public function exist(string $uid, string $id);
 }

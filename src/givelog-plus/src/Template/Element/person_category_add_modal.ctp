@@ -21,7 +21,7 @@
 </div>
 <div id="hslflat"></div>
 
-<?= $this->AppForm->control('document_id', ['type' => 'hidden']) ?>
+<?= $this->AppForm->control('id', ['type' => 'hidden']) ?>
 
 </div>
 <div class="modal-footer">

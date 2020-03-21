@@ -26,27 +26,27 @@ class PersonCategoryController extends AppController {
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $entity = $this->personCategoryUseCase->add($uid, $data);
+        $personCategory = $this->personCategoryUseCase->add($uid, $data);
 
-        return $this->getAjaxResponse($entity);
+        return $this->getAjaxResponse($personCategory);
     }
 
-    public function edit($documentId) {
+    public function edit($id) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/person-category');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $entity = $this->personCategoryUseCase->edit($uid, $documentId, $data);
+        $personCategory = $this->personCategoryUseCase->edit($uid, $id, $data);
 
-        return $this->getAjaxResponse($entity);
+        return $this->getAjaxResponse($personCategory);
     }
 
-    public function delete($documentId) {
+    public function delete($id) {
         if ($this->request->is('post')) {
             $uid = $this->Auth->user('uid');
-            $this->personCategoryUseCase->delete($uid, $documentId);
+            $this->personCategoryUseCase->delete($uid, $id);
         }
 
         return $this->redirect('/person-category');

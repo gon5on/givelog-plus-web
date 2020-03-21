@@ -26,27 +26,27 @@ class EventController extends AppController {
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $entity = $this->eventUseCase->add($uid, $data);
+        $event = $this->eventUseCase->add($uid, $data);
 
-        return $this->getAjaxResponse($entity);
+        return $this->getAjaxResponse($event);
     }
 
-    public function edit($documentId) {
+    public function edit($id) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/event');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $entity = $this->eventUseCase->edit($uid, $documentId, $data);
+        $event = $this->eventUseCase->edit($uid, $id, $data);
 
-        return $this->getAjaxResponse($entity);
+        return $this->getAjaxResponse($event);
     }
 
-    public function delete($documentId) {
+    public function delete($id) {
         if ($this->request->is('post')) {
             $uid = $this->Auth->user('uid');
-            $this->eventUseCase->delete($uid, $documentId);
+            $this->eventUseCase->delete($uid, $id);
         }
 
         return $this->redirect('/event');
