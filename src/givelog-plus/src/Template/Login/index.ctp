@@ -25,7 +25,7 @@
 
 <!-- Login -->
 <?= $this->AppForm->create(null, ['id' => 'loginForm']) ?>
-<?= $this->AppForm->control('idToken', ['type' => 'hidden']) ?>
+<?= $this->AppForm->control('token', ['type' => 'hidden']) ?>
 <?= $this->AppForm->end(); ?>
 
 <?= $this->Html->script('https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js', ['block' => true]) ?>

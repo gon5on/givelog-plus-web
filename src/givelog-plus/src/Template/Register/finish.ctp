@@ -7,7 +7,7 @@
 <p class="mb-2">ご登録ありがとうございました！</p>
 <p class="mb-4">メールアドレスに登録完了メールをお送りしました。</p>
 
-<?= $this->Html->link('さっそくを使ってみる', ['controller' => 'GiftList'], ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
+<?= $this->Html->link('さっそくを使ってみる', ['controller' => 'Gift'], ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
 
 <hr>
 

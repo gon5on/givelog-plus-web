@@ -6,7 +6,7 @@ $('#login').click(function(e) {
     .then(function() {
         //ログイン成功
         firebase.auth().currentUser.getIdToken(false).then(function(idToken) {
-            $('#idtoken').val(idToken);
+            $('#token').val(idToken);
             $('#loginForm').submit();
         })
         .catch(function(error) {
@@ -21,5 +21,5 @@ $('#login').click(function(e) {
         //TODO エラー表示
         console.log(errorCode);
         console.log(errorMessage);
-    })
+    });
 });

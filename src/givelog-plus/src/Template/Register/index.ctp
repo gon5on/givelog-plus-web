@@ -20,7 +20,7 @@
 <?= $this->AppForm->control('password', ['label' => false, 'class' => 'form-control form-control-user', 'placeholder' => '**********"']) ?>
 
 <label class="text-xs font-weight-bold">パスワード再入力</label>
-<?= $this->AppForm->control('password_confirm', ['label' => false, 'class' => 'form-control form-control-user mb-4', 'placeholder' => '**********"']) ?>
+<?= $this->AppForm->control('password_confirm', ['label' => false, 'type' => 'password', 'class' => 'form-control form-control-user mb-4', 'placeholder' => '**********"']) ?>
 
 <?= $this->AppForm->button('新規作成', ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
 <?= $this->AppForm->end(); ?>

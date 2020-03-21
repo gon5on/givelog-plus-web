@@ -12,7 +12,8 @@
         "friendsofcake/bootstrap-ui": "^1.4",
         "google/cloud-firestore": "^1.11",
         "kreait/firebase-php": "^4.40",
-        "mobiledetect/mobiledetectlib": "^2.8"
+        "mobiledetect/mobiledetectlib": "^2.8",
+        "rochamarcelo/cake-pimple-di": "dev-master"
     },
     "require-dev": {
         "cakephp/bake": "^1.9.0",

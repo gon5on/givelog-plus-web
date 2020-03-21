@@ -12,7 +12,7 @@
 
 <?php foreach ($events as $event): ?>
 <tr data-id="<?= $event->id ?>" data-name="<?= $event->name ?>">
-<td><span class="badge badge-pill badge-danger">&nbsp;</span>&nbsp;&nbsp;<span><?= $event->name ?></span></td>
+<td><span class="badge badge-pill" style="background-color:<?= $event->labelColor ?>">&nbsp;</span>&nbsp;&nbsp;<span><?= $event->name ?></span></td>
 </tr>
 <?php endforeach; ?>
 
@@ -37,11 +37,14 @@ $('#add').on('click', function(e) {
 });
 
 $('tbody tr').on('click', function(e) {
+    let id = $(this).data('id');
     let obj = $('#eventAddModal');
+
+    $('#deleteConfirmModal').find('form').attr('action', '/event/delete/' + id);
 
     obj.find('.delete').show();
     obj.find('input[name="name"]').val($(this).data('name'));
-    obj.find('input[name="id"]').val($(this).data('id'));
+    obj.find('input[name="id"]').val(id);
     obj.modal('show');
 });
 <?= $this->Html->scriptEnd() ?>

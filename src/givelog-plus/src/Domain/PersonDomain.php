@@ -3,15 +3,8 @@ namespace App\Domain;
 
 use Cake\Utility\Hash;
 use Cake\Validation\Validator;
-use App\Model\Entity\Person;
-use App\Repository\IPersonCategoryRepository;
 
 class PersonDomain {
-    private $personCategoryRepository;
-
-    function __construct(IPersonCategoryRepository $personCategoryRepository) {
-        $this->personCategoryRepository = $personCategoryRepository;
-    }
 
     protected function buildValidator() : Validator {
         $validator = new Validator();
@@ -25,8 +18,8 @@ class PersonDomain {
             ->allowEmpty('person_category_id')
             ->add('person_category_id', 'valid', [
                 'rule' => function ($value, $context) {
-                    $uid = Hash::get($context, 'providers.passed.uid');
-                    return $this->personCategoryRepository->exist($uid, $value);
+                    $array = Hash::extract($context, 'providers.passed.personCategories');
+                    return array_key_exists($value, $array);
                 },
                 'message' => 'そのカテゴリは削除されているか、存在しません'
             ]);
@@ -38,20 +31,9 @@ class PersonDomain {
         return $validator;
     }
 
-    public function createEntity(string $uid, array $data) {
-        $entity = new Person();
+    public function validation(array $data, array $personCategories) {
+        $validator = $this->buildValidator()->provider('passed', ['personCategories' => $personCategories]);
 
-        $validator = $this->buildValidator()->provider('passed', ['uid' => $uid]);
-        $errors = $validator->errors($data);
-
-        if ($errors) {
-            $entity->setErrors($errors);
-        } else {
-            $entity->name = Hash::get($data, 'name');
-            $entity->personCategoryId = Hash::get($data, 'person_category_id');
-            $entity->memo = Hash::get($data, 'memo');
-        }
-
-        return $entity;
+        return $validator->errors($data);
     }
 }

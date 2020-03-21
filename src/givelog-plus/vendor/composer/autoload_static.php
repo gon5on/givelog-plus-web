@@ -81,6 +81,7 @@ class ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19
         ),
         'R' => 
         array (
+            'RochaMarcelo\\CakePimpleDi\\' => 26,
             'Riverline\\MultiPartParser\\' => 26,
             'Ramsey\\Uuid\\' => 12,
         ),
@@ -268,6 +269,10 @@ class ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19
         'Seld\\JsonLint\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
+        ),
+        'RochaMarcelo\\CakePimpleDi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rochamarcelo/cake-pimple-di/src',
         ),
         'Riverline\\MultiPartParser\\' => 
         array (
@@ -565,6 +570,13 @@ class ComposerStaticInit1dc0da7eb8a29aab126cb6977b4f3c19
             'Rize\\UriTemplate' => 
             array (
                 0 => __DIR__ . '/..' . '/rize/uri-template/src',
+            ),
+        ),
+        'P' => 
+        array (
+            'Pimple' => 
+            array (
+                0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
         ),
         'D' => 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17ce3a467433af8fc3b11bafcbf98cec",
+    "content-hash": "5bc40ff73d6d9dec6e9fe5e8b0b4a963",
     "packages": [
         {
             "name": "aura/intl",
@@ -1826,6 +1826,56 @@
             "time": "2018-07-02T15:55:56+00:00"
         },
         {
+            "name": "pimple/pimple",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silexphp/Pimple.git",
+                "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/e55d12f9d6a0e7f9c85992b73df1267f46279930",
+                "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.4|^4.4|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple, a simple Dependency Injection Container",
+            "homepage": "https://pimple.symfony.com",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2020-03-03T09:12:48+00:00"
+        },
+        {
             "name": "psr/cache",
             "version": "1.0.1",
             "source": {
@@ -2362,6 +2412,57 @@
                 "phinx"
             ],
             "time": "2019-12-24T23:43:31+00:00"
+        },
+        {
+            "name": "rochamarcelo/cake-pimple-di",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rochamarcelo/cake-pimple-di.git",
+                "reference": "e648f528a95891f4766f53df0034faaa6c9847f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rochamarcelo/cake-pimple-di/zipball/e648f528a95891f4766f53df0034faaa6c9847f9",
+                "reference": "e648f528a95891f4766f53df0034faaa6c9847f9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.16",
+                "pimple/pimple": "~3.0"
+            },
+            "require-dev": {
+                "cakephp/cakephp": "~3.0",
+                "phpunit/phpunit": "^5.7.14|^6.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "RochaMarcelo\\CakePimpleDi\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcelo Rocha",
+                    "email": "contato@omarcelo.com.br",
+                    "homepage": "https://github.com/rochamarcelo"
+                }
+            ],
+            "description": "A cakephp plugin for dependency injection based on Pimple library ",
+            "homepage": "https://github.com/rochamarcelo/cake-pimple-di",
+            "keywords": [
+                "cake3",
+                "cakephp",
+                "dependency",
+                "injection",
+                "pimple",
+                "plugin"
+            ],
+            "time": "2018-04-24T19:29:59+00:00"
         },
         {
             "name": "superbalist/flysystem-google-storage",
@@ -6062,6 +6163,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "rochamarcelo/cake-pimple-di": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,

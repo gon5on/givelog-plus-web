@@ -1,15 +1,16 @@
 <?php
 namespace App\Repository;
 
-use App\Model\Entity\Event;
 use Google\Cloud\Firestore\FieldValue;
+use Google\Cloud\Firestore\DocumentReference;
+use App\Model\Entity\Event;
 
 class EventRepository extends AppRepository implements IEventRepository {
 
     public function list(string $uid): array {
         $list = [];
 
-        $documents = $this->__getQuery($uid)->orderBy('created', 'DESC')->documents();
+        $documents = $this->__getQuery($uid)->orderBy('created', 'ASC')->documents();
 
         foreach ($documents as $document) {
             if (!$document->exists()) {
@@ -55,6 +56,28 @@ class EventRepository extends AppRepository implements IEventRepository {
         $this->__getQuery($uid)->document($documentId)->delete();
 
         return $documentId;
+    }
+
+    public function exist(string $uid, string $documentId): bool {
+        return $this->getRef($uid, $documentId)->snapshot()->exists();
+    }
+
+    public function idNameArray(string $uid): array {
+        $list = [];
+
+        $documents = $this->__getQuery($uid)->orderBy('created', 'ASC')->documents();
+
+        foreach ($documents as $document) {
+            if ($document->exists()) {
+                $list[$document->id()] = $document->get('name');
+            }
+        }
+
+        return $list;
+    }
+
+    public function getRef(string $uid, string $documentId): DocumentReference {
+        return $this->__getQuery($uid)->document($documentId);
     }
 
     private function __getQuery(string $uid) {

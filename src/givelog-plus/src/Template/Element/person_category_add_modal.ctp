@@ -25,7 +25,7 @@
 
 </div>
 <div class="modal-footer">
-<?= $this->AppForm->button('削除', ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>&nbsp;
+<a href="javascript::void(0)" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteConfirmModal">削除</a>
 <?= $this->AppForm->button('保存', ['type' => 'button', 'class' => 'btn btn-primary save']) ?>
 </div>
 </div>
@@ -33,5 +33,9 @@
 <?= $this->AppForm->end(); ?>
 </div>
 
-<?= $this->Html->script('firebase-person-category', ['block' => true]) ?>
+<?= $this->element('delete_confirm_modal', [
+    'message' => '<br><br>削除すると、人物に紐づいているこのカテゴリは空になります。'
+]) ?>
+
+<?= $this->Html->script('person-category', ['block' => true]) ?>
 <!-- person category add modal -->

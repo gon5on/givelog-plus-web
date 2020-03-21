@@ -43,6 +43,7 @@ php_packages:
   - php-xml
   - php-bcmath
   - php-pecl-xdebug
+  - php-pecl-grpc
 
 
 # CakePHP を使用するか

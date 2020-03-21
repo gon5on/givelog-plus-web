@@ -102,3 +102,7 @@ tr {
     border-radius: 10rem;
     padding: 1.5rem 1rem;
 }
+
+.badge {
+    color: white;
+}

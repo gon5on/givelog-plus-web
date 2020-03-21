@@ -43,31 +43,12 @@ https://fontawesome.com
 * Firebase Admin SDK for PHP  
 https://github.com/kreait/firebase-php
 
+* CakePimpleDi
+https://github.com/rochamarcelo/cake-pimple-di
+
 
 # TODO
 
-* ロゴ
-* メニューが上すぎる
-* 人物詳細の見せ方（あげたもらった）
-* プレゼントリストの見せ方（あげたもらった）
-
-
-gRPC for PHP のインストール
-https://cloud.google.com/php/grpc?hl=ja
-
-からの
-
-composer require google/cloud-firestore
-
-
-
-
-web
-    Controller
-        UseCase(IF)
-        Interactor
-            BusinessLogic
-        UseCase
-    Repository(IF)
-    Repository
-DB
+* ダブルクリック対策
+* 完了画面リロード対策
+* authのセッション更新

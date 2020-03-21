@@ -1,52 +1,52 @@
 <?php
 namespace App\Controller;
 
-use App\UseCase\IPersonCategoryUseCase;
+use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
+use App\UseCase\IPersonCategoryListUseCase;
+use App\UseCase\IPersonCategoryAddUseCase;
+use App\UseCase\IPersonCategoryEditUseCase;
+use App\UseCase\IPersonCategoryDeleteUseCase;
 
 class PersonCategoryController extends AppController {
-    private $personCategoryUseCase;
+    use InvokeActionTrait;
 
-    public function di(IPersonCategoryUseCase $personCategoryUseCase) {
-        $this->personCategoryUseCase = $personCategoryUseCase;
-    }
-
-    public function index() {
+    public function index(IPersonCategoryListUseCase $personCategoryListUseCase) {
         $this->set('page_title', '人物カテゴリリスト');
 
         $uid = $this->Auth->user('uid');
-        $personCategories = $this->personCategoryUseCase->list($uid);
+        $personCategories = $personCategoryListUseCase->list($uid);
 
         $this->set(compact('personCategories'));
     }
 
-    public function add() {
+    public function add(IPersonCategoryAddUseCase $personCategoryAddUseCase) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/person-category');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $personCategory = $this->personCategoryUseCase->add($uid, $data);
+        $personCategory = $personCategoryAddUseCase->add($uid, $data);
 
         return $this->getAjaxResponse($personCategory);
     }
 
-    public function edit($id) {
+    public function edit(IPersonCategoryEditUseCase $personCategoryEditUseCase, string $id) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/person-category');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $personCategory = $this->personCategoryUseCase->edit($uid, $id, $data);
+        $personCategory = $personCategoryEditUseCase->edit($uid, $id, $data);
 
         return $this->getAjaxResponse($personCategory);
     }
 
-    public function delete($id) {
+    public function delete(IPersonCategoryDeleteUseCase $personCategoryDeleteUseCase, string $id) {
         if ($this->request->is('post')) {
             $uid = $this->Auth->user('uid');
-            $this->personCategoryUseCase->delete($uid, $id);
+            $personCategoryDeleteUseCase->delete($uid, $id);
         }
 
         return $this->redirect('/person-category');

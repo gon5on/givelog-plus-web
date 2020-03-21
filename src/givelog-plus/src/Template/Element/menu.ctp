@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
-<?= $this->App->menu('プレゼントリスト', ['controller' => 'GiftList', 'action' => 'index'], 'fa-gift') ?>
-<?= $this->App->menu('プレゼント追加', ['controller' => 'GiftAdd', 'action' => 'index'], 'fa-plus-circle') ?>
+<?= $this->App->menu('プレゼントリスト', ['controller' => 'Gift', 'action' => 'index'], 'fa-gift') ?>
+<?= $this->App->menu('プレゼント追加', ['controller' => 'Gift', 'action' => 'add'], 'fa-plus-circle') ?>
 
 <hr class="sidebar-divider my-0">
 

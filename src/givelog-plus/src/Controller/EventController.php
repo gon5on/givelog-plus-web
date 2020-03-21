@@ -1,52 +1,52 @@
 <?php
 namespace App\Controller;
 
-use App\UseCase\IEventUseCase;
+use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
+use App\UseCase\IEventListUseCase;
+use App\UseCase\IEventAddUseCase;
+use App\UseCase\IEventEditUseCase;
+use App\UseCase\IEventDeleteUseCase;
 
 class EventController extends AppController {
-    private $eventUseCase;
+    use InvokeActionTrait;
 
-    public function di(IEventUseCase $eventUseCase) {
-        $this->eventUseCase = $eventUseCase;
-    }
-
-    public function index() {
+    public function index(IEventListUseCase $eventListUseCase) {
         $this->set('page_title', 'イベントリスト');
 
         $uid = $this->Auth->user('uid');
-        $events = $this->eventUseCase->list($uid);
+        $events = $eventListUseCase->list($uid);
 
         $this->set(compact('events'));
     }
 
-    public function add() {
+    public function add(IEventAddUseCase $eventAddUseCase) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/event');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $event = $this->eventUseCase->add($uid, $data);
+        $event = $eventAddUseCase->add($uid, $data);
 
         return $this->getAjaxResponse($event);
     }
 
-    public function edit($id) {
+    public function edit(IEventEditUseCase $eventEditUseCase, string $id) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/event');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $event = $this->eventUseCase->edit($uid, $id, $data);
+        $event = $eventEditUseCase->edit($uid, $id, $data);
 
         return $this->getAjaxResponse($event);
     }
 
-    public function delete($id) {
+    public function delete(IEventDeleteUseCase $eventDeleteUseCase, string $id) {
         if ($this->request->is('post')) {
             $uid = $this->Auth->user('uid');
-            $this->eventUseCase->delete($uid, $id);
+            $eventDeleteUseCase->delete($uid, $id);
         }
 
         return $this->redirect('/event');

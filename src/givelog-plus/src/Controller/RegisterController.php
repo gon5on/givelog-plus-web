@@ -2,21 +2,13 @@
 namespace App\Controller;
 
 use Cake\Event\Event;
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\Exception\FirebaseException;
+use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
+use App\UseCase\IUserRegisterUseCase;
 
-/**
- * アカウント新規作成コントローラ
- */
-class RegisterController extends AppController
-{
-    /**
-     * beforeFilter
-     * 
-     * @param Event event
-     */
-    public function beforeFilter(Event $event)
-    {
+class RegisterController extends AppController {
+    use InvokeActionTrait;
+
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         
         $this->Auth->allow(['index']);
@@ -24,38 +16,15 @@ class RegisterController extends AppController
         $this->viewBuilder()->setLayout('before_login');
     }
 
-    /**
-     * 入力画面
-     * 
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
+    public function index(IUserRegisterUseCase $userRegisterUseCase) {
         $this->set('page_title', 'アカウント新規作成');
 
         if ($this->request->is('post')) {
-            $name = $this->request->getData('name');
-            $email = $this->request->getData('email');
-            $password = $this->request->getData('password');
+            $data = $this->request->getData();
+            $user = $userRegisterUseCase->register($data);
 
-            try {
-                $factory = (new Factory)->withServiceAccount(ROOT . DS . 'config/google-service-account.json');
-                $auth = $factory->createAuth();
-
-                $userProperties = [
-                    'email' => $email,
-                    'emailVerified' => true,
-                    'password' => $password,
-                    'displayName' => $name,
-                    'disabled' => false,
-                ];
-
-                $auth->createUser($userProperties);
-
+            if (!$user->getErrors()) {
                 return $this->render('finish');
-            } catch (FirebaseException $e) {
-                //TODO
-                debug($e->getMessage());
             }
         }
     }

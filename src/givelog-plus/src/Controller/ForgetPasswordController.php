@@ -2,19 +2,13 @@
 namespace App\Controller;
 
 use Cake\Event\Event;
+use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
+use App\UseCase\IUserPwReminderUseCase;
 
-/**
- * パスワード再発行コントローラ
- */
-class ForgetPasswordController extends AppController
-{
-    /**
-     * beforeFilter
-     * 
-     * @param Event event
-     */
-    public function beforeFilter(Event $event)
-    {
+class ForgetPasswordController extends AppController {
+    use InvokeActionTrait;
+
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
 
         $this->Auth->allow(['index']);
@@ -22,17 +16,18 @@ class ForgetPasswordController extends AppController
         $this->viewBuilder()->setLayout('before_login');
     }
 
-    /**
-     * 入力画面
-     * 
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
+    public function index(IUserPwReminderUseCase $userPwReminderUseCase) {
         $this->set('page_title', 'パスワード再発行');
 
         if ($this->request->is('post')) {
-            return $this->render('finish');
+            $data = $this->request->getData();
+            $userPwReminderUseCase->reminder($data);
         }
+    }
+
+    public function finish() {
+        $this->set('page_title', 'パスワード再発行');
+
+        return $this->render('finish');
     }
 }

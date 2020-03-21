@@ -1,51 +1,54 @@
 <?php
 namespace App\Controller;
 
-use App\UseCase\IPersonUseCase;
+use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
+use App\UseCase\IPersonListUseCase;
+use App\UseCase\IPersonAddUseCase;
+use App\UseCase\IPersonEditUseCase;
+use App\UseCase\IPersonDeleteUseCase;
+use App\UseCase\IPersonViewUseCase;
 
 class PersonController extends AppController {
-    private $personUseCase;
+    use InvokeActionTrait;
 
-    public function di(IPersonUseCase $personUseCase) {
-        $this->personUseCase = $personUseCase;
-    }
-
-    public function index() {
+    public function index(IPersonListUseCase $personListUseCase, IPersonAddUseCase $personAddUseCase) {
         $this->set('page_title', '人物リスト');
 
         $uid = $this->Auth->user('uid');
-        $persons = $this->personUseCase->list($uid);
+        $persons = $personListUseCase->list($uid);
+        $personCategories = $personAddUseCase->getParsonCategoryIdNameArray($uid);
 
-        $this->set(compact('persons'));
+        $this->set(compact('persons', 'personCategories'));
     }
 
-    public function add() {
+    public function view(IPersonViewUseCase $personViewUseCase, IPersonEditUseCase $personEditUseCase, string $id) {
+        $uid = $this->Auth->user('uid');
+        $person = $personViewUseCase->view($uid, $id);
+        $personCategories = $personEditUseCase->getParsonCategoryIdNameArray($uid);
+
+        $this->set(compact('person', 'personCategories'));
+    }
+
+    public function add(IPersonAddUseCase $personAddUseCase) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/person');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $person = $this->personUseCase->add($uid, $data);
+        $person = $personAddUseCase->add($uid, $data);
 
         return $this->getAjaxResponse($person);
     }
 
-    public function view($id) {
-        $uid = $this->Auth->user('uid');
-        $person = $this->personUseCase->view($uid, $id);
-
-        $this->set(compact('person'));
-    }
-
-    public function edit($id) {
+    public function edit(IPersonEditUseCase $personEditUseCase, string $id) {
         if (!$this->request->is('ajax')) {
             return $this->redirect('/person');
         }
 
         $uid = $this->Auth->user('uid');
         $data = $this->request->getData();
-        $person = $this->personUseCase->edit($uid, $id, $data);
+        $person = $personEditUseCase->edit($uid, $id, $data);
 
         return $this->getAjaxResponse($person);
     }

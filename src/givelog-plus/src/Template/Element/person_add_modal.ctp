@@ -2,6 +2,7 @@
 <?php
 $id = (isset($person)) ? $person->id : '';
 $name = (isset($person)) ? $person->name : '';
+$personCategoryId = (isset($person) && $person->personCategory) ? $person->personCategory->id : '';
 $memo = (isset($person)) ? $person->memo : '';
 ?>
 
@@ -25,7 +26,7 @@ $memo = (isset($person)) ? $person->memo : '';
 <div class="label-area">
 <i class="fas fa-fw fa-folder-open"></i><span class="text-xs font-weight-bold">カテゴリ</span>
 </div>
-<?= $this->AppForm->control('person_category_id', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select"', 'options' => ['家族', '友達', '会社', '親戚']]) ?>
+<?= $this->AppForm->control('person_category_id', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select"', 'options' => $personCategories, 'value' => $personCategoryId]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-pen"></i><span class="text-xs font-weight-bold">メモ</span>
@@ -46,5 +47,5 @@ $memo = (isset($person)) ? $person->memo : '';
 <?= $this->AppForm->end(); ?>
 </div>
 
-<?= $this->Html->script('firebase-person', ['block' => true]) ?>
+<?= $this->Html->script('person', ['block' => true]) ?>
 <!-- person add modal -->

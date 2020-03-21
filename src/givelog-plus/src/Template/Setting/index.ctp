@@ -6,7 +6,7 @@
 <table class="table" id="dataTable" width="100%" cellspacing="0" >
 <tbody>
 
-<tr data-modal="#accountChangeModal">
+<tr data-modal="#userEditModal">
 <td><i class="fas fa-fw fa-key"></i><span>メールアドレス/パスワード変更</span></td>
 </tr>
 
@@ -40,7 +40,7 @@
 </div>
 
 
-<?= $this->element('account_change_modal') ?>
+<?= $this->element('user_edit_modal') ?>
 
 <?= $this->element('withdraw_modal') ?>
 

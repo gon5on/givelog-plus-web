@@ -22,10 +22,10 @@ class AppHelper extends Helper
     public function menu($title, $uri, $icon_class)
     {
         $parsed_url = Router::parseRequest(new ServerRequest(Router::url()));
-        $parsed_controller = Hash::get($parsed_url, 'controller');
-        $target_controller = Hash::get($uri, 'controller');
+        $parsed_controller_action = Hash::get($parsed_url, 'controller') . Hash::get($parsed_url, 'action');
+        $target_controller_action = Hash::get($uri, 'controller') . Hash::get($uri, 'action');
 
-        $active = ($parsed_controller == $target_controller) ? 'active' : '';
+        $active = ($parsed_controller_action == $target_controller_action) ? 'active' : '';
 
         $tag = '<li class="nav-item ' . $active . '">';
         $tag .= '<a class="nav-link" href="' . Router::url($uri) . '"><i class="fas fa-fw ' . $icon_class . '"></i>';

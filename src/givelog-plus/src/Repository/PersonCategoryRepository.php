@@ -10,7 +10,7 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
     public function list(string $uid): array {
         $list = [];
 
-        $documents = $this->__getQuery($uid)->orderBy('created', 'DESC')->documents();
+        $documents = $this->__getQuery($uid)->orderBy('created', 'ASC')->documents();
 
         foreach ($documents as $document) {
             if (!$document->exists()) {
@@ -60,6 +60,20 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
 
     public function exist(string $uid, string $documentId): bool {
         return $this->getRef($uid, $documentId)->snapshot()->exists();
+    }
+
+    public function idNameArray(string $uid): array {
+        $list = [];
+
+        $documents = $this->__getQuery($uid)->orderBy('created', 'ASC')->documents();
+
+        foreach ($documents as $document) {
+            if ($document->exists()) {
+                $list[$document->id()] = $document->get('name');
+            }
+        }
+
+        return $list;
     }
 
     public function getRef(string $uid, string $documentId): DocumentReference {

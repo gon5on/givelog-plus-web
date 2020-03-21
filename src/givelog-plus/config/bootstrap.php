@@ -82,6 +82,7 @@ try {
  * shared configuration.
  */
 Configure::load('config', 'default');
+Configure::load('di', 'default');
 Configure::load(env('CAKE_ENV', 'production'), 'default');
 
 /*

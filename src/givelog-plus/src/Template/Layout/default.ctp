@@ -26,7 +26,7 @@
 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 <i class="fa fa-bars"></i>
 </button>
-<?= $this->Html->link('givelog plus', ['controller' => 'GiftList']) ?>
+<?= $this->Html->link('givelog plus', ['controller' => 'Gift']) ?>
 </nav>
 
 <div class="container-fluid">

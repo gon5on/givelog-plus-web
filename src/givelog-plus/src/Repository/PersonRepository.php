@@ -3,7 +3,7 @@ namespace App\Repository;
 
 use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\DocumentSnapshot;
-use Cake\Datasource\Exception\RecordNotFoundException;
+use Google\Cloud\Firestore\DocumentReference;
 use App\Repository\PersonCategoryRepository;
 use App\Model\Entity\Person;
 use App\Model\Entity\PersonCategory;
@@ -13,7 +13,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     public function list(string $uid): array {
         $list = [];
 
-        $documents = $this->__getQuery($uid)->orderBy('created', 'DESC')->documents();
+        $documents = $this->__getQuery($uid)->orderBy('created', 'ASC')->documents();
 
         foreach ($documents as $document) {
             if (!$document->exists()) {
@@ -27,12 +27,9 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     }
 
     public function add(string $uid, Person $entity): string {
-        $personCategoryRepository = new PersonCategoryRepository();
-        $personCategoryRef = $personCategoryRepository->getRef($uid, $entity->personCategoryId);
-
         $data = [
             'name' => $entity->name,
-            'person_category' => $personCategoryRef,
+            'person_category' => $entity->personCategory,
             'memo' => $entity->memo,
             'created' => FieldValue::serverTimestamp(),
             'modified' => FieldValue::serverTimestamp(),
@@ -44,12 +41,9 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     }
 
     public function edit(string $uid, string $documentId, Person $entity): string {
-        $personCategoryRepository = new PersonCategoryRepository();
-        $personCategoryRef = $personCategoryRepository->getRef($uid, $entity->personCategoryId);
-
         $data = [
             ['path' => 'name', 'value' => $entity->name],
-            ['path' => 'person_category', 'value' => $personCategoryRef],
+            ['path' => 'person_category', 'value' => $entity->personCategory],
             ['path' => 'memo', 'value' => $entity->memo],
             ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
         ];
@@ -66,13 +60,34 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     }
 
     public function get(string $uid, string $documentId): Person {
-        $document = $this->__getQuery($uid)->document($documentId)->snapshot();
-
-        if (!$document->exists()) {
-            throw new RecordNotFoundException('TODO');
-        }
+        $document = $this->getRef($uid, $documentId)->snapshot();
 
         return $this->__documentToEntity($document);
+    }
+
+    public function exist(string $uid, string $documentId): bool {
+        return $this->getRef($uid, $documentId)->snapshot()->exists();
+    }
+
+    public function idNameArrayWithCategory(string $uid): array {
+        $list = [];
+
+        $tmp = $this->list($uid);
+
+        foreach ($tmp as $person) {
+            $personCategoryId = 0;
+            if ($person->personCategory) {
+                $personCategoryId = $person->personCategory->id;
+            }
+
+            $list[$personCategoryId][$person->id] = $person->name;
+        }
+
+        return $list;
+    }
+
+    public function getRef(string $uid, string $documentId): DocumentReference {
+        return $this->__getQuery($uid)->document($documentId);
     }
 
     private function __getQuery(string $uid) {

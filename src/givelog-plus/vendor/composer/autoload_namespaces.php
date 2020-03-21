@@ -10,6 +10,7 @@ return array(
     'Umpirsky\\' => array($vendorDir . '/umpirsky/twig-php-function/src'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Rize\\UriTemplate' => array($vendorDir . '/rize/uri-template/src'),
+    'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'Detection' => array($vendorDir . '/mobiledetect/mobiledetectlib/namespaced'),
     'Aptoma' => array($vendorDir . '/aptoma/twig-markdown/src'),
 );

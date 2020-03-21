@@ -1,9 +1,7 @@
 <?php
 namespace App\Domain;
 
-use Cake\Utility\Hash;
 use Cake\Validation\Validator;
-use App\Model\Entity\PersonCategory;
 
 class PersonCategoryDomain {
 
@@ -22,19 +20,9 @@ class PersonCategoryDomain {
         return $validator;
     }
 
-    public function createEntity(array $data) {
-        $entity = new PersonCategory();
-
+    public function validation(array $data) {
         $validator = $this->buildValidator();
-        $errors = $validator->errors($data);
 
-        if ($errors) {
-            $entity->setErrors($errors);
-        } else {
-            $entity->name = Hash::get($data, 'name');
-            $entity->labelColor = Hash::get($data, 'label_color');
-        }
-
-        return $entity;
+        return $validator->errors($data);
     }
 }

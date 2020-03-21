@@ -90,6 +90,6 @@ Router::scope('/', function (RouteBuilder $routes) {
  * });
  * ```
  */
-$routes->connect('/', ['controller' => 'Login']);
+$routes->connect('/', ['controller' => 'Gift']);
  
 $routes->connect('/logout', ['controller' => 'Login', 'action' => 'logout']);

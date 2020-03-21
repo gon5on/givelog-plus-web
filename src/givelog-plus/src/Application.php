@@ -51,6 +51,7 @@ class Application extends BaseApplication
 
         // Load more plugins here
         $this->addPlugin('BootstrapUI');
+        $this->addPlugin('RochaMarcelo/CakePimpleDi', ['bootstrap' => true, 'routes' => false]);
     }
 
     /**

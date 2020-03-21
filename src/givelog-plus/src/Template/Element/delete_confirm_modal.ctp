@@ -4,13 +4,14 @@
 <div class="modal-content">
 
 <div class="modal-body">
-本当に削除しますか？<br>
+削除しますか？<br>
 削除すると元に戻すことはできません。
+<?= $message; ?>
 </div>
 
 <div class="modal-footer">
 <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
-<?= $this->Form->postLink('削除', ['controller' => 'Withdraw'], ['class' => 'btn btn-danger']) ?>
+<?= $this->AppForm->postLink('削除', ['action' => 'delete'], ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>
 </div>
 </div>
 </div>

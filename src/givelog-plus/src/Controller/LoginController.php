@@ -3,18 +3,9 @@ namespace App\Controller;
 
 use Cake\Event\Event;
 
-/**
- * ログインコントローラ
- */
-class LoginController extends AppController
-{
-    /**
-     * beforeFilter
-     * 
-     * @param Event event
-     */
-    public function beforeFilter(Event $event)
-    {
+class LoginController extends AppController {
+
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
 
         $this->Auth->allow(['logout']);
@@ -22,13 +13,7 @@ class LoginController extends AppController
         $this->viewBuilder()->setLayout('before_login');
     }
 
-    /**
-     * ログインアクション
-     * 
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
+    public function index() {
         $this->set('page_title', 'ログイン');
 
         if ($this->request->is('post')) {
@@ -41,13 +26,7 @@ class LoginController extends AppController
         }
     }
 
-    /**
-     * ログアウトアクション
-     * 
-     * @return \Cake\Http\Response|null
-     */
-    public function logout()
-    {
-        return $this->redirect('/login');
+    public function logout() {
+        return $this->redirect($this->Auth->logout());
     }
 }
