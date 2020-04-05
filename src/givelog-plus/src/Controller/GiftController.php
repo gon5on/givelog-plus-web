@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
+use App\UseCase\IGiftListUseCase;
 use App\UseCase\IGiftAddUseCase;
 use App\UseCase\IPersonAddUseCase;
 use App\UseCase\IEventAddUseCase;
@@ -9,19 +10,24 @@ use App\UseCase\IEventAddUseCase;
 class GiftController extends AppController {
     use InvokeActionTrait;
 
-    public function index() {
+    public function index(IGiftListUseCase $giftListUseCase) {
         $this->set('page_title', 'プレゼントリスト');
+
+        $uid = $this->Auth->user('uid');
+        $gifts = $giftListUseCase->list($uid);
+
+        $this->set(compact('gifts'));
     }
 
-    // public function view() {
-    //     $this->set('page_title', 'プレゼント詳細');
-    // }
+    public function view() {
+        $this->set('page_title', 'プレゼント詳細');
+    }
 
     public function add(IGiftAddUseCase $giftAddUseCase, IPersonAddUseCase $personAddUseCase, IEventAddUseCase $eventAddUseCase) {
         $this->set('page_title', 'プレゼント追加');
 
         $uid = $this->Auth->user('uid');
-        $persons = $giftAddUseCase->idNameArrayWithCategory($uid);
+        $persons = $giftAddUseCase->getPersonIdNameArrayWithCategory($uid);
         $events = $giftAddUseCase->getEventIdNameArray($uid);
         $personCategories = $personAddUseCase->getParsonCategoryIdNameArray($uid);
 

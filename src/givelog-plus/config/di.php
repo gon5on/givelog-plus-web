@@ -39,121 +39,154 @@ return [
             ],
         ],
         'services' => [
-            'giftListUseCase' => function() {
+            /**
+             * Use Case
+             */
+            'giftListUseCase' => function($c) {
                 return new App\Interactor\GiftListInteractor(
-                    new App\Repository\GiftRepository()
+                    $c['giftRepository'],
                 );
             },
-            'giftAddUseCase' => function() {
+            'giftAddUseCase' => function($c) {
                 return new App\Interactor\GiftAddInteractor(
-                    new App\Repository\GiftRepository(),
-                    new App\Repository\PersonRepository(),
-                    new App\Repository\EventRepository()
+                    $c['giftRepository'],
+                    $c['personRepository'],
+                    $c['eventRepository'],
                 );
             },
-            'giftEditUseCase' => function() {
+            'giftEditUseCase' => function($c) {
                 return new App\Interactor\GiftEditInteractor(
-                    new App\Repository\GiftRepository(),
-                    new App\Repository\PersonRepository(),
-                    new App\Repository\EventRepository()
+                    $c['giftRepository'],
+                    $c['personRepository'],
+                    $c['eventRepository'],
                 );
             },
-            'giftDeleteUseCase' => function() {
+            'giftDeleteUseCase' => function($c) {
                 return new App\Interactor\GiftDeleteInteractor(
-                    new App\Repository\GiftRepository()
+                    $c['giftRepository'],
                 );
             },
 
-            'eventListUseCase' => function() {
+            'eventListUseCase' => function($c) {
                 return new App\Interactor\EventListInteractor(
-                    new App\Repository\EventRepository()
+                    $c['eventRepository'],
                 );
             },
-            'eventAddUseCase' => function() {
+            'eventAddUseCase' => function($c) {
                 return new App\Interactor\EventAddInteractor(
-                    new App\Repository\EventRepository()
+                    $c['eventRepository'],
                 );
             },
-            'eventEditUseCase' => function() {
+            'eventEditUseCase' => function($c) {
                 return new App\Interactor\EventEditInteractor(
-                    new App\Repository\EventRepository()
+                    $c['eventRepository'],
                 );
             },
-            'eventDeleteUseCase' => function() {
+            'eventDeleteUseCase' => function($c) {
                 return new App\Interactor\EventDeleteInteractor(
-                    new App\Repository\EventRepository()
+                    $c['eventRepository'],
                 );
             },
 
-            'personListUseCase' => function() {
+            'personListUseCase' => function($c) {
                 return new App\Interactor\PersonListInteractor(
-                    new App\Repository\PersonRepository()
+                    $c['personRepository'],
                 );
             },
-            'personAddUseCase' => function() {
+            'personAddUseCase' => function($c) {
                 return new App\Interactor\PersonAddInteractor(
-                    new App\Repository\PersonRepository(),
-                    new App\Repository\PersonCategoryRepository()
+                    $c['personRepository'],
+                    $c['personCategoryRepository'],
                 );
             },
-            'personEditUseCase' => function() {
+            'personEditUseCase' => function($c) {
                 return new App\Interactor\PersonEditInteractor(
-                    new App\Repository\PersonRepository(),
-                    new App\Repository\PersonCategoryRepository()
+                    $c['personRepository'],
+                    $c['personCategoryRepository'],
                 );
             },
-            'personDeleteUseCase' => function() {
+            'personDeleteUseCase' => function($c) {
                 return new App\Interactor\PersonDeleteInteractor(
-                    new App\Repository\PersonRepository()
+                    $c['personRepository'],
                 );
             },
-            'personViewUseCase' => function() {
+            'personViewUseCase' => function($c) {
                 return new App\Interactor\PersonViewInteractor(
-                    new App\Repository\PersonRepository()
+                    $c['personRepository'],
                 );
             },
 
-            'personCategoryListUseCase' => function() {
+            'personCategoryListUseCase' => function($c) {
                 return new App\Interactor\PersonCategoryListInteractor(
-                    new App\Repository\PersonCategoryRepository()
+                    $c['personCategoryRepository'],
                 );
             },
-            'personCategoryAddUseCase' => function() {
+            'personCategoryAddUseCase' => function($c) {
                 return new App\Interactor\PersonCategoryAddInteractor(
-                    new App\Repository\PersonCategoryRepository()
+                    $c['personCategoryRepository'],
                 );
             },
-            'personCategoryEditUseCase' => function() {
+            'personCategoryEditUseCase' => function($c) {
                 return new App\Interactor\PersonCategoryEditInteractor(
-                    new App\Repository\PersonCategoryRepository()
+                    $c['personCategoryRepository'],
                 );
             },
-            'personCategoryDeleteUseCase' => function() {
+            'personCategoryDeleteUseCase' => function($c) {
                 return new App\Interactor\PersonCategoryDeleteInteractor(
-                    new App\Repository\PersonCategoryRepository()
+                    $c['personCategoryRepository'],
                 );
             },
 
-            'userRegisterUseCase' => function() {
+            'userRegisterUseCase' => function($c) {
                 return new App\Interactor\UserRegisterInteractor(
-                    new App\Repository\UserRepository(),
-                    new App\Repository\PersonRepository(),
-                    new App\Repository\EventRepository(),
-                    new App\Repository\EventTemplateRepository(),
-                    new App\Repository\PersonCategoryRepository(),
-                    new App\Repository\PersonCategoryTemplateRepository(),
+                    $c['userRepository'],
+                    $c['personRepository'],
+                    $c['eventRepository'],
+                    $c['eventTemplateRepository'],
+                    $c['personCategoryRepository'],
+                    $c['personCategoryTemplateRepository'],
                 );
             },
-            'userEditUseCase' => function() {
+            'userEditUseCase' => function($c) {
                 return new App\Interactor\UserEditInteractor(
-                    new App\Repository\UserRepository()
+                    $c['userRepository'],
                 );
             },
 
-            'userPwReminderUseCase' => function() {
+            'userPwReminderUseCase' => function($c) {
                 return new App\Interactor\UserPwReminderInteractor(
-                    new App\Repository\UserRepository()
+                    $c['userRepository'],
                 );
+            },
+
+            /**
+             * Repository
+             */
+            'giftRepository' => function($c) {
+                return new App\Repository\GiftRepository(
+                    $c['personRepository'],
+                    $c['eventRepository'],
+                );
+            },
+            'personRepository' => function($c) {
+                return new App\Repository\PersonRepository(
+                    $c['personCategoryRepository'],
+                );
+            },
+            'personCategoryRepository' => function($c) {
+                return new App\Repository\PersonCategoryRepository();
+            },
+            'eventRepository' => function($c) {
+                return new App\Repository\EventRepository();
+            },
+            'eventTemplateRepository' => function($c) {
+                return new App\Repository\EventTemplateRepository();
+            },
+            'personCategoryTemplateRepository' => function($c) {
+                return new App\Repository\PersonCategoryTemplateRepository();
+            },
+            'userRepository' => function($c) {
+                return new App\Repository\UserRepository();
             },
         ]
     ]

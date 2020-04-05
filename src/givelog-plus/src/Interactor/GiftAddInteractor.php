@@ -34,29 +34,34 @@ class GiftAddInteractor implements IGiftAddUseCase {
         $entity = new Gift([
             'type' => Hash::get($data, 'type'),
             'date' => new Timestamp(new DateTime(Hash::get($data, 'date'))),
-            // 'fromPersons' => Hash::get($data, 'from_person_ids'),
-            // 'toPersons' => Hash::get($data, 'to_person_ids'),
+            'fromPersonIds' => Hash::get($data, 'from_person_ids'),
+            'toPersonIds' => Hash::get($data, 'to_person_ids'),
             'gift' => Hash::get($data, 'gift'),
-            'event' => $this->__getEventRef($uid, Hash::get($data, 'event_id')),
+            'event' => $this->eventRepository->getRef($uid, Hash::get($data, 'event_id')),
             'price' => Hash::get($data, 'price'),
             'url' => Hash::get($data, 'url'),
             'memo' => Hash::get($data, 'memo'),
         ]);
+
+        foreach ($entity->fromPersonIds as $personId) {
+            $fromPersons[] = $this->personRepository->getRef($uid, $personId);
+        }
+        foreach ($entity->toPersonIds as $personId) {
+            $toPersons[] = $this->personRepository->getRef($uid, $personId);
+        }
+        $entity->fromPersons = $fromPersons;
+        $entity->toPersons = $toPersons;
 
         $this->giftRepository->add($uid, $entity);
 
         return $entity;
     }
 
-    public function idNameArrayWithCategory(string $uid): array {
+    public function getPersonIdNameArrayWithCategory(string $uid): array {
         return $this->personRepository->idNameArrayWithCategory($uid);
     }
 
     public function getEventIdNameArray(string $uid): array {
         return $this->eventRepository->idNameArray($uid);
-    }
-
-    private function __getEventRef($uid, $eventId) {
-        return ($eventId) ? $this->eventRepository->getRef($uid, $eventId) : null;
     }
 }

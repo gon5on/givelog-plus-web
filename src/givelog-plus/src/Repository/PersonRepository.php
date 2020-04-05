@@ -4,11 +4,18 @@ namespace App\Repository;
 use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
-use App\Repository\PersonCategoryRepository;
+use App\Repository\IPersonCategoryRepository;
 use App\Model\Entity\Person;
 use App\Model\Entity\PersonCategory;
 
 class PersonRepository extends AppRepository implements IPersonRepository {
+    private $personCategoryRepository;
+
+    function __construct(IPersonCategoryRepository $personCategoryRepository) {
+        parent::__construct();
+
+        $this->personCategoryRepository = $personCategoryRepository;
+    }
 
     public function list(string $uid): array {
         $list = [];
@@ -20,7 +27,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
                 continue;
             }
 
-            $list[] = $this->__documentToEntity($document);
+            $list[] = $this->documentToEntity($document);
         }
 
         return $list;
@@ -29,7 +36,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     public function add(string $uid, Person $entity): string {
         $data = [
             'name' => $entity->name,
-            'person_category' => $entity->personCategory,
+            'person_category' => $this->personCategoryRepository->getRef($uid, $entity->personCategoryId),
             'memo' => $entity->memo,
             'created' => FieldValue::serverTimestamp(),
             'modified' => FieldValue::serverTimestamp(),
@@ -43,7 +50,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     public function edit(string $uid, string $documentId, Person $entity): string {
         $data = [
             ['path' => 'name', 'value' => $entity->name],
-            ['path' => 'person_category', 'value' => $entity->personCategory],
+            ['path' => 'person_category', 'value' => $this->personCategoryRepository->getRef($uid, $entity->personCategoryId)],
             ['path' => 'memo', 'value' => $entity->memo],
             ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
         ];
@@ -62,7 +69,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     public function get(string $uid, string $documentId): Person {
         $document = $this->getRef($uid, $documentId)->snapshot();
 
-        return $this->__documentToEntity($document);
+        return $this->documentToEntity($document);
     }
 
     public function exist(string $uid, string $documentId): bool {
@@ -75,26 +82,26 @@ class PersonRepository extends AppRepository implements IPersonRepository {
         $tmp = $this->list($uid);
 
         foreach ($tmp as $person) {
-            $personCategoryId = 0;
+            $personCategoryName = 'グループなし';
             if ($person->personCategory) {
-                $personCategoryId = $person->personCategory->id;
+                $personCategoryName = $person->personCategory->name;
             }
 
-            $list[$personCategoryId][$person->id] = $person->name;
+            $list[$personCategoryName][$person->id] = $person->name;
         }
 
         return $list;
     }
 
-    public function getRef(string $uid, string $documentId): DocumentReference {
+    public function getRef(string $uid, ?string $documentId): ?DocumentReference {
+        if (!$documentId) {
+            return null;
+        }
+
         return $this->__getQuery($uid)->document($documentId);
     }
 
-    private function __getQuery(string $uid) {
-        return $this->database->collection('persons')->document($uid)->collection('data');
-    }
-
-    private function __documentToEntity(DocumentSnapshot $doc): Person {
+    public function documentToEntity(DocumentSnapshot $doc): Person {
         $person = new Person([
             'id' => $doc->id(),
             'name' => $doc->get('name'),
@@ -103,16 +110,13 @@ class PersonRepository extends AppRepository implements IPersonRepository {
 
         if ($doc->get('person_category')) {
             $pcDoc = $doc->get('person_category')->snapshot();
-
-            if ($pcDoc->exists()) {
-                $person->personCategory = new PersonCategory([
-                    'id' => $pcDoc->id(),
-                    'name' => $pcDoc->get('name'),
-                    'labelColor' => $pcDoc->get('label_color'),
-                ]);
-            }
+            $person->personCategory = $this->personCategoryRepository->documentToEntity($pcDoc);
         }
 
         return $person;
+    }
+
+    private function __getQuery(string $uid) {
+        return $this->database->collection('persons')->document($uid)->collection('data');
     }
 }

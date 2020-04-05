@@ -30,7 +30,7 @@ class PersonAddInteractor implements IPersonAddUseCase {
 
         $entity = new Person([
             'name' => Hash::get($data, 'name'),
-            'personCategory' => $this->__getPersonCategoryRef($uid, Hash::get($data, 'person_category_id')),
+            'personCategoryId' => Hash::get($data, 'person_category_id'),
             'memo' => Hash::get($data, 'memo'),
         ]);
 
@@ -41,9 +41,5 @@ class PersonAddInteractor implements IPersonAddUseCase {
 
     public function getParsonCategoryIdNameArray(string $uid): array {
         return $this->personCategoryRepository->idNameArray($uid);
-    }
-
-    private function __getPersonCategoryRef($uid, $personCategoryId) {
-        return ($personCategoryId) ? $this->personCategoryRepository->getRef($uid, $personCategoryId) : null;
     }
 }

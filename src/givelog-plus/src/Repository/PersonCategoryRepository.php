@@ -1,9 +1,10 @@
 <?php
 namespace App\Repository;
 
-use App\Model\Entity\PersonCategory;
 use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\DocumentReference;
+use Google\Cloud\Firestore\DocumentSnapshot;
+use App\Model\Entity\PersonCategory;
 
 class PersonCategoryRepository extends AppRepository implements IPersonCategoryRepository {
 
@@ -17,11 +18,7 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
                 continue;
             }
 
-            $list[] = new PersonCategory([
-                'id' => $document->id(),
-                'name' => $document->get('name'),
-                'labelColor' => $document->get('label_color'),
-            ]);
+            $list[] = $this->documentToEntity($document);
         }
 
         return $list;
@@ -76,8 +73,20 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
         return $list;
     }
 
-    public function getRef(string $uid, string $documentId): DocumentReference {
+    public function getRef(string $uid, ?string $documentId): ?DocumentReference {
+        if (!$documentId) {
+            return null;
+        }
+
         return $this->__getQuery($uid)->document($documentId);
+    }
+
+    public function documentToEntity(DocumentSnapshot $document): PersonCategory {
+        return new PersonCategory([
+            'id' => $document->id(),
+            'name' => $document->get('name'),
+            'labelColor' => $document->get('label_color'),
+        ]);
     }
 
     private function __getQuery(string $uid) {

@@ -11,7 +11,7 @@ class RegisterController extends AppController {
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         
-        $this->Auth->allow(['index']);
+        $this->Auth->allow(['index', 'finish']);
 
         $this->viewBuilder()->setLayout('before_login');
     }
@@ -24,8 +24,12 @@ class RegisterController extends AppController {
             $user = $userRegisterUseCase->register($data);
 
             if (!$user->getErrors()) {
-                return $this->render('finish');
+                return $this->redirect(['action' => 'finish']);
             }
         }
+    }
+
+    public function finish() {
+        $this->set('page_title', 'アカウント新規作成');
     }
 }

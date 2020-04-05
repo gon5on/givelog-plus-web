@@ -50,5 +50,6 @@ https://github.com/rochamarcelo/cake-pimple-di
 # TODO
 
 * ダブルクリック対策
-* 完了画面リロード対策
 * authのセッション更新
+* 新規登録後の自動ログイン
+* プレゼント追加画面で人物とイベント追加すると、一覧に飛んでしまう

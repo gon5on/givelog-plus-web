@@ -4,11 +4,21 @@ namespace App\Repository;
 use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
-use App\Repository\GiftCategoryRepository;
+use App\Repository\IPersonRepository;
+use App\Repository\IEventRepository;
 use App\Model\Entity\Gift;
 use App\Model\Entity\GiftCategory;
 
 class GiftRepository extends AppRepository implements IGiftRepository {
+    private $personRepository;
+    private $eventRepository;
+
+    function __construct(IPersonRepository $personRepository, IEventRepository $eventRepository) {
+        parent::__construct();
+
+        $this->personRepository = $personRepository;
+        $this->eventRepository = $eventRepository;
+    }
 
     public function list(string $uid): array {
         $list = [];
@@ -85,12 +95,8 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         return $this->__getQuery($uid)->document($documentId);
     }
 
-    private function __getQuery(string $uid) {
-        return $this->database->collection('gifts')->document($uid)->collection('data');
-    }
-
     private function __documentToEntity(DocumentSnapshot $doc): Gift {
-        $Gift = new Gift([
+        $gift = new Gift([
             'id' => $doc->id(),
             'type' => $doc->get('type'),
             'date' => $doc->get('date'),
@@ -102,16 +108,33 @@ class GiftRepository extends AppRepository implements IGiftRepository {
 
         if ($doc->get('event')) {
             $eventDoc = $doc->get('event')->snapshot();
-
             if ($eventDoc->exists()) {
-                $Gift->event = new event([
-                    'id' => $eventDoc->id(),
-                    'name' => $eventDoc->get('name'),
-                    'labelColor' => $eventDoc->get('label_color'),
-                ]);
+                $gift->event = $this->eventRepository->documentToEntity($eventDoc);
             }
         }
 
-        return $Gift;
+        $fromPersons = [];
+        foreach ($doc->get('from_persons') as $person) {
+            $personDoc = $person->snapshot();
+            if ($personDoc->exists()) {
+                $fromPersons[] = $this->personRepository->documentToEntity($personDoc);
+            }
+        }
+        $gift->fromPersons = $fromPersons;
+
+        $toPersons = [];
+        foreach ($doc->get('to_persons') as $person) {
+            $personDoc = $person->snapshot();
+            if ($personDoc->exists()) {
+                $toPersons[] = $this->personRepository->documentToEntity($personDoc);
+            }
+        }
+        $gift->toPersons = $toPersons;
+
+        return $gift;
+    }
+
+    private function __getQuery(string $uid) {
+        return $this->database->collection('gifts')->document($uid)->collection('data');
     }
 }

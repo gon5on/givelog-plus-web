@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use Google\Cloud\Firestore\DocumentReference;
+use Google\Cloud\Firestore\DocumentSnapshot;
 use App\Model\Entity\Event;
 
 interface IEventRepository {
@@ -17,5 +18,7 @@ interface IEventRepository {
 
     public function idNameArray(string $uid): array;
 
-    public function getRef(string $uid, string $documentId): DocumentReference;
+    public function getRef(string $uid, ?string $documentId): ?DocumentReference;
+
+    public function documentToEntity(DocumentSnapshot $document): Event;
 }

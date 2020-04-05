@@ -24,27 +24,14 @@
 </div>
 
 <div class="form-group">
-<select name="from_person_ids" id="example-multiple-optgroups" multiple="multiple">
-<optgroup label="家族">
-<option value="1-1">父</option>
-<option value="1-2">母</option>
-<option value="1-3">兄</option>
-</optgroup>
-<optgroup label="親戚">
-<option value="2-1">おじいちゃん</option>
-<option value="2-2">おばあちゃん</option>
-<option value="2-3">おじさん</option>
-</optgroup>
-<optgroup label="家族">
-<option value="3-1">父</option>
-<option value="3-2">母</option>
-<option value="3-3">兄</option>
-</optgroup>
-<optgroup label="親戚">
-<option value="4-1">おじいちゃん</option>
-<option value="4-2">おばあちゃん</option>
-<option value="4-3">おじさん</option>
-</optgroup>
+<select name="from_person_ids[]" id="example-multiple-optgroups" multiple="multiple">
+<?php foreach($persons as $personCategoryName => $inCategoryPersons): ?>
+    <optgroup label="<?= $personCategoryName ?>">
+    <?php foreach($inCategoryPersons as $id => $name): ?>
+        <option value="<?= $id ?>"><?= $name ?></option>
+    <?php endforeach; ?>
+    </optgroup>
+<?php endforeach; ?>
 </select>
 </div>
 
@@ -57,27 +44,14 @@
 </div>
 
 <div class="form-group">
-<select name="to_person_ids" id="example-multiple-optgroups2" multiple="multiple">
-<optgroup label="家族">
-<option value="1-1">父</option>
-<option value="1-2">母</option>
-<option value="1-3">兄</option>
-</optgroup>
-<optgroup label="親戚">
-<option value="2-1">おじいちゃん</option>
-<option value="2-2">おばあちゃん</option>
-<option value="2-3">おじさん</option>
-</optgroup>
-<optgroup label="家族">
-<option value="3-1">父</option>
-<option value="3-2">母</option>
-<option value="3-3">兄</option>
-</optgroup>
-<optgroup label="親戚">
-<option value="4-1">おじいちゃん</option>
-<option value="4-2">おばあちゃん</option>
-<option value="4-3">おじさん</option>
-</optgroup>
+<select name="to_person_ids[]" id="example-multiple-optgroups2" multiple="multiple">
+<?php foreach($persons as $personCategoryName => $inCategoryPersons): ?>
+    <optgroup label="<?= $personCategoryName ?>">
+    <?php foreach($inCategoryPersons as $id => $name): ?>
+        <option value="<?= $id ?>"><?= $name ?></option>
+    <?php endforeach; ?>
+    </optgroup>
+<?php endforeach; ?>
 </select>
 </div>
 

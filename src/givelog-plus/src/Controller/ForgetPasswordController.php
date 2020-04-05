@@ -27,7 +27,5 @@ class ForgetPasswordController extends AppController {
 
     public function finish() {
         $this->set('page_title', 'パスワード再発行');
-
-        return $this->render('finish');
     }
 }

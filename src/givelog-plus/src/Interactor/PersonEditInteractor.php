@@ -35,7 +35,7 @@ class PersonEditInteractor implements IPersonEditUseCase {
         
         $entity = new Person([
             'name' => Hash::get($data, 'name'),
-            'personCategory' => $this->__getPersonCategoryRef($uid, Hash::get($data, 'person_category_id')),
+            'personCategoryId' => Hash::get($data, 'person_category_id'),
             'memo' => Hash::get($data, 'memo'),
         ]);
 
@@ -46,9 +46,5 @@ class PersonEditInteractor implements IPersonEditUseCase {
 
     public function getParsonCategoryIdNameArray(string $uid): array {
         return $this->personCategoryRepository->idNameArray($uid);
-    }
-
-    private function __getPersonCategoryRef($uid, $personCategoryId) {
-        return ($personCategoryId) ? $this->personCategoryRepository->getRef($uid, $personCategoryId) : null;
     }
 }

@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use Google\Cloud\Firestore\DocumentReference;
+use Google\Cloud\Firestore\DocumentSnapshot;
 use App\Model\Entity\Person;
 
 interface IPersonRepository {
@@ -19,5 +20,7 @@ interface IPersonRepository {
 
     public function idNameArrayWithCategory(string $uid): array;
 
-    public function getRef(string $uid, string $documentId): DocumentReference;
+    public function getRef(string $uid, ?string $documentId): ?DocumentReference;
+
+    public function documentToEntity(DocumentSnapshot $doc): Person;
 }

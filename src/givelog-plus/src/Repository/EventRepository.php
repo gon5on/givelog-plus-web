@@ -3,6 +3,7 @@ namespace App\Repository;
 
 use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\DocumentReference;
+use Google\Cloud\Firestore\DocumentSnapshot;
 use App\Model\Entity\Event;
 
 class EventRepository extends AppRepository implements IEventRepository {
@@ -17,11 +18,7 @@ class EventRepository extends AppRepository implements IEventRepository {
                 continue;
             }
 
-            $list[] = new Event([
-                'id' => $document->id(),
-                'name' => $document->get('name'),
-                'labelColor' => $document->get('label_color'),
-            ]);
+            $list[] = $this->documentToEntity($document);
         }
 
         return $list;
@@ -76,8 +73,20 @@ class EventRepository extends AppRepository implements IEventRepository {
         return $list;
     }
 
-    public function getRef(string $uid, string $documentId): DocumentReference {
+    public function getRef(string $uid, ?string $documentId): ?DocumentReference {
+        if (!$documentId) {
+            return null;
+        }
+
         return $this->__getQuery($uid)->document($documentId);
+    }
+
+    public function documentToEntity(DocumentSnapshot $document): Event {
+        return new Event([
+            'id' => $document->id(),
+            'name' => $document->get('name'),
+            'labelColor' => $document->get('label_color'),
+        ]);
     }
 
     private function __getQuery(string $uid) {
