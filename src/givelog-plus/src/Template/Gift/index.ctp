@@ -1,3 +1,7 @@
+<?php
+use Cake\Utility\Hash;
+?>
+
 <?php $this->assign('page_title', $page_title) ?>
 
 <div class="mb-2">
@@ -39,7 +43,7 @@
 
 <div class="row">
 
-<?php foreach($gifts as $gift): ?>
+<?php foreach ($gifts as $gift): ?>
 
 <div class="col-xl-3 col-md-6 mb-3">
 <div class="card shadow h-100 py-2">
@@ -50,15 +54,23 @@
 <?php if ($gift->event): ?>
 <span class="badge badge-pill" style="background-color:<?= $gift->event->labelColor ?>"><?= $gift->event->name ?></span>
 <?php endif; ?>
-<span class="badge badge-pill badge-info">家族</span>
+<?php
+$personCategories = Hash::combine($gift->fromPersons, '{n}.personCategory.id', '{n}.personCategory');
+$personCategories = array_merge($personCategories, Hash::combine($gift->toPersons, '{n}.personCategory.id', '{n}.personCategory'));
+?>
+<?php foreach ($personCategories as $personCategory): ?>
+<span class="badge badge-pill" style="background-color:<?= $personCategory['labelColor'] ?>"><?= $personCategory['name'] ?></span>
+<?php endforeach; ?>
 </div>
 <span><?= date('Y/m/d', strtotime($gift->date)) ?></span>
 <div class="h6 mb-0 font-weight-bold text-gray-800">
 <?php 
-foreach($gift->fromPersons as $person) {
+$from = [];
+foreach ($gift->fromPersons as $person) {
     $from[] = '<a href="' . $this->Url->build(['controller' => 'person', 'action' => 'view', $person->id]) . '">' . $person->name . '</a>';
 }
-foreach($gift->toPersons as $person) {
+$to = [];
+foreach ($gift->toPersons as $person) {
     $to[] = '<a href="' . $this->Url->build(['controller' => 'person', 'action' => 'view', $person->id]) . '">' . $person->name . '</a>';
 }
 ?>
