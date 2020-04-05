@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
 use App\UseCase\IGiftListUseCase;
+use App\UseCase\IGiftViewUseCase;
 use App\UseCase\IGiftAddUseCase;
 use App\UseCase\IPersonAddUseCase;
 use App\UseCase\IEventAddUseCase;
@@ -19,8 +20,13 @@ class GiftController extends AppController {
         $this->set(compact('gifts'));
     }
 
-    public function view() {
+    public function view(IGiftViewUseCase $giftViewUseCase, string $id) {
         $this->set('page_title', 'プレゼント詳細');
+
+        $uid = $this->Auth->user('uid');
+        $gift = $giftViewUseCase->view($uid, $id);
+
+        $this->set(compact('gift'));
     }
 
     public function add(IGiftAddUseCase $giftAddUseCase, IPersonAddUseCase $personAddUseCase, IEventAddUseCase $eventAddUseCase) {

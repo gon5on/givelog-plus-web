@@ -1,12 +1,15 @@
-<?php $this->assign('page_title', $page_title) ?>
+<?php
+use Cake\Core\Configure;
+?>
 
+<?php $this->assign('page_title', $page_title) ?>
 
 <?= $this->AppForm->create(null) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-exchange-alt"></i><span class="text-xs font-weight-bold">タイプ</span>
 </div>
-<?= $this->AppForm->segmentedControl('type', ['type' => 'radio', 'label' => false, 'options' => ['1' => 'あげた', '2' => 'もらった']]) ?>
+<?= $this->AppForm->segmentedControl('type', ['type' => 'radio', 'label' => false, 'options' => Configure::read('types')]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-calendar-day"></i><span class="text-xs font-weight-bold">日付</span>

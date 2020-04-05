@@ -5,21 +5,9 @@ use BootstrapUI\View\Helper\FormHelper;
 use Cake\Core\Configure;
 use Cake\Utility\Hash;
 
-/**
- * AppForm helper
- */
-class AppFormHelper extends FormHelper
-{
-    /**
-     * セグメントコントロール
-     *
-     * @param string $title
-     * @param array $uri
-     * @param string $icon_class
-     * @return string $tag
-     */
-    public function segmentedControl($name, $options)
-    {
+class AppFormHelper extends FormHelper {
+
+    public function segmentedControl($name, $options) {
         $add_options = [
             'type' => 'radio',
             'hiddenField' => false,

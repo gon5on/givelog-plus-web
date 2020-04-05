@@ -7,7 +7,6 @@ use Google\Cloud\Firestore\DocumentReference;
 use App\Repository\IPersonRepository;
 use App\Repository\IEventRepository;
 use App\Model\Entity\Gift;
-use App\Model\Entity\GiftCategory;
 
 class GiftRepository extends AppRepository implements IGiftRepository {
     private $personRepository;

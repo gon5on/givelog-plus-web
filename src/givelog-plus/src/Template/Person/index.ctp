@@ -15,7 +15,7 @@
 <td>
 <span><?= $person->name ?></span>&nbsp;&nbsp;
 <?php if ($person->personCategory): ?>
-<span class="badge badge-pill" style="background-color:<?= $person->personCategory->labelColor ?>"><?= $person->personCategory->name ?></span>
+<?= $this->App->badge($person->personCategory->labelColor, $person->personCategory->name); ?>
 <?php endif; ?>
 </td>
 </tr>

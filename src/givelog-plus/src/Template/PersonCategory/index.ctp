@@ -12,7 +12,7 @@
 
 <?php foreach ($personCategories as $personCategory): ?>
 <tr data-id="<?= $personCategory->id ?>" data-name="<?= $personCategory->name ?>">
-<td><span class="badge badge-pill" style="background-color:<?= $personCategory->labelColor ?>">&nbsp;</span>&nbsp;&nbsp;<span><?= $personCategory->name ?></span></td>
+<td><?= $this->App->badge($personCategory->labelColor, '&nbsp;'); ?>&nbsp;</span>&nbsp;&nbsp;<span><?= $personCategory->name ?></span></td>
 </tr>
 <?php endforeach; ?>
 

@@ -12,7 +12,7 @@
 
 <?php foreach ($events as $event): ?>
 <tr data-id="<?= $event->id ?>" data-name="<?= $event->name ?>">
-<td><span class="badge badge-pill" style="background-color:<?= $event->labelColor ?>">&nbsp;</span>&nbsp;&nbsp;<span><?= $event->name ?></span></td>
+<td><?= $this->App->badge($event->labelColor, '&nbsp;'); ?>&nbsp;</span>&nbsp;&nbsp;<span><?= $event->name ?></span></td>
 </tr>
 <?php endforeach; ?>
 

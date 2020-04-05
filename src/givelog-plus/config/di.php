@@ -5,6 +5,7 @@ return [
         'actionInjections' => [
             '\App\Controller\GiftController' => [
                 'index' => ['giftListUseCase'],
+                'view' => ['giftViewUseCase'],
                 'add' => ['giftAddUseCase', 'personAddUseCase', 'eventAddUseCase'],
                 'edit' => ['giftEditUseCase', 'personAddUseCase', 'eventAddUseCase'],
                 'delete' => ['giftDeleteUseCase'],
@@ -44,6 +45,11 @@ return [
              */
             'giftListUseCase' => function($c) {
                 return new App\Interactor\GiftListInteractor(
+                    $c['giftRepository'],
+                );
+            },
+            'giftViewUseCase' => function($c) {
+                return new App\Interactor\GiftViewInteractor(
                     $c['giftRepository'],
                 );
             },
