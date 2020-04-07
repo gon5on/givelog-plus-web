@@ -6,7 +6,11 @@
 <div class="modal-body">
 削除しますか？<br>
 削除すると元に戻すことはできません。
-<?= $message; ?>
+<?php 
+if (!empty($message)) {
+    echo nl2br($message);
+}
+?>
 </div>
 
 <div class="modal-footer">

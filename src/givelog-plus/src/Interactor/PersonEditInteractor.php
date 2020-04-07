@@ -32,7 +32,7 @@ class PersonEditInteractor implements IPersonEditUseCase {
             $entity = new Person();
             return $entity->setErrors($errors);
         }
-        
+
         $entity = new Person([
             'name' => Hash::get($data, 'name'),
             'personCategoryId' => Hash::get($data, 'person_category_id'),

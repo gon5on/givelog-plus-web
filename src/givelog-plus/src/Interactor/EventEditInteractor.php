@@ -27,7 +27,7 @@ class EventEditInteractor implements IEventEditUseCase {
             $entity = new Event();
             return $entity->setErrors($errors);
         }
-        
+
         $entity = new Event([
             'name' => Hash::get($data, 'name'),
             'labelColor' => Hash::get($data, 'label_color'),

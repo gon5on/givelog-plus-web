@@ -5,6 +5,7 @@ use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
 use App\UseCase\IGiftListUseCase;
 use App\UseCase\IGiftViewUseCase;
 use App\UseCase\IGiftAddUseCase;
+use App\UseCase\IGiftDeleteUseCase;
 use App\UseCase\IPersonAddUseCase;
 use App\UseCase\IEventAddUseCase;
 
@@ -55,7 +56,12 @@ class GiftController extends AppController {
     //     $this->render('add');
     // }
 
-    // public function delete(string $id) {
-    //     $this->redirect()
-    // }
+    public function delete(IGiftDeleteUseCase $giftDeleteUseCase, string $id) {
+        if ($this->request->is('post')) {
+            $uid = $this->Auth->user('uid');
+            $giftDeleteUseCase->delete($uid, $id);
+        }
+
+        return $this->redirect('/gift');
+    }
 }

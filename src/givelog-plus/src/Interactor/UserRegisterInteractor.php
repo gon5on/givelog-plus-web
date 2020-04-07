@@ -15,6 +15,11 @@ use App\Model\Entity\Person;
 
 class UserRegisterInteractor implements IUserRegisterUseCase {
     private $userRepository;
+    private $personRepository;
+    private $eventRepository;
+    private $eventTemplateRepository;
+    private $personCategoryRepository;
+    private $personCategoryTemplateRepository;
 
     function __construct(IUserRepository $userRepository, IPersonRepository $personRepository,
         IEventRepository $eventRepository, IEventTemplateRepository $eventTemplateRepository,
@@ -59,13 +64,13 @@ class UserRegisterInteractor implements IUserRegisterUseCase {
         return $entity;
     }
 
-    private function __saveInitalPerson(string $uid, string $name) {
+    private function __saveInitalPerson(string $uid, string $name): void {
         $entity = new Person(['name' => $name]);
 
         $this->personRepository->add($uid, $entity);
     }
 
-    private function __saveInitalEvent(string $uid) {
+    private function __saveInitalEvent(string $uid): void {
         $array = $this->eventTemplateRepository->list();
 
         foreach ($array as $data) {
@@ -73,7 +78,7 @@ class UserRegisterInteractor implements IUserRegisterUseCase {
         }
     }
 
-    private function __saveInitalPersonCategory(string $uid) {
+    private function __saveInitalPersonCategory(string $uid): void {
         $array = $this->personCategoryTemplateRepository->list();
 
         foreach ($array as $data) {
