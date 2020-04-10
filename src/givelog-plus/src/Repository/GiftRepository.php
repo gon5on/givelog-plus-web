@@ -1,7 +1,9 @@
 <?php
 namespace App\Repository;
 
+use Cake\Utility\Hash;
 use Google\Cloud\Firestore\FieldValue;
+use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
 use App\Repository\IPersonRepository;
@@ -19,10 +21,13 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         $this->eventRepository = $eventRepository;
     }
 
-    public function list(string $uid): array {
+    public function list(string $uid, array $search = null): array {
         $list = [];
 
-        $documents = $this->__getQuery($uid)->orderBy('date', 'DESC')->documents();
+        $query = $this->__getQuery($uid);
+        $query = $this->__addWhereToQuery($query, $search);
+
+        $documents = $query->orderBy('date', 'DESC')->documents();
 
         foreach ($documents as $document) {
             if (!$document->exists()) {
@@ -36,13 +41,20 @@ class GiftRepository extends AppRepository implements IGiftRepository {
     }
 
     public function add(string $uid, Gift $entity): string {
+        $entity = $this->__idToRefsForSave($uid, $entity);
+
         $data = [
             'type' => $entity->type,
             'date' => $entity->date,
+            'from_person_ids' => $entity->fromPersonIds,
             'from_persons' => $entity->fromPersons,
+            'to_person_ids' => $entity->toPersonIds,
             'to_persons' => $entity->toPersons,
+            'person_ids' => $entity->personIds,
             'gift' => $entity->gift,
+            'event_id' => $entity->eventId,
             'event' => $entity->event,
+            'event_id' => $entity->event_id,
             'price' => $entity->price,
             'url' => $entity->url,
             'memo' => $entity->memo,
@@ -59,9 +71,13 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         $data = [
             ['path' => 'type', 'value' => $entity->type],
             ['path' => 'date', 'value' => $entity->date],
+            ['path' => 'from_person_ids', 'value' => $entity->fromPersonIds],
             ['path' => 'from_persons', 'value' => $entity->fromPersons],
+            ['path' => 'to_person_ids', 'value' => $entity->toPersonIds],
             ['path' => 'to_persons', 'value' => $entity->toPersons],
+            ['path' => 'person_ids', 'value' => $entity->personIds],
             ['path' => 'gift', 'value' => $entity->gift],
+            ['path' => 'event_id', 'value' => $entity->eventId],
             ['path' => 'event', 'value' => $entity->event],
             ['path' => 'price', 'value' => $entity->price],
             ['path' => 'url', 'value' => $entity->url],
@@ -88,6 +104,40 @@ class GiftRepository extends AppRepository implements IGiftRepository {
 
     public function exist(string $uid, string $documentId): bool {
         return $this->__getRef($uid, $documentId)->snapshot()->exists();
+    }
+
+    private function __addWhereToQuery(CollectionReference $query, ?array $search) {
+        if (!$search) {
+            return $query;
+        }
+
+        if (Hash::check($search, 'person_ids')) {
+            $query = $query->where('person_ids', 'array-contains-any', Hash::get($search, 'person_ids'));
+        }
+
+        if (Hash::check($search, 'event_id')) {
+            $query = $query->where('event_id', 'in', Hash::get($search, 'event_id'));
+        }
+
+        return $query;
+    }
+
+    private function __idToRefsForSave(string $uid, Gift $entity): Gift {
+        $entity->event = $this->eventRepository->getRef($uid, $entity->eventId);
+
+        foreach ($entity->fromPersonIds as $personId) {
+            $fromPersons[] = $this->personRepository->getRef($uid, $personId);
+        }
+        $entity->fromPersons = $fromPersons;
+
+        foreach ($entity->toPersonIds as $personId) {
+            $toPersons[] = $this->personRepository->getRef($uid, $personId);
+        }
+        $entity->toPersons = $toPersons;
+
+        $entity->personIds = array_unique(array_merge($entity->fromPersonIds, $entity->toPersonIds));
+
+        return $entity;
     }
 
     private function __getRef(string $uid, string $documentId): DocumentReference {
@@ -133,7 +183,7 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         return $gift;
     }
 
-    private function __getQuery(string $uid) {
-        return $this->database->collection('gifts')->document($uid)->collection('data');
+    private function __getQuery(string $uid): CollectionReference {
+        return $this->database->collection('gifts')->document($uid)->collection('user_gifts');
     }
 }

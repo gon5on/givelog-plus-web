@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository;
 
+use Google\Cloud\Firestore\CollectionReference;
 use App\Model\Entity\PersonCategory;
 
 class PersonCategoryTemplateRepository extends AppRepository implements IPersonCategoryTemplateRepository {
@@ -26,7 +27,7 @@ class PersonCategoryTemplateRepository extends AppRepository implements IPersonC
         return $list;
     }
 
-    private function __getQuery() {
+    private function __getQuery(): CollectionReference {
         return $this->database->collection('person_category_templates');
     }
 }

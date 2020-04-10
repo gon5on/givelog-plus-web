@@ -37,20 +37,11 @@ class GiftAddInteractor implements IGiftAddUseCase {
             'fromPersonIds' => Hash::get($data, 'from_person_ids'),
             'toPersonIds' => Hash::get($data, 'to_person_ids'),
             'gift' => Hash::get($data, 'gift'),
-            'event' => $this->eventRepository->getRef($uid, Hash::get($data, 'event_id')),
+            'eventId' => Hash::get($data, 'event_id'),
             'price' => Hash::get($data, 'price'),
             'url' => Hash::get($data, 'url'),
             'memo' => Hash::get($data, 'memo'),
         ]);
-
-        foreach ($entity->fromPersonIds as $personId) {
-            $fromPersons[] = $this->personRepository->getRef($uid, $personId);
-        }
-        foreach ($entity->toPersonIds as $personId) {
-            $toPersons[] = $this->personRepository->getRef($uid, $personId);
-        }
-        $entity->fromPersons = $fromPersons;
-        $entity->toPersons = $toPersons;
 
         $this->giftRepository->add($uid, $entity);
 

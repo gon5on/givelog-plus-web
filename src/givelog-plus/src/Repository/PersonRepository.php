@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use Google\Cloud\Firestore\FieldValue;
+use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
 use App\Repository\IPersonCategoryRepository;
@@ -116,7 +117,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
         return $person;
     }
 
-    private function __getQuery(string $uid) {
-        return $this->database->collection('persons')->document($uid)->collection('data');
+    private function __getQuery(string $uid): CollectionReference {
+        return $this->database->collection('persons')->document($uid)->collection('user_persons');
     }
 }

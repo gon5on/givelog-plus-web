@@ -34,7 +34,7 @@ class AppHelper extends Helper {
             $to[] = '<a href="' . $this->Url->build(['controller' => 'Person', 'action' => 'view', $person->id]) . '">' . $person->name . '</a>';
         }
 
-        return implode($from, '、') . 'から' . implode($to, '、') . 'へ';
+        return implode($from, '、') . '&nbsp;から&nbsp;' . implode($to, '、') . '&nbsp;へ';
     }
 
     public function giftPersonCategoryLabel(Gift $gift): string {

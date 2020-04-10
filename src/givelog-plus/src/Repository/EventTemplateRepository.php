@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository;
 
+use Google\Cloud\Firestore\CollectionReference;
 use App\Model\Entity\Event;
 
 class EventTemplateRepository extends AppRepository implements IEventTemplateRepository {
@@ -26,7 +27,7 @@ class EventTemplateRepository extends AppRepository implements IEventTemplateRep
         return $list;
     }
 
-    private function __getQuery() {
+    private function __getQuery(): CollectionReference {
         return $this->database->collection('event_templates');
     }
 }

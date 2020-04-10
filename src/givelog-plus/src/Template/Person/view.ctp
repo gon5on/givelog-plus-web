@@ -25,88 +25,31 @@
 <i class="fas fa-fw fa-gift"></i><span class="text-xs font-weight-bold">プレゼント</span>
 </div>
 
+<?php if ($person->gifts): ?>
+
 <div class="table table-hover">
 <table class="table person-gift-table" id="dataTable" width="100%" cellspacing="0">
 <tbody>
 
-<tr>
+<?php foreach ($person->gifts as $gift): ?>
+
+<tr data-id="<?= $gift->id ?>">
 <td>
-<span>2019/01/20</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">誕生日</span><br>
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> と
-<?= $this->Html->link('山田はなこちゃん', ['action' => 'view']) ?> から
-<?= $this->Html->link('自分', ['action' => 'view']) ?> へ 手作りクッキー
+<span><?= date('Y/m/d', strtotime($gift->date)) ?></span>&nbsp;&nbsp;
+<?= $this->App->badge($gift->event->labelColor, $gift->event->name); ?>
+<?= $this->App->giftPersonCategoryLabel($gift); ?>
+<br>
+<?= $this->App->giftFromTo($gift); ?> <?= $gift->gift ?>
 </td>
 </tr>
 
-<tr>
-<td>
-<span>2019/02/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">バレンタインデー</span><br>
-<?= $this->Html->link('自分', ['action' => 'view']) ?> から
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ チロルチョコ詰め合わせ
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2016/04/10</span>&nbsp;&nbsp;<span class="badge badge-pill badge-info">入学祝い</span><br>
-<?= $this->Html->link('自分', ['action' => 'view']) ?> から
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ 文房具セット
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2019/01/20</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">誕生日</span><br>
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> と
-<?= $this->Html->link('山田はなこちゃん', ['action' => 'view']) ?> から
-<?= $this->Html->link('自分', ['action' => 'view']) ?> へ 手作りクッキー
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2019/02/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">バレンタインデー</span><br>
-<?= $this->Html->link('自分', ['action' => 'view']) ?> から
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ チロルチョコ詰め合わせ
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2016/04/10</span>&nbsp;&nbsp;<span class="badge badge-pill badge-info">入学祝い</span><br>
-<?= $this->Html->link('自分', ['action' => 'view']) ?> から
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ 文房具セット
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2019/01/20</span>&nbsp;&nbsp;<span class="badge badge-pill badge-primary">誕生日</span><br>
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> と
-<?= $this->Html->link('山田はなこちゃん', ['action' => 'view']) ?> から
-<?= $this->Html->link('自分', ['action' => 'view']) ?> へ 手作りクッキー
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2019/02/14</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">バレンタインデー</span><br>
-<?= $this->Html->link('自分', ['action' => 'view']) ?> から
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ チロルチョコ詰め合わせ
-</td>
-</tr>
-
-<tr>
-<td>
-<span>2016/04/10</span>&nbsp;&nbsp;<span class="badge badge-pill badge-info">入学祝い</span><br>
-<?= $this->Html->link('自分', ['action' => 'view']) ?> から
-<?= $this->Html->link('山田太郎くん', ['action' => 'view']) ?> へ 文房具セット
-</td>
-</tr>
+<?php endforeach; ?>
 
 </tbody>
 </table>
 </div>
+
+<?php endif; ?>
 
 <div class="text-center mb-4">
 <?= $this->Html->link('< 戻る', ['controller' => 'Person', 'action' => 'index'], ['class' => 'small']) ?>
@@ -119,6 +62,7 @@
 
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
 $("tbody tr").on("click",function(e) {
-    window.location.href = "<?= $this->Url->build(['controller' => 'Gift', 'action' => 'view']) ?>";
+    let id = $(this).data('id');
+    window.location.href = "<?= $this->Url->build(['controller' => 'Gift', 'action' => 'view', ]) ?>/" + id;
 });
 <?= $this->Html->scriptEnd() ?>

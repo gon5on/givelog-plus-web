@@ -56,7 +56,7 @@
 <a href="<?= $this->Url->build(['action' => 'view', $gift->id]) ?>"><?= date('Y/m/d', strtotime($gift->date)) ?></a>
 </span>
 <div class="h6 mb-0 font-weight-bold text-gray-800">
-<?= $this->App->giftFromTo($gift); ?> <?= $gift->gift ?>
+<?= $this->App->giftFromTo($gift); ?>&nbsp;<?= $gift->gift ?>
 </div>
 </div>
 </div>

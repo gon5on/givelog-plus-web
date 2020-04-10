@@ -118,7 +118,7 @@ return [
             },
             'personViewUseCase' => function($c) {
                 return new App\Interactor\PersonViewInteractor(
-                    $c['personRepository'],
+                    $c['personWithGiftRepository'],
                 );
             },
 
@@ -177,6 +177,12 @@ return [
             'personRepository' => function($c) {
                 return new App\Repository\PersonRepository(
                     $c['personCategoryRepository'],
+                );
+            },
+            'personWithGiftRepository' => function($c) {
+                return new App\Repository\PersonWithGiftRepository(
+                    $c['personRepository'],
+                    $c['giftRepository'],
                 );
             },
             'personCategoryRepository' => function($c) {

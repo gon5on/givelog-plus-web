@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use Google\Cloud\Firestore\FieldValue;
+use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use App\Model\Entity\PersonCategory;
@@ -89,7 +90,7 @@ class PersonCategoryRepository extends AppRepository implements IPersonCategoryR
         ]);
     }
 
-    private function __getQuery(string $uid) {
-        return $this->database->collection('person_categories')->document($uid)->collection('data');
+    private function __getQuery(string $uid): CollectionReference {
+        return $this->database->collection('person_categories')->document($uid)->collection('user_person_categories');
     }
 }

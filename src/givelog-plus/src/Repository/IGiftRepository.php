@@ -4,7 +4,7 @@ namespace App\Repository;
 use App\Model\Entity\Gift;
 
 interface IGiftRepository {
-    public function list(string $uid): array;
+    public function list(string $uid, array $search = null): array;
 
     public function add(string $uid, Gift $entity): string;
 
