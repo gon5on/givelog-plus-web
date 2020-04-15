@@ -15,11 +15,12 @@ class EventAddInteractor implements IEventAddUseCase {
     }
 
     public function add(string $uid, array $data): Event {
+        $entity = new Event();
+
         $eventDomain = new EventDomain();
 
         $errors = $eventDomain->validation($data);
         if ($errors) {
-            $entity = new Event();
             return $entity->setErrors($errors);
         }
         
@@ -28,7 +29,7 @@ class EventAddInteractor implements IEventAddUseCase {
             'labelColor' => Hash::get($data, 'label_color'),
         ]);
 
-        $this->eventRepository->add($uid, $entity);
+        $entity->id = $this->eventRepository->add($uid, $entity);
 
         return $entity;
     }

@@ -4,7 +4,7 @@ use Cake\Core\Configure;
 
 <?php $this->assign('page_title', $page_title) ?>
 
-<?= $this->AppForm->create(null) ?>
+<?= $this->AppForm->create(null, ['enctype' => 'multipart/form-data']) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-exchange-alt"></i><span class="text-xs font-weight-bold">タイプ</span>
@@ -90,7 +90,7 @@ use Cake\Core\Configure;
 <i class="fas fa-fw fa-image"></i><span class="text-xs font-weight-bold">画像</span>
 </div>
 <div class="custom-file form-group">
-<?= $this->AppForm->control('file', ['label' => false, 'type' => 'file', 'class' => 'custom-file-input']) ?>
+<?= $this->AppForm->control('image', ['label' => false, 'type' => 'file', 'class' => 'custom-file-input']) ?>
 <label class="custom-file-label"></label>
 </div>
 

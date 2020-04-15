@@ -1,7 +1,7 @@
 <?php $this->assign('page_title', $page_title) ?>
 
 <div class="text-right">
-<a class="small" href="<?= $this->Url->build(['controller' => 'gift', 'action' => 'edit', $gift->id]) ?>"><i class="fas fa-fw fa-edit"></i>編集</a>
+<a class="small" href="<?= $this->Url->build(['controller' => 'Gift', 'action' => 'edit', $gift->id]) ?>"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
 <a href="javascript::void(0)" class="small" id="deleteBtn"><i class="fas fa-fw fa-trash"></i>削除</a>
 </div>
@@ -49,11 +49,13 @@
 <hr>
 <?php endif; ?>
 
+<?php if ($gift->imagePath): ?>
 <div class="label-area">
 <i class="fas fa-fw fa-image"></i><span class="text-xs font-weight-bold">画像</span>
 </div>
-<img src="https://asset.recipe-blog.jp/cache/images/item/bb/66/98fca5ab1240e98b15d45ab368231ea94e59bb66.400x0.none.jpg">
+<img src="<?= $this->Url->build(['controller' => 'File', 'action' => 'giftImage', $gift->id, $gift->image_file_name]) ?>">
 <hr>
+<?php endif; ?>
 
 <?php if ($gift->memo): ?>
 <div class="label-area">

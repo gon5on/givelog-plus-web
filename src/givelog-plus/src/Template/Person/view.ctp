@@ -35,8 +35,11 @@
 
 <tr data-id="<?= $gift->id ?>">
 <td>
-<span><?= date('Y/m/d', strtotime($gift->date)) ?></span>&nbsp;&nbsp;
+<span><?= date('Y/m/d', strtotime($gift->date)) ?></span>
+<?php if ($gift->event): ?>
+&nbsp;&nbsp;
 <?= $this->App->badge($gift->event->labelColor, $gift->event->name); ?>
+<?php endif; ?>
 <?= $this->App->giftPersonCategoryLabel($gift); ?>
 <br>
 <?= $this->App->giftFromTo($gift); ?> <?= $gift->gift ?>

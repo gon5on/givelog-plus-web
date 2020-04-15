@@ -15,11 +15,12 @@ class PersonCategoryAddInteractor implements IPersonCategoryAddUseCase {
     }
 
     public function add(string $uid, array $data): PersonCategory {
+        $entity = new PersonCategory();
+
         $personCategoryDomain = new PersonCategoryDomain();
 
         $errors = $personCategoryDomain->validation($data);
         if ($errors) {
-            $entity = new PersonCategory();
             return $entity->setErrors($errors);
         }
 
@@ -28,7 +29,7 @@ class PersonCategoryAddInteractor implements IPersonCategoryAddUseCase {
             'labelColor' => Hash::get($data, 'label_color'),
         ]);
 
-        $this->personCategoryRepository->add($uid, $entity);
+        $entity->id = $this->personCategoryRepository->add($uid, $entity);
 
         return $entity;
     }

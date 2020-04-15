@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use Google\Cloud\Firestore\CollectionReference;
+use Cake\Utility\Hash;
 use App\Model\Entity\PersonCategory;
 
 class PersonCategoryTemplateRepository extends AppRepository implements IPersonCategoryTemplateRepository {
@@ -16,11 +17,13 @@ class PersonCategoryTemplateRepository extends AppRepository implements IPersonC
                 continue;
             }
 
+            $data = $document->data();
+
             $list[] = new PersonCategory([
                 'id' => $document->id(),
-                'name' => $document->get('name'),
-                'labelColor' => $document->get('label_color'),
-                'order' => $document->get('order'),
+                'name' => Hash::get($data, 'name'),
+                'labelColor' => Hash::get($data, 'label_color'),
+                'order' => Hash::get($data, 'order'),
             ]);
         }
 

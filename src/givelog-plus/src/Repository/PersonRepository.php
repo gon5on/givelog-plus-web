@@ -5,6 +5,7 @@ use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
+use Cake\Utility\Hash;
 use App\Repository\IPersonCategoryRepository;
 use App\Model\Entity\Person;
 use App\Model\Entity\PersonCategory;
@@ -102,15 +103,17 @@ class PersonRepository extends AppRepository implements IPersonRepository {
         return $this->__getQuery($uid)->document($documentId);
     }
 
-    public function documentToEntity(DocumentSnapshot $doc): Person {
+    public function documentToEntity(DocumentSnapshot $document): Person {
+        $data = $document->data();
+
         $person = new Person([
-            'id' => $doc->id(),
-            'name' => $doc->get('name'),
-            'memo' => $doc->get('memo'),
+            'id' => $document->id(),
+            'name' => Hash::get($data, 'name'),
+            'memo' => Hash::get($data, 'memo'),
         ]);
 
-        if ($doc->get('person_category')) {
-            $pcDoc = $doc->get('person_category')->snapshot();
+        if (Hash::check($data, 'person_category')) {
+            $pcDoc = $data['person_category']->snapshot();
             $person->personCategory = $this->personCategoryRepository->documentToEntity($pcDoc);
         }
 

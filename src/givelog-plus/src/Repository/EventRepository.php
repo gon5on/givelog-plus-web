@@ -5,6 +5,7 @@ use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
+use Cake\Utility\Hash;
 use App\Model\Entity\Event;
 
 class EventRepository extends AppRepository implements IEventRepository {
@@ -83,10 +84,12 @@ class EventRepository extends AppRepository implements IEventRepository {
     }
 
     public function documentToEntity(DocumentSnapshot $document): Event {
+        $data = $document->data();
+
         return new Event([
             'id' => $document->id(),
-            'name' => $document->get('name'),
-            'labelColor' => $document->get('label_color'),
+            'name' => Hash::get($data, 'name'),
+            'labelColor' => Hash::get($data, 'label_color'),
         ]);
     }
 

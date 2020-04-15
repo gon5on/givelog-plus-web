@@ -8,4 +8,12 @@ class Gift extends Entity {
         'id' => false,
         '*' => true,
     ];
+
+    protected function _getImageFileName(): string {
+        if (!$this->imagePath) {
+            return '';
+        }
+
+        return basename($this->imagePath);
+    }
 }

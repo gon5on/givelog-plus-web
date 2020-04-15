@@ -38,6 +38,9 @@ return [
             '\App\Controller\SettingController' => [
                 'userEdit' => ['userEditUseCase'],
             ],
+            '\App\Controller\FileController' => [
+                'giftImage' => ['giftImageReadUseCase'],
+            ],
         ],
         'services' => [
             /**
@@ -165,6 +168,12 @@ return [
                 );
             },
 
+            'giftImageReadUseCase' => function($c) {
+                return new App\Interactor\GiftImageReadInteractor(
+                    $c['giftImageStorageRepository'],
+                );
+            },
+
             /**
              * Repository
              */
@@ -172,6 +181,7 @@ return [
                 return new App\Repository\GiftRepository(
                     $c['personRepository'],
                     $c['eventRepository'],
+                    $c['giftImageStorageRepository'],
                 );
             },
             'personRepository' => function($c) {
@@ -199,6 +209,9 @@ return [
             },
             'userRepository' => function($c) {
                 return new App\Repository\UserRepository();
+            },
+            'giftImageStorageRepository' => function($c) {
+                return new App\Repository\GiftImageStorageRepository();
             },
         ]
     ]

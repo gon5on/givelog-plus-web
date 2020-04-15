@@ -56,3 +56,4 @@ https://github.com/rochamarcelo/cake-pimple-di
 * h()
 * セキュリティコンポーネント
 * ページング
+* トランザクション

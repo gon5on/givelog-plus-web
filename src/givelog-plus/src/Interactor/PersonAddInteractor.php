@@ -18,13 +18,14 @@ class PersonAddInteractor implements IPersonAddUseCase {
     }
 
     public function add(string $uid, array $data): Person {
-        $personCategories = $this->getParsonCategoryIdNameArray($uid);
+        $entity = new Person();
 
         $personDomain = new PersonDomain();
-        $errors = $personDomain->validation($data, $personCategories);
 
+        $personCategories = $this->getParsonCategoryIdNameArray($uid);
+
+        $errors = $personDomain->validation($data, $personCategories);
         if ($errors) {
-            $entity = new Person();
             return $entity->setErrors($errors);
         }
 
@@ -34,7 +35,7 @@ class PersonAddInteractor implements IPersonAddUseCase {
             'memo' => Hash::get($data, 'memo'),
         ]);
 
-        $this->personRepository->add($uid, $entity);
+        $entity->id = $this->personRepository->add($uid, $entity);
 
         return $entity;
     }

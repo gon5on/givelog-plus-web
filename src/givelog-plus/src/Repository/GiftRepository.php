@@ -1,24 +1,28 @@
 <?php
 namespace App\Repository;
 
-use Cake\Utility\Hash;
 use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
+use Cake\Utility\Hash;
 use App\Repository\IPersonRepository;
 use App\Repository\IEventRepository;
+use App\Repository\IGiftImageStorageRepository;
 use App\Model\Entity\Gift;
 
 class GiftRepository extends AppRepository implements IGiftRepository {
     private $personRepository;
     private $eventRepository;
+    private $giftImageStorageRepository;
 
-    function __construct(IPersonRepository $personRepository, IEventRepository $eventRepository) {
+    function __construct(IPersonRepository $personRepository, IEventRepository $eventRepository,
+            IGiftImageStorageRepository $giftImageStorageRepository) {
         parent::__construct();
 
         $this->personRepository = $personRepository;
         $this->eventRepository = $eventRepository;
+        $this->giftImageStorageRepository = $giftImageStorageRepository;
     }
 
     public function list(string $uid, array $search = null): array {
@@ -41,6 +45,8 @@ class GiftRepository extends AppRepository implements IGiftRepository {
     }
 
     public function add(string $uid, Gift $entity): string {
+        $ref = $this->__getQuery($uid)->newDocument();
+
         $entity = $this->__idToRefsForSave($uid, $entity);
 
         $data = [
@@ -54,7 +60,6 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             'gift' => $entity->gift,
             'event_id' => $entity->eventId,
             'event' => $entity->event,
-            'event_id' => $entity->event_id,
             'price' => $entity->price,
             'url' => $entity->url,
             'memo' => $entity->memo,
@@ -62,9 +67,14 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             'modified' => FieldValue::serverTimestamp(),
         ];
 
-        $ret = $this->__getQuery($uid)->add($data);
+        if ($entity->imagePath) {
+            $filename = 'image1.' . pathinfo($entity->imagePath, PATHINFO_EXTENSION);
+            $data['image_path'] = $this->giftImageStorageRepository->upload($uid, $ref->id(), $filename, $entity->imagePath);
+        }
 
-        return $ret->id();
+        $ref->set($data);
+
+        return $ref->id();
     }
 
     public function edit(string $uid, string $documentId, Gift $entity): string {
@@ -144,41 +154,48 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         return $this->__getQuery($uid)->document($documentId);
     }
 
-    private function __documentToEntity(DocumentSnapshot $doc): Gift {
+    private function __documentToEntity(DocumentSnapshot $document): Gift {
+        $data = $document->data();
+
         $gift = new Gift([
-            'id' => $doc->id(),
-            'type' => $doc->get('type'),
-            'date' => $doc->get('date'),
-            'gift' => $doc->get('gift'),
-            'price' => $doc->get('price'),
-            'url' => $doc->get('url'),
-            'memo' => $doc->get('memo'),
+            'id' => $document->id(),
+            'type' => Hash::get($data, 'type'),
+            'date' => Hash::get($data, 'date'),
+            'gift' => Hash::get($data, 'gift'),
+            'price' => Hash::get($data, 'price'),
+            'url' => Hash::get($data, 'url'),
+            'imagePath' => Hash::get($data, 'image_path'),
+            'memo' => Hash::get($data, 'memo'),
         ]);
 
-        if ($doc->get('event')) {
-            $eventDoc = $doc->get('event')->snapshot();
+        if (Hash::check($data, 'event')) {
+            $eventDoc = $data['event']->snapshot();
             if ($eventDoc->exists()) {
                 $gift->event = $this->eventRepository->documentToEntity($eventDoc);
             }
         }
 
-        $fromPersons = [];
-        foreach ($doc->get('from_persons') as $person) {
-            $personDoc = $person->snapshot();
-            if ($personDoc->exists()) {
-                $fromPersons[] = $this->personRepository->documentToEntity($personDoc);
+        if (Hash::check($data, 'from_persons')) {
+            $fromPersons = [];
+            foreach ($data['from_persons'] as $person) {
+                $personDoc = $person->snapshot();
+                if ($personDoc->exists()) {
+                    $fromPersons[] = $this->personRepository->documentToEntity($personDoc);
+                }
             }
+            $gift->fromPersons = $fromPersons;
         }
-        $gift->fromPersons = $fromPersons;
 
-        $toPersons = [];
-        foreach ($doc->get('to_persons') as $person) {
-            $personDoc = $person->snapshot();
-            if ($personDoc->exists()) {
-                $toPersons[] = $this->personRepository->documentToEntity($personDoc);
+        if (Hash::check($data, 'to_persons')) {
+            $toPersons = [];
+            foreach ($data['to_persons'] as $person) {
+                $personDoc = $person->snapshot();
+                if ($personDoc->exists()) {
+                    $toPersons[] = $this->personRepository->documentToEntity($personDoc);
+                }
             }
+            $gift->toPersons = $toPersons;
         }
-        $gift->toPersons = $toPersons;
 
         return $gift;
     }
