@@ -104,7 +104,7 @@ class GiftAddInteractor implements IGiftAddUseCase {
         list($orgWidth, $orgHeight) = getimagesize($path);
 
         if ($orgWidth <= self::IMAGE_MAX_LONG_SIDE_SIZE && $orgHeight <= self::IMAGE_MAX_LONG_SIDE_SIZE) {
-            return $orgPath;
+            return $path;
         }
 
         if ($orgWidth <= $orgHeight) {
@@ -171,7 +171,5 @@ class GiftAddInteractor implements IGiftAddUseCase {
                 $file->delete();
             }
         }
-        
-        exit;
     }
 }

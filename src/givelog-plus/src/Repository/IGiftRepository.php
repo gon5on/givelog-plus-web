@@ -12,7 +12,7 @@ interface IGiftRepository {
 
     public function delete(string $uid, string $id): string;
 
-    public function get(string $uid, string $id): Gift;
+    public function get(string $uid, string $id, bool $withAssociation = true): Gift;
 
     public function exist(string $uid, string $id): bool;
 }

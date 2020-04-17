@@ -101,15 +101,21 @@ class GiftRepository extends AppRepository implements IGiftRepository {
     }
 
     public function delete(string $uid, string $documentId): string {
+        $gift = $this->get($uid, $documentId, false);
+
+        if ($gift->imagePath) {
+            $this->giftImageStorageRepository->delete($uid, $documentId, $gift->imageFileName);
+        }
+
         $this->__getQuery($uid)->document($documentId)->delete();
 
         return $documentId;
     }
 
-    public function get(string $uid, string $documentId): Gift {
+    public function get(string $uid, string $documentId, bool $withAssociation = true): Gift {
         $document = $this->__getRef($uid, $documentId)->snapshot();
 
-        return $this->__documentToEntity($document);
+        return $this->__documentToEntity($document, $withAssociation);
     }
 
     public function exist(string $uid, string $documentId): bool {
@@ -154,7 +160,7 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         return $this->__getQuery($uid)->document($documentId);
     }
 
-    private function __documentToEntity(DocumentSnapshot $document): Gift {
+    private function __documentToEntity(DocumentSnapshot $document, bool $withAssociation = true): Gift {
         $data = $document->data();
 
         $gift = new Gift([
@@ -167,6 +173,10 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             'imagePath' => Hash::get($data, 'image_path'),
             'memo' => Hash::get($data, 'memo'),
         ]);
+
+        if (!$withAssociation) {
+            return $gift;
+        }
 
         if (Hash::check($data, 'event')) {
             $eventDoc = $data['event']->snapshot();
