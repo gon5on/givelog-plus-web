@@ -52,4 +52,13 @@ class PersonController extends AppController {
 
         return $this->getAjaxResponse($person);
     }
+
+    public function delete(IPersonDeleteUseCase $personDeleteUseCase, string $id) {
+        if ($this->request->is('post')) {
+            $uid = $this->Auth->user('uid');
+            $personDeleteUseCase->delete($uid, $id);
+        }
+
+        return $this->redirect('/person');
+    }
 }

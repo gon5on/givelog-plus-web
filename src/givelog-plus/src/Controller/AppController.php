@@ -45,6 +45,9 @@ class AppController extends Controller {
         if ($entity->getErrors()) {
             $status = 400;
             $data = $entity->getErrors();
+        } else {
+            $status = 200;
+            $data = $entity->toArray();
         }
 
         return $this->getResponse()->withStatus($status)->withType('json')->withStringBody(json_encode($data));

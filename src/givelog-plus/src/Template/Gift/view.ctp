@@ -3,14 +3,13 @@
 <div class="text-right">
 <a class="small" href="<?= $this->Url->build(['controller' => 'Gift', 'action' => 'edit', $gift->id]) ?>"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
-<a href="javascript::void(0)" class="small" id="deleteBtn"><i class="fas fa-fw fa-trash"></i>削除</a>
+<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
 </div>
 
 <hr>
 
 <div class="label-area">
-<i class="fas fa-fw fa-calendar-day"></i><span class="text-xs font-weight-bold">
-日付</span>
+<i class="fas fa-fw fa-calendar-day"></i><span class="text-xs font-weight-bold">日付</span>
 </div>
 <span><?= date('Y/m/d', strtotime($gift->date)) ?></span>
 <?php if ($gift->event): ?>
@@ -19,7 +18,7 @@
 <hr>
 
 <div class="label-area">
-<i class="fas fa-fw fa-user"></i><span class="text-xs font-weight-bold"></span>
+<i class="fas fa-fw fa-user"></i><span class="text-xs font-weight-bold">だれからだれへ</span>
 </div>
 <span>
 <?= $this->App->giftFromTo($gift); ?>
@@ -70,13 +69,4 @@
 </div>
 
 
-<?= $this->element('delete_confirm_modal') ?>
-
-<?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
-$('#deleteBtn').on('click', function(e) {
-    let obj = $('#deleteConfirmModal');
-
-    obj.find('form').attr('action', '/gift/delete/<?= $gift->id ?>');
-    obj.modal('show');
-});
-<?= $this->Html->scriptEnd() ?>
+<?= $this->element('delete_confirm_modal', ['id' => $gift->id]) ?>

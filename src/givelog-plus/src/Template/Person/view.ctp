@@ -6,7 +6,11 @@
 <div class="text-right">
 <a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
+<?php if ($person->gifts): ?>
+<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#cantDeletePersonModal"><i class="fas fa-fw fa-trash"></i>削除</a>
+<?php else: ?>
 <a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
+<?php endif; ?>
 </div>
 
 <hr>
@@ -61,7 +65,9 @@
 
 <?= $this->element('person_add_modal') ?>
 
-<?= $this->element('delete_confirm_modal') ?>
+<?= $this->element('delete_confirm_modal', ['id' => $person->id]) ?>
+
+<?= $this->element('cant_delete_person_modal') ?>
 
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
 $("tbody tr").on("click",function(e) {

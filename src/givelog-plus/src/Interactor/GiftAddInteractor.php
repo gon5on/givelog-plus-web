@@ -69,14 +69,20 @@ class GiftAddInteractor implements IGiftAddUseCase {
 
     //TODO 画像処理をインタラクタが持つべきかわからない…
     private function __getSrcImagePath(string $uid, array $data): ?string {
-        if (!$data) {
+        $this->__deleteOldTmpFile();
+
+        if (!$data || !is_array($data)) {
             return null;
         }
 
-        $this->__deleteOldTmpFile();
-
         $tmpPath = Hash::get($data, 'tmp_name');
-        if (!is_uploaded_file($tmpPath)) {
+        $error = Hash::get($data, 'error');
+
+        if (!$tmpPath) {
+            return null;
+        }
+
+        if ($error != UPLOAD_ERR_OK || !is_uploaded_file($tmpPath)) {
             throw new \Exception('TODO');
         }
 

@@ -21,7 +21,7 @@ $memo = (isset($person)) ? $person->memo : '';
 <div class="label-area">
 <i class="fas fa-fw fa-user"></i><span class="text-xs font-weight-bold">名前</span>
 </div>
-<?= $this->AppForm->control('name', ['label' => false, 'class' => 'form-control', 'placeholder' => '山田太郎くん', 'value' => $name]) ?>
+<?= $this->AppForm->control('name', ['id' => 'person_name', 'label' => false, 'class' => 'form-control', 'placeholder' => '山田太郎くん', 'value' => $name]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-folder-open"></i><span class="text-xs font-weight-bold">カテゴリ</span>
@@ -31,14 +31,14 @@ $memo = (isset($person)) ? $person->memo : '';
 <div class="label-area">
 <i class="fas fa-fw fa-pen"></i><span class="text-xs font-weight-bold">メモ</span>
 </div>
-<?= $this->AppForm->control('memo', ['label' => false, 'type' => 'textarea', 'class' => 'form-control', 'rows'=> 5, 'value' => $memo]) ?>
+<?= $this->AppForm->control('memo', ['id' => 'person_memo', 'label' => false, 'type' => 'textarea', 'class' => 'form-control', 'rows'=> 5, 'value' => $memo]) ?>
 
-<?= $this->AppForm->control('id', ['type' => 'hidden', 'value' => $id]) ?>
+<?= $this->AppForm->control('id', ['id' => 'person_id', 'type' => 'hidden', 'value' => $id]) ?>
 
 </div>
 <div class="modal-footer">
 <?php if (isset($person)): ?>
-<?= $this->AppForm->button('削除', ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>&nbsp;
+<?= $this->AppForm->button('削除', ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>
 <?php endif; ?>
 <?= $this->AppForm->button('保存', ['type' => 'button', 'class' => 'btn btn-primary save']) ?>
 </div>

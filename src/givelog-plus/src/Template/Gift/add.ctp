@@ -29,11 +29,11 @@ use Cake\Core\Configure;
 <div class="form-group">
 <select name="from_person_ids[]" id="example-multiple-optgroups" multiple="multiple">
 <?php foreach($persons as $personCategoryName => $inCategoryPersons): ?>
-    <optgroup label="<?= $personCategoryName ?>">
-    <?php foreach($inCategoryPersons as $id => $name): ?>
-        <option value="<?= $id ?>"><?= $name ?></option>
-    <?php endforeach; ?>
-    </optgroup>
+<optgroup label="<?= $personCategoryName ?>">
+<?php foreach($inCategoryPersons as $id => $name): ?>
+<option value="<?= $id ?>"><?= $name ?></option>
+<?php endforeach; ?>
+</optgroup>
 <?php endforeach; ?>
 </select>
 </div>

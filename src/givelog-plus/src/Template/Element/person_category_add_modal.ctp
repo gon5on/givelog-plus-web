@@ -33,9 +33,7 @@
 <?= $this->AppForm->end(); ?>
 </div>
 
-<?= $this->element('delete_confirm_modal', [
-    'message' => '<br><br>削除すると、人物に紐づいているこのカテゴリは空になります。'
-]) ?>
+<?= $this->element('delete_confirm_modal', ['id' => '', 'message' => '<br><br>削除すると、人物に紐づいているこのカテゴリは空になります']) ?>
 
 <?= $this->Html->script('person-category', ['block' => true]) ?>
 <!-- person category add modal -->

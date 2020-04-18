@@ -15,8 +15,16 @@ $('#personAddModal').find('.save').on('click', function() {
         },
     })
     .done(function(data) {
-        location.href = (id) ? '/person/view/' + id : '/person';
-        obj.modal('hide');  
+        if (location.pathname == '/gift/add') {
+            addGiftPersonSelectBox(data);
+        } else {
+            location.href = (id) ? '/person/view/' + id : '/person';
+        }
+
+        obj.find('input[name="name"]').val(''),
+        obj.find('[name="person_category_id"]').val(''),
+        obj.find('textarea[name="memo"]').val(''),
+        obj.modal('hide');
     })
     .fail(function(data, textStatus) {
         if (data.status === 403) {
@@ -36,3 +44,7 @@ $('#personAddModal').find('.delete').on('click', function() {
     obj.find('form').attr('action', '/person/delete/' + id);
     obj.find('form').submit();
 });
+
+function addGiftPersonSelectBox(person) {
+    //TODO
+}

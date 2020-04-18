@@ -14,18 +14,18 @@
 <div class="label-area">
 <i class="fas fa-fw fa-calendar-check"></i><span class="text-xs font-weight-bold">イベント</span>
 </div>
-<?= $this->AppForm->control('name', ['label' => false, 'class' => 'form-control', 'placeholder' => '誕生日']) ?>
+<?= $this->AppForm->control('name', ['id' => 'event_name', 'label' => false, 'class' => 'form-control', 'placeholder' => '誕生日']) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-palette"></i><span class="text-xs font-weight-bold">ラベルカラー</span>
 </div>
 <div id="hslflat"></div>
 
-<?= $this->AppForm->control('id', ['type' => 'hidden']) ?>
+<?= $this->AppForm->control('id', ['id' => 'event_id', 'type' => 'hidden']) ?>
 
 </div>
 <div class="modal-footer">
-<a href="javascript::void(0)" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteConfirmModal">削除</a>
+<a href="javascript::void(0)" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteConfirmModal" style="display:none">削除</a>
 <?= $this->AppForm->button('保存', ['type' => 'button', 'class' => 'btn btn-primary save']) ?>
 </div>
 </div>
@@ -33,9 +33,7 @@
 <?= $this->AppForm->end(); ?>
 </div>
 
-<?= $this->element('delete_confirm_modal', [
-    'message' => '<br><br>削除すると、プレゼントに紐づいているこのイベントは空になります。',
-]) ?>
+<?= $this->element('delete_confirm_modal', ['id' => '', 'message' => '<br><br>削除すると、プレゼントに紐づいているこのイベントは空になります']) ?>
 
 <?= $this->Html->script('event', ['block' => true]) ?>
 <!-- event add modal -->

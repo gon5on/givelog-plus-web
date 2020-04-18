@@ -15,7 +15,7 @@ if (!empty($message)) {
 
 <div class="modal-footer">
 <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
-<?= $this->AppForm->postLink('削除', ['action' => 'delete'], ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>
+<?= $this->AppForm->postLink('削除', ['action' => 'delete', $id], ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>
 </div>
 </div>
 </div>

@@ -5,6 +5,7 @@ $('#eventAddModal').find('.save').on('click', function() {
     $.ajax({
         url: (id) ?  '/event/edit/' + id : '/event/add',
         type: 'POST',
+        dataType: 'json',
         data:{
             'name': obj.find('input[name="name"]').val(),
             'label_color': '#999999',       //TODO
@@ -14,8 +15,14 @@ $('#eventAddModal').find('.save').on('click', function() {
         },
     })
     .done(function(data) {
-        location.href = '/event';
-        obj.modal('hide');  
+        if (location.pathname == '/gift/add') {
+            addGiftEventSelectBox(data);
+        } else {
+            location.href = '/event';
+        }
+
+        obj.find('input[name="name"]').val(''),
+        obj.modal('hide');
     })
     .fail(function(data, textStatus) {
         if (data.status === 403) {
@@ -27,3 +34,10 @@ $('#eventAddModal').find('.save').on('click', function() {
         }
     });
 });
+
+function addGiftEventSelectBox(event) {
+    let option = $('<option>').html(event['name']).val(event['id']);
+
+    $('select[name="event_id"]').append(option);
+    $('select[name="event_id"]').val(event['id']);
+}
