@@ -63,4 +63,8 @@ class UserRepository extends AppRepository implements IUserRepository {
     public function reminder(string $email, string $url): void {
         $this->auth->sendPasswordResetEmail($email, $url);
     }
+
+    public function disable(string $uid): void {
+        $this->auth->disableUser($uid);
+    }
 }

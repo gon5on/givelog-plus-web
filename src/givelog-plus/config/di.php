@@ -38,6 +38,9 @@ return [
             '\App\Controller\SettingController' => [
                 'userEdit' => ['userEditUseCase'],
             ],
+            '\App\Controller\WithdrawController' => [
+                'index' => ['userWithdrawUseCase'],
+            ],
             '\App\Controller\FileController' => [
                 'giftImage' => ['giftImageReadUseCase'],
             ],
@@ -164,6 +167,12 @@ return [
 
             'userPwReminderUseCase' => function($c) {
                 return new App\Interactor\UserPwReminderInteractor(
+                    $c['userRepository'],
+                );
+            },
+
+            'userWithdrawUseCase' => function($c) {
+                return new App\Interactor\UserWithdrawInteractor(
                     $c['userRepository'],
                 );
             },

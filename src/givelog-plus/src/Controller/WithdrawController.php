@@ -1,11 +1,33 @@
 <?php
 namespace App\Controller;
 
-class EventListController extends AppController {
+use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
+use Cake\Event\Event;
+use App\UseCase\IUserWithdrawUseCase;
 
-    public function index() {
+class WithdrawController extends AppController {
+    use InvokeActionTrait;
+
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+
+        $this->Auth->allow(['finish']);
+    }
+
+    public function index(IUserWithdrawUseCase $userWithdrawUseCase) {
         $this->request->allowMethod(['post']);
 
-        $this->redirect(['Controller' => 'Login']);
+        $uid = $this->Auth->user('uid');
+        $userWithdrawUseCase->withdraw($uid);
+
+        $this->Auth->logout();
+
+        return $this->redirect('/withdraw/finish');
+    }
+
+    public function finish() {
+        $this->set('page_title', '退会');
+
+        $this->viewBuilder()->setLayout('before_login');
     }
 }
