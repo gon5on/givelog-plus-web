@@ -23,9 +23,7 @@ class GiftImageStorageRepository extends AppRepository implements IGiftImageStor
         return $distPath;
     }
 
-    public function delete(string $uid, string $documentId, string $fileName): string {
-        $path = $this->__getPath($uid, $documentId, $fileName);
-
+    public function delete(string $path): string {
         $this->__getObject($path)->delete();
 
         return $path;

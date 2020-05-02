@@ -1,6 +1,6 @@
-<?php $this->assign('page_title', $person->name) ?>
+<?php $this->assign('pageTitle', $person->name) ?>
 <?php if ($person->personCategory): ?>
-<?php $this->assign('person_category_label', '&nbsp;&nbsp;<span class="badge badge-pill badge-font-size" style="background-color:' . $person->personCategory->labelColor . '">' . $person->personCategory->name . '</span>') ?>
+<?php $this->assign('personCategoryLabel', '&nbsp;&nbsp;<span class="badge badge-pill badge-font-size" style="background-color:' . $person->personCategory->labelColor . '">' . $person->personCategory->name . '</span>') ?>
 <?php endif; ?>
 
 <div class="text-right">

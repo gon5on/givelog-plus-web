@@ -1,4 +1,4 @@
-<?php $this->assign('page_title', $page_title) ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <div class="text-right mb-2">
 <a href="javascript::void(0)" class="small" id="add"><i class="fas fa-fw fa-plus-circle"></i>人物カテゴリ追加</a>

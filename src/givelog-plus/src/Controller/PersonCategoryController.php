@@ -11,7 +11,7 @@ class PersonCategoryController extends AppController {
     use InvokeActionTrait;
 
     public function index(IPersonCategoryListUseCase $personCategoryListUseCase) {
-        $this->set('page_title', '人物カテゴリリスト');
+        $this->set('pageTitle', '人物カテゴリリスト');
 
         $uid = $this->Auth->user('uid');
         $personCategories = $personCategoryListUseCase->list($uid);

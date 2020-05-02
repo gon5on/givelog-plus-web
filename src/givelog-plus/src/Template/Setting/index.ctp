@@ -1,4 +1,4 @@
-<?php $this->assign('page_title', $page_title) ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <?php $withdrawModalTag = 'withdrawModal'; ?>
 
@@ -46,14 +46,14 @@
 
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
 $("tbody tr").on("click",function(e) {
-    let modal_id = $(this).data("modal");
+    let modalId = $(this).data("modal");
     let url = $(this).data("url");
-    let target_blank = $(this).data("target");
+    let targetBlank = $(this).data("target");
 
-    if (modal_id) {
-        $(modal_id).modal("show");
+    if (modalId) {
+        $(modalId).modal("show");
     } else {
-        if (target_blank) {
+        if (targetBlank) {
             window.open(url, "_blank");
         } else {
             window.location.href = url;

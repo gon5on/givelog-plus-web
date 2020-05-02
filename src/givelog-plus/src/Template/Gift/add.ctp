@@ -1,22 +1,28 @@
 <?php
 use Cake\Core\Configure;
+use App\Model\Entity\Gift;
+
+if (!isset($gift)) {
+    $gift = new Gift();
+}
+extract($gift->toArrayWithDefaultKey());
 ?>
 
-<?php $this->assign('page_title', $page_title) ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <?= $this->AppForm->create(null, ['enctype' => 'multipart/form-data']) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-exchange-alt"></i><span class="text-xs font-weight-bold">タイプ</span>
 </div>
-<?= $this->AppForm->segmentedControl('type', ['type' => 'radio', 'label' => false, 'options' => Configure::read('types')]) ?>
+<?= $this->AppForm->segmentedControl('type', ['type' => 'radio', 'label' => false, 'options' => Configure::read('types'), 'value' => $type]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-calendar-day"></i><span class="text-xs font-weight-bold">日付</span>
 </div>
 
 <div class="form-group input-group date" id="datetimepicker" data-target-input="nearest">
-<input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker"/>
+<input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker" value="<?= $date ?>" />
 <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
 </div>
@@ -27,11 +33,11 @@ use Cake\Core\Configure;
 </div>
 
 <div class="form-group">
-<select name="from_person_ids[]" id="example-multiple-optgroups" multiple="multiple">
+<select name="fromPersonIds[]" id="example-multiple-optgroups" multiple="multiple">
 <?php foreach($persons as $personCategoryName => $inCategoryPersons): ?>
 <optgroup label="<?= $personCategoryName ?>">
-<?php foreach($inCategoryPersons as $id => $name): ?>
-<option value="<?= $id ?>"><?= $name ?></option>
+<?php foreach($inCategoryPersons as $person_id => $name): ?>
+<option value="<?= $person_id ?>"><?= $name ?></option>
 <?php endforeach; ?>
 </optgroup>
 <?php endforeach; ?>
@@ -47,11 +53,11 @@ use Cake\Core\Configure;
 </div>
 
 <div class="form-group">
-<select name="to_person_ids[]" id="example-multiple-optgroups2" multiple="multiple">
+<select name="toPersonIds[]" id="example-multiple-optgroups2" multiple="multiple">
 <?php foreach($persons as $personCategoryName => $inCategoryPersons): ?>
     <optgroup label="<?= $personCategoryName ?>">
-    <?php foreach($inCategoryPersons as $id => $name): ?>
-        <option value="<?= $id ?>"><?= $name ?></option>
+    <?php foreach($inCategoryPersons as $person_id => $name): ?>
+        <option value="<?= $person_id ?>"><?= $name ?></option>
     <?php endforeach; ?>
     </optgroup>
 <?php endforeach; ?>
@@ -65,12 +71,12 @@ use Cake\Core\Configure;
 <div class="label-area">
 <i class="fas fa-fw fa-gift"></i><span class="text-xs font-weight-bold">プレゼント</span>
 </div>
-<?= $this->AppForm->control('gift', ['label' => false, 'type' => 'textarea', 'class' => 'form-control', 'rows'=> 2]) ?>
+<?= $this->AppForm->control('gift', ['label' => false, 'type' => 'textarea', 'class' => 'form-control', 'rows'=> 2, 'value' => $gift]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-calendar-check"></i><span class="text-xs font-weight-bold">イベント</span>
 </div>
-<?= $this->AppForm->control('event_id', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select', 'options' => $events]) ?>
+<?= $this->AppForm->control('eventId', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select', 'options' => $events, 'value' => $eventId]) ?>
 
 <div class="text-right form-group-mergin-minus">
 <a href="javascript::void(0)" class="small" data-toggle="modal" data-target="#eventAddModal"><i class="fas fa-fw fa-plus-circle"></i>イベント追加</a>
@@ -79,12 +85,12 @@ use Cake\Core\Configure;
 <div class="label-area">
 <i class="fas fa-fw fa-dollar-sign"></i><span class="text-xs font-weight-bold">金額</span>
 </div>
-<?= $this->AppForm->control('price', ['label' => false, 'class' => 'form-control', 'placeholder' => '3000円くらい']) ?>
+<?= $this->AppForm->control('price', ['label' => false, 'class' => 'form-control', 'placeholder' => '3000円くらい', 'value' => $price]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-window-restore"></i><span class="text-xs font-weight-bold">URL</span>
 </div>
-<?= $this->AppForm->control('url', ['label' => false, 'class' => 'form-control', 'placeholder' => 'https://givelog.jp/for-you']) ?>
+<?= $this->AppForm->control('url', ['label' => false, 'class' => 'form-control', 'placeholder' => 'https://givelog.jp/for-you', 'value' => $url]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-image"></i><span class="text-xs font-weight-bold">画像</span>
@@ -94,10 +100,21 @@ use Cake\Core\Configure;
 <label class="custom-file-label"></label>
 </div>
 
+<?php if ($imagePath): ?>
+<div id="imageArea" class="mb-4">
+<img src="<?= $this->Url->build(['controller' => 'File', 'action' => 'giftImage', $id, $imageFileName]) ?>">
+<?= $this->AppForm->control('imageDeleteFlg', ['type' => 'hidden']) ?>
+<a href="javascript::void(0)" class="small" id="deleteImage"><i class="fas fa-fw fa-trash"></i>削除</a>
+</div>
+<?php endif; ?>
+
+
 <div class="label-area">
 <i class="fas fa-fw fa-pen"></i><span class="text-xs font-weight-bold">メモ</span>
 </div>
-<?= $this->AppForm->control('memo', ['label' => false, 'type' => 'textarea', 'class' => 'form-control mb-4', 'rows'=> 5]) ?>
+<?= $this->AppForm->control('memo', ['label' => false, 'type' => 'textarea', 'class' => 'form-control mb-4', 'rows'=> 5, 'value' => $memo]) ?>
+
+<?= $this->AppForm->control('id', ['type' => 'hidden', 'value' => $id]) ?>
 
 <?= $this->AppForm->button('保存', ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
 <?= $this->AppForm->end(); ?>
@@ -158,6 +175,11 @@ $('#example-multiple-optgroups2').multiselect({
             return labels.join(', ') + '';
         }
     }
+});
+
+$('#deleteImage').on('click', function() {
+    $('#imageArea').hide();
+    $('input[name="imageDeleteFlg"]').val('true');
 });
 <?= $this->Html->scriptEnd() ?>
 <!-- multi select -->

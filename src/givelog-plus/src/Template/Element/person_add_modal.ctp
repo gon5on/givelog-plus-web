@@ -1,9 +1,11 @@
 <!-- person add modal -->
 <?php
-$id = (isset($person)) ? $person->id : '';
-$name = (isset($person)) ? $person->name : '';
-$personCategoryId = (isset($person) && $person->personCategory) ? $person->personCategory->id : '';
-$memo = (isset($person)) ? $person->memo : '';
+use App\Model\Entity\Person;
+
+if (!isset($person)) {
+    $person = new Person();
+}
+extract($person->toArrayWithDefaultKey());
 ?>
 
 <div class="modal fade" id="personAddModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -21,19 +23,19 @@ $memo = (isset($person)) ? $person->memo : '';
 <div class="label-area">
 <i class="fas fa-fw fa-user"></i><span class="text-xs font-weight-bold">名前</span>
 </div>
-<?= $this->AppForm->control('name', ['id' => 'person_name', 'label' => false, 'class' => 'form-control', 'placeholder' => '山田太郎くん', 'value' => $name]) ?>
+<?= $this->AppForm->control('name', ['id' => 'personName', 'label' => false, 'class' => 'form-control', 'placeholder' => '山田太郎くん', 'value' => $name]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-folder-open"></i><span class="text-xs font-weight-bold">カテゴリ</span>
 </div>
-<?= $this->AppForm->control('person_category_id', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select"', 'options' => $personCategories, 'value' => $personCategoryId]) ?>
+<?= $this->AppForm->control('personCategoryId', ['label' => false, 'empty' => '選んでください', 'class' => 'custom-select"', 'options' => $personCategories, 'value' => $personCategoryId]) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-pen"></i><span class="text-xs font-weight-bold">メモ</span>
 </div>
-<?= $this->AppForm->control('memo', ['id' => 'person_memo', 'label' => false, 'type' => 'textarea', 'class' => 'form-control', 'rows'=> 5, 'value' => $memo]) ?>
+<?= $this->AppForm->control('memo', ['id' => 'personMemo', 'label' => false, 'type' => 'textarea', 'class' => 'form-control', 'rows'=> 5, 'value' => $memo]) ?>
 
-<?= $this->AppForm->control('id', ['id' => 'person_id', 'type' => 'hidden', 'value' => $id]) ?>
+<?= $this->AppForm->control('id', ['id' => 'personId', 'type' => 'hidden', 'value' => $id]) ?>
 
 </div>
 <div class="modal-footer">

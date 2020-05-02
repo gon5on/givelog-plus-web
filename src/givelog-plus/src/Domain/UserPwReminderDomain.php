@@ -9,7 +9,7 @@ class UserPwReminderDomain {
         $validator = new Validator();
 
         $validator
-            ->requirePresence('email', '入力してください')
+            ->requirePresence('email', true, '入力してください')
             ->notEmpty('email', '入力してください')
             ->maxLength('email', 100, '100文字以内で入力してください')
             ->email('email', 'メールアドレスの形式が正しくありません');

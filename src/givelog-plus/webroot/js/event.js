@@ -8,7 +8,7 @@ $('#eventAddModal').find('.save').on('click', function() {
         dataType: 'json',
         data:{
             'name': obj.find('input[name="name"]').val(),
-            'label_color': '#999999',       //TODO
+            'labelColor': '#999999',       //TODO
         },
         beforeSend: function(xhr){
             xhr.setRequestHeader('X-CSRF-Token', obj.find('input[name="_csrfToken"]').val());
@@ -38,6 +38,6 @@ $('#eventAddModal').find('.save').on('click', function() {
 function addGiftEventSelectBox(event) {
     let option = $('<option>').html(event['name']).val(event['id']);
 
-    $('select[name="event_id"]').append(option);
-    $('select[name="event_id"]').val(event['id']);
+    $('select[name="eventId"]').append(option);
+    $('select[name="eventId"]').val(event['id']);
 }

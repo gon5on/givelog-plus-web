@@ -6,7 +6,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <?= $this->fetch('meta') ?>
-<title>givelog plus | <?= $this->fetch('page_title') ?></title>
+<title>givelog plus | <?= $this->fetch('pageTitle') ?></title>
 <?= $this->Html->css('/vendor/fontawesome-free/css/all.min.css') ?>
 <?= $this->Html->css('/vendor/sb-admin-2/sb-admin-2.min.css') ?>
 <?= $this->Html->css('custom.css') ?>
@@ -34,7 +34,7 @@
 <div class="col-xl-6 col-lg-6 col-md-9">
 
 <h1 class="h3 mb-4 text-gray-800">
-<?= $this->fetch('page_title') ?><?= $this->fetch('person_category_label') ?>
+<?= $this->fetch('pageTitle') ?><?= $this->fetch('personCategoryLabel') ?>
 </h1>
 
 <?= $this->fetch('content'); ?>

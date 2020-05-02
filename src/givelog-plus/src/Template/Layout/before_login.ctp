@@ -6,7 +6,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <?= $this->fetch('meta') ?>
-<title>givelog plus | <?= $this->fetch('page_title') ?></title>
+<title>givelog plus | <?= $this->fetch('pageTitle') ?></title>
 <?= $this->Html->css('/vendor/fontawesome-free/css/all.min.css') ?>
 <?= $this->Html->css('/vendor/sb-admin-2/sb-admin-2.min.css') ?>
 <?= $this->Html->css('custom.css') ?>

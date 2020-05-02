@@ -52,13 +52,13 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         $data = [
             'type' => $entity->type,
             'date' => $entity->date,
-            'from_person_ids' => $entity->fromPersonIds,
-            'from_persons' => $entity->fromPersons,
-            'to_person_ids' => $entity->toPersonIds,
-            'to_persons' => $entity->toPersons,
-            'person_ids' => $entity->personIds,
+            'fromPersonIds' => $entity->fromPersonIds,
+            'fromPersons' => $entity->fromPersons,
+            'toPersonIds' => $entity->toPersonIds,
+            'toPersons' => $entity->toPersons,
+            'personIds' => $entity->personIds,
             'gift' => $entity->gift,
-            'event_id' => $entity->eventId,
+            'eventId' => $entity->eventId,
             'event' => $entity->event,
             'price' => $entity->price,
             'url' => $entity->url,
@@ -68,8 +68,7 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         ];
 
         if ($entity->imagePath) {
-            $filename = 'image1.' . pathinfo($entity->imagePath, PATHINFO_EXTENSION);
-            $data['image_path'] = $this->giftImageStorageRepository->upload($uid, $ref->id(), $filename, $entity->imagePath);
+            $data['imagePath'] = $this->giftImageStorageRepository->upload($uid, $ref->id(), 'image1', $entity->imagePath);
         }
 
         $ref->set($data);
@@ -78,16 +77,18 @@ class GiftRepository extends AppRepository implements IGiftRepository {
     }
 
     public function edit(string $uid, string $documentId, Gift $entity): string {
+        $entity = $this->__idToRefsForSave($uid, $entity);
+
         $data = [
             ['path' => 'type', 'value' => $entity->type],
             ['path' => 'date', 'value' => $entity->date],
-            ['path' => 'from_person_ids', 'value' => $entity->fromPersonIds],
-            ['path' => 'from_persons', 'value' => $entity->fromPersons],
-            ['path' => 'to_person_ids', 'value' => $entity->toPersonIds],
-            ['path' => 'to_persons', 'value' => $entity->toPersons],
-            ['path' => 'person_ids', 'value' => $entity->personIds],
+            ['path' => 'fromPersonIds', 'value' => $entity->fromPersonIds],
+            ['path' => 'fromPersons', 'value' => $entity->fromPersons],
+            ['path' => 'toPersonIds', 'value' => $entity->toPersonIds],
+            ['path' => 'toPersons', 'value' => $entity->toPersons],
+            ['path' => 'personIds', 'value' => $entity->personIds],
             ['path' => 'gift', 'value' => $entity->gift],
-            ['path' => 'event_id', 'value' => $entity->eventId],
+            ['path' => 'eventId', 'value' => $entity->eventId],
             ['path' => 'event', 'value' => $entity->event],
             ['path' => 'price', 'value' => $entity->price],
             ['path' => 'url', 'value' => $entity->url],
@@ -95,16 +96,28 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
         ];
 
+        if ($entity->imageDeleteFlg) {
+            $savedEntity = $this->get($uid, $documentId, false);
+            $this->giftImageStorageRepository->delete($savedEntity->imagePath);
+
+            $data[] = ['path' => 'imagePath', 'value' => null];
+        }
+
+        if ($entity->imagePath) {
+            $imagePath = $this->giftImageStorageRepository->upload($uid, $documentId, 'image1', $entity->imagePath);
+            $data[] = ['path' => 'imagePath', 'value' => $imagePath];
+        }
+
         $this->__getQuery($uid)->document($documentId)->update($data);
 
         return $documentId;
     }
 
     public function delete(string $uid, string $documentId): string {
-        $gift = $this->get($uid, $documentId, false);
+        $entity = $this->get($uid, $documentId, false);
 
-        if ($gift->imagePath) {
-            $this->giftImageStorageRepository->delete($uid, $documentId, $gift->imageFileName);
+        if ($entity->imagePath) {
+            $this->giftImageStorageRepository->delete($entity->imagePath);
         }
 
         $this->__getQuery($uid)->document($documentId)->delete();
@@ -127,12 +140,12 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             return $query;
         }
 
-        if (Hash::check($search, 'person_ids')) {
-            $query = $query->where('person_ids', 'array-contains-any', Hash::get($search, 'person_ids'));
+        if (Hash::check($search, 'personIds')) {
+            $query = $query->where('personIds', 'array-contains-any', Hash::get($search, 'personIds'));
         }
 
-        if (Hash::check($search, 'event_id')) {
-            $query = $query->where('event_id', 'in', Hash::get($search, 'event_id'));
+        if (Hash::check($search, 'eventId')) {
+            $query = $query->where('eventId', 'in', Hash::get($search, 'eventId'));
         }
 
         return $query;
@@ -167,10 +180,13 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             'id' => $document->id(),
             'type' => Hash::get($data, 'type'),
             'date' => Hash::get($data, 'date'),
+            'eventId' => Hash::get($data, 'eventId'),
+            'fromPersonIds' => Hash::get($data, 'fromPersonIds'),
+            'toPersonIds' => Hash::get($data, 'toPersonIds'),
             'gift' => Hash::get($data, 'gift'),
             'price' => Hash::get($data, 'price'),
             'url' => Hash::get($data, 'url'),
-            'imagePath' => Hash::get($data, 'image_path'),
+            'imagePath' => Hash::get($data, 'imagePath'),
             'memo' => Hash::get($data, 'memo'),
         ]);
 
@@ -178,16 +194,16 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             return $gift;
         }
 
-        if (Hash::check($data, 'event')) {
+        if ($gift->eventId) {
             $eventDoc = $data['event']->snapshot();
             if ($eventDoc->exists()) {
                 $gift->event = $this->eventRepository->documentToEntity($eventDoc);
             }
         }
 
-        if (Hash::check($data, 'from_persons')) {
+        if ($gift->fromPersonIds) {
             $fromPersons = [];
-            foreach ($data['from_persons'] as $person) {
+            foreach ($data['fromPersons'] as $person) {
                 $personDoc = $person->snapshot();
                 if ($personDoc->exists()) {
                     $fromPersons[] = $this->personRepository->documentToEntity($personDoc);
@@ -196,9 +212,9 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             $gift->fromPersons = $fromPersons;
         }
 
-        if (Hash::check($data, 'to_persons')) {
+        if ($gift->toPersonIds) {
             $toPersons = [];
-            foreach ($data['to_persons'] as $person) {
+            foreach ($data['toPersons'] as $person) {
                 $personDoc = $person->snapshot();
                 if ($personDoc->exists()) {
                     $toPersons[] = $this->personRepository->documentToEntity($personDoc);
@@ -211,6 +227,6 @@ class GiftRepository extends AppRepository implements IGiftRepository {
     }
 
     private function __getQuery(string $uid): CollectionReference {
-        return $this->database->collection('gifts')->document($uid)->collection('user_gifts');
+        return $this->database->collection('gifts')->document($uid)->collection('userGifts');
     }
 }

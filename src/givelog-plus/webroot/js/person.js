@@ -7,7 +7,7 @@ $('#personAddModal').find('.save').on('click', function() {
         type: 'POST',
         data:{
             'name': obj.find('input[name="name"]').val(),
-            'person_category_id': obj.find('[name="person_category_id"]').val(),
+            'personCategoryId': obj.find('[name="personCategoryId"]').val(),
             'memo': obj.find('textarea[name="memo"]').val(),
         },
         beforeSend: function(xhr){
@@ -22,7 +22,7 @@ $('#personAddModal').find('.save').on('click', function() {
         }
 
         obj.find('input[name="name"]').val(''),
-        obj.find('[name="person_category_id"]').val(''),
+        obj.find('[name="personCategoryId"]').val(''),
         obj.find('textarea[name="memo"]').val(''),
         obj.modal('hide');
     })

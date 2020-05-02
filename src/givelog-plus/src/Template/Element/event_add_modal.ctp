@@ -14,14 +14,14 @@
 <div class="label-area">
 <i class="fas fa-fw fa-calendar-check"></i><span class="text-xs font-weight-bold">イベント</span>
 </div>
-<?= $this->AppForm->control('name', ['id' => 'event_name', 'label' => false, 'class' => 'form-control', 'placeholder' => '誕生日']) ?>
+<?= $this->AppForm->control('name', ['id' => 'eventName', 'label' => false, 'class' => 'form-control', 'placeholder' => '誕生日']) ?>
 
 <div class="label-area">
 <i class="fas fa-fw fa-palette"></i><span class="text-xs font-weight-bold">ラベルカラー</span>
 </div>
 <div id="hslflat"></div>
 
-<?= $this->AppForm->control('id', ['id' => 'event_id', 'type' => 'hidden']) ?>
+<?= $this->AppForm->control('id', ['id' => 'eventId', 'type' => 'hidden']) ?>
 
 </div>
 <div class="modal-footer">

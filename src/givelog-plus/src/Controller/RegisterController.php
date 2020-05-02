@@ -17,7 +17,7 @@ class RegisterController extends AppController {
     }
 
     public function index(IUserRegisterUseCase $userRegisterUseCase) {
-        $this->set('page_title', 'アカウント新規作成');
+        $this->set('pageTitle', 'アカウント新規作成');
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -30,6 +30,6 @@ class RegisterController extends AppController {
     }
 
     public function finish() {
-        $this->set('page_title', 'アカウント新規作成');
+        $this->set('pageTitle', 'アカウント新規作成');
     }
 }

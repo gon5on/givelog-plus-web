@@ -10,15 +10,15 @@ use App\Model\Entity\Gift;
 class AppHelper extends Helper {
     public $helpers = ['Url'];
 
-    public function menu(string $title, array $uri, string $icon_class): string {
-        $parsed_url = Router::parseRequest(new ServerRequest(Router::url()));
-        $parsed_controller_action = Hash::get($parsed_url, 'controller') . Hash::get($parsed_url, 'action');
-        $target_controller_action = Hash::get($uri, 'controller') . Hash::get($uri, 'action');
+    public function menu(string $title, array $uri, string $iconClass): string {
+        $parsedUrl = Router::parseRequest(new ServerRequest(Router::url()));
+        $parsedControllerAction = Hash::get($parsedUrl, 'controller') . Hash::get($parsedUrl, 'action');
+        $targetControllerAction = Hash::get($uri, 'controller') . Hash::get($uri, 'action');
 
-        $active = ($parsed_controller_action == $target_controller_action) ? 'active' : '';
+        $active = ($parsedControllerAction == $targetControllerAction) ? 'active' : '';
 
         $tag = '<li class="nav-item ' . $active . '">';
-        $tag .= '<a class="nav-link" href="' . Router::url($uri) . '"><i class="fas fa-fw ' . $icon_class . '"></i>';
+        $tag .= '<a class="nav-link" href="' . Router::url($uri) . '"><i class="fas fa-fw ' . $iconClass . '"></i>';
         $tag .= '<span>' . $title . '</span></a>';
         $tag .= '</li>';
 
@@ -55,5 +55,12 @@ class AppHelper extends Helper {
 
     public function badge(string $labelColor, string $name): string {
         return '<span class="badge badge-pill" style="background-color:' . $labelColor . '">' . $name . '</span>' . "\n";
+    }
+
+    public function autoLink(string $text): string {
+        $pattern = '/((?:https?|ftp):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/';
+        $replace = '<a href="$1" target="_blank">$1</a>';
+
+        return preg_replace($pattern, $replace, $text);
     }
 }

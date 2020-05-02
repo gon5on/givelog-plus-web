@@ -24,7 +24,7 @@
 <div class="label-area">
 <i class="fas fa-fw fa-key"></i><span class="text-xs font-weight-bold">確認用パスワード</span>
 </div>
-<?= $this->AppForm->control('password_confirm', ['type' => 'password', 'label' => false, 'class' => 'form-control', 'placeholder' => '********']) ?>
+<?= $this->AppForm->control('passwordConfirm', ['type' => 'password', 'label' => false, 'class' => 'form-control', 'placeholder' => '********']) ?>
 
 </div>
 <div class="modal-footer">

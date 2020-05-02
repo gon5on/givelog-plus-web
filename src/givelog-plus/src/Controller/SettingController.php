@@ -8,7 +8,7 @@ class SettingController extends AppController {
     use InvokeActionTrait;
 
     public function index() {
-        $this->set('page_title', '設定');
+        $this->set('pageTitle', '設定');
 
         $this->set('email', $this->Auth->user('email'));
     }

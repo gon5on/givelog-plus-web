@@ -26,7 +26,7 @@ class PersonCategoryAddInteractor implements IPersonCategoryAddUseCase {
 
         $entity = new PersonCategory([
             'name' => Hash::get($data, 'name'),
-            'labelColor' => Hash::get($data, 'label_color'),
+            'labelColor' => Hash::get($data, 'labelColor'),
         ]);
 
         $entity->id = $this->personCategoryRepository->add($uid, $entity);

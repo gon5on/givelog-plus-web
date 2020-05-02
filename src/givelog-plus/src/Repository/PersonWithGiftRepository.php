@@ -22,7 +22,7 @@ class PersonWithGiftRepository extends AppRepository implements IPersonRepositor
 
     public function get(string $uid, string $documentId): Person {
         $entity = $this->personRepository->get($uid, $documentId);
-        $entity->gifts = $this->giftRepository->list($uid, ['person_ids' => [$documentId]]);
+        $entity->gifts = $this->giftRepository->list($uid, ['personIds' => [$documentId]]);
 
         return $entity;
     }

@@ -11,7 +11,7 @@ class EventController extends AppController {
     use InvokeActionTrait;
 
     public function index(IEventListUseCase $eventListUseCase) {
-        $this->set('page_title', 'イベントリスト');
+        $this->set('pageTitle', 'イベントリスト');
 
         $uid = $this->Auth->user('uid');
         $events = $eventListUseCase->list($uid);

@@ -29,7 +29,7 @@ class EventRepository extends AppRepository implements IEventRepository {
     public function add(string $uid, Event $entity): string {
         $data = [
             'name' => $entity->name,
-            'label_color' => $entity->labelColor,
+            'labelColor' => $entity->labelColor,
             'created' => FieldValue::serverTimestamp(),
             'modified' => FieldValue::serverTimestamp(),
         ];
@@ -42,7 +42,7 @@ class EventRepository extends AppRepository implements IEventRepository {
     public function edit(string $uid, string $documentId, Event $entity): string {
         $data = [
             ['path' => 'name', 'value' => $entity->name],
-            ['path' => 'label_color', 'value' => $entity->labelColor],
+            ['path' => 'labelColor', 'value' => $entity->labelColor],
             ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
         ];
 
@@ -89,11 +89,11 @@ class EventRepository extends AppRepository implements IEventRepository {
         return new Event([
             'id' => $document->id(),
             'name' => Hash::get($data, 'name'),
-            'labelColor' => Hash::get($data, 'label_color'),
+            'labelColor' => Hash::get($data, 'labelColor'),
         ]);
     }
 
     private function __getQuery(string $uid): CollectionReference {
-        return $this->database->collection('events')->document($uid)->collection('user_events');
+        return $this->database->collection('events')->document($uid)->collection('userEvents');
     }
 }

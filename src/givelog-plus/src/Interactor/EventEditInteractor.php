@@ -30,7 +30,7 @@ class EventEditInteractor implements IEventEditUseCase {
 
         $entity = new Event([
             'name' => Hash::get($data, 'name'),
-            'labelColor' => Hash::get($data, 'label_color'),
+            'labelColor' => Hash::get($data, 'labelColor'),
         ]);
 
         $this->eventRepository->edit($uid, $id, $entity);

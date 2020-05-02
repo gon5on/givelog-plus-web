@@ -8,7 +8,7 @@ use Cake\Utility\Hash;
 class AppFormHelper extends FormHelper {
 
     public function segmentedControl($name, $options) {
-        $add_options = [
+        $addOptions = [
             'type' => 'radio',
             'hiddenField' => false,
             'templates' => [
@@ -29,6 +29,6 @@ class AppFormHelper extends FormHelper {
             ]
         ];
 
-        return $this->control($name, array_merge($options, $add_options));
+        return $this->control($name, array_merge($options, $addOptions));
     }
 }

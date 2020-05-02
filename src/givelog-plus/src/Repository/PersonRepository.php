@@ -38,7 +38,8 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     public function add(string $uid, Person $entity): string {
         $data = [
             'name' => $entity->name,
-            'person_category' => $this->personCategoryRepository->getRef($uid, $entity->personCategoryId),
+            'personCategoryId' => $entity->personCategoryId,
+            'personCategory' => $this->personCategoryRepository->getRef($uid, $entity->personCategoryId),
             'memo' => $entity->memo,
             'created' => FieldValue::serverTimestamp(),
             'modified' => FieldValue::serverTimestamp(),
@@ -52,7 +53,8 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     public function edit(string $uid, string $documentId, Person $entity): string {
         $data = [
             ['path' => 'name', 'value' => $entity->name],
-            ['path' => 'person_category', 'value' => $this->personCategoryRepository->getRef($uid, $entity->personCategoryId)],
+            ['path' => 'personCategoryId', 'value' => $entity->personCategoryId],
+            ['path' => 'personCategory', 'value' => $this->personCategoryRepository->getRef($uid, $entity->personCategoryId)],
             ['path' => 'memo', 'value' => $entity->memo],
             ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
         ];
@@ -112,8 +114,8 @@ class PersonRepository extends AppRepository implements IPersonRepository {
             'memo' => Hash::get($data, 'memo'),
         ]);
 
-        if (Hash::check($data, 'person_category')) {
-            $pcDoc = $data['person_category']->snapshot();
+        if (Hash::check($data, 'personCategory')) {
+            $pcDoc = $data['personCategory']->snapshot();
             $person->personCategory = $this->personCategoryRepository->documentToEntity($pcDoc);
         }
 
@@ -121,6 +123,6 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     }
 
     private function __getQuery(string $uid): CollectionReference {
-        return $this->database->collection('persons')->document($uid)->collection('user_persons');
+        return $this->database->collection('persons')->document($uid)->collection('userPersons');
     }
 }

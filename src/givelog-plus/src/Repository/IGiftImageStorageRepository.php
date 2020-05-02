@@ -6,7 +6,7 @@ interface IGiftImageStorageRepository {
 
     public function upload(string $uid, string $documentId, string $fileName, string $srcPath): string;
 
-    public function delete(string $uid, string $documentId, string $fileName): string;
+    public function delete(string $path): string;
 
     public function exist(string $uid, string $documentId, string $fileName): bool;
 

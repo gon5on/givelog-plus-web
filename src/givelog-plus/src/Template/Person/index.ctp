@@ -1,4 +1,4 @@
-<?php $this->assign('page_title', $page_title) ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <div class="text-right mb-2">
 <a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-plus-circle"></i>人物追加</a>

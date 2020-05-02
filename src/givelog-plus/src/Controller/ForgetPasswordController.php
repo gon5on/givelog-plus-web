@@ -17,7 +17,7 @@ class ForgetPasswordController extends AppController {
     }
 
     public function index(IUserPwReminderUseCase $userPwReminderUseCase) {
-        $this->set('page_title', 'パスワード再発行');
+        $this->set('pageTitle', 'パスワード再発行');
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -26,6 +26,6 @@ class ForgetPasswordController extends AppController {
     }
 
     public function finish() {
-        $this->set('page_title', 'パスワード再発行');
+        $this->set('pageTitle', 'パスワード再発行');
     }
 }

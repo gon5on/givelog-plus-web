@@ -1,4 +1,4 @@
-<?php $this->assign('page_title', $page_title) ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <div class="text-center">
 <h1 class="h4 text-gray-900 mb-4">退会</h1>

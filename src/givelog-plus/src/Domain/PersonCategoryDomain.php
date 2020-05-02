@@ -9,13 +9,13 @@ class PersonCategoryDomain {
         $validator = new Validator();
 
         $validator
-            ->requirePresence('name', '入力してください')
+            ->requirePresence('name', true, '入力してください')
             ->notEmpty('name', '入力してください')
             ->maxLength('name', 15, '15文字以内で入力してください');
 
         $validator
-            ->requirePresence('label_color', '選択してください')
-            ->notEmpty('label_color', '選択してください');
+            ->requirePresence('labelColor', true, '選択してください')
+            ->notEmpty('labelColor', '選択してください');
 
         return $validator;
     }

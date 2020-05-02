@@ -7,7 +7,7 @@ $('#userEditModal').find('.save').on('click', function() {
         data:{
             'email': obj.find('input[name="email"]').val(),
             'password': obj.find('input[name="password"]').val(),
-            'password_confirm': obj.find('input[name="password_confirm"]').val(),
+            'passwordConfirm': obj.find('input[name="passwordConfirm"]').val(),
         },
         beforeSend: function(xhr){
             xhr.setRequestHeader('X-CSRF-Token', obj.find('input[name="_csrfToken"]').val());

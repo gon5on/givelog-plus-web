@@ -1,4 +1,4 @@
-<?php $this->assign('page_title', $page_title) ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <div class="table table-hover">
 <table class="table" id="dataTable" width="100%" cellspacing="0">

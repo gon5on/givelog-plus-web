@@ -26,7 +26,7 @@ class WithdrawController extends AppController {
     }
 
     public function finish() {
-        $this->set('page_title', '退会');
+        $this->set('pageTitle', '退会');
 
         $this->viewBuilder()->setLayout('before_login');
     }

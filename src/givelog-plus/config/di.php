@@ -6,8 +6,8 @@ return [
             '\App\Controller\GiftController' => [
                 'index' => ['giftListUseCase'],
                 'view' => ['giftViewUseCase'],
-                'add' => ['giftAddUseCase', 'personAddUseCase', 'eventAddUseCase'],
-                'edit' => ['giftEditUseCase', 'personAddUseCase', 'eventAddUseCase'],
+                'add' => ['giftAddUseCase', 'personAddUseCase'],
+                'edit' => ['giftEditUseCase', 'personAddUseCase'],
                 'delete' => ['giftDeleteUseCase'],
             ],
             '\App\Controller\EventController' => [
@@ -164,13 +164,11 @@ return [
                     $c['userRepository'],
                 );
             },
-
             'userPwReminderUseCase' => function($c) {
                 return new App\Interactor\UserPwReminderInteractor(
                     $c['userRepository'],
                 );
             },
-
             'userWithdrawUseCase' => function($c) {
                 return new App\Interactor\UserWithdrawInteractor(
                     $c['userRepository'],

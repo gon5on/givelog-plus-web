@@ -9,12 +9,12 @@ class UserRegisterDomain {
         $validator = new Validator();
 
         $validator
-            ->requirePresence('name', '入力してください')
+            ->requirePresence('name', true, '入力してください')
             ->notEmpty('name', '入力してください')
             ->maxLength('name', 15, '15文字以内で入力してください');
 
         $validator
-            ->requirePresence('email', '入力してください')
+            ->requirePresence('email', true, '入力してください')
             ->notEmpty('email', '入力してください')
             ->maxLength('email', 100, '100文字以内で入力してください')
             ->email('email', 'メールアドレスの形式が正しくありません');
@@ -22,20 +22,20 @@ class UserRegisterDomain {
             //TODO メアド重複
 
         $validator
-            ->requirePresence('password', '入力してください')
+            ->requirePresence('password', true, '入力してください')
             ->notEmpty('password', '入力してください')
             ->minLength('password', 8, '8文字以上で入力してください')
             ->maxLength('password', 100, '100文字以内で入力してください')
             ->add('password', [
                 'compareWith' => [
-                    'rule' => ['compareWith','password_confirm'],
+                    'rule' => ['compareWith','passwordConfirm'],
                     'message' => '確認用のパスワードと一致しません'
                 ]
             ]);
 
         $validator
-            ->requirePresence('password_confirm', '入力してください')
-            ->notEmpty('password_confirm', '入力してください')
+            ->requirePresence('passwordConfirm', true, '入力してください')
+            ->notEmpty('passwordConfirm', '入力してください')
             ->minLength('password', 8, '8文字以上で入力してください')
             ->maxLength('password', 100, '100文字以内で入力してください');
 

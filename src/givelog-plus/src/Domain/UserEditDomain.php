@@ -9,7 +9,7 @@ class UserEditDomain {
         $validator = new Validator();
 
         $validator
-            ->requirePresence('email', '入力してください')
+            ->requirePresence('email', true, '入力してください')
             ->notEmpty('email', '入力してください')
             ->maxLength('email', 100, '100文字以内で入力してください')
             ->email('email', 'メールアドレスの形式が正しくありません');
@@ -22,13 +22,13 @@ class UserEditDomain {
             ->maxLength('password', 100, '100文字以内で入力してください')
             ->add('password', [
                 'compareWith' => [
-                    'rule' => ['compareWith','password_confirm'],
+                    'rule' => ['compareWith','passwordConfirm'],
                     'message' => '確認用のパスワードと一致しません'
                 ]
             ]);
 
         $validator
-            ->allowEmpty('password_confirm');
+            ->allowEmpty('passwordConfirm');
 
         return $validator;
     }

@@ -14,7 +14,7 @@ class LoginController extends AppController {
     }
 
     public function index() {
-        $this->set('page_title', 'ログイン');
+        $this->set('pageTitle', 'ログイン');
 
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();

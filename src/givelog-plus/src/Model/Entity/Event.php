@@ -5,7 +5,9 @@ use Cake\ORM\Entity;
 
 class Event extends Entity {
     protected $_accessible = [
-        'id' => false,
-        '*' => true,
+        'id' => true,
+        'name' => true,
+        'labelColor' => true,
+        '*' => false,
     ];
 }

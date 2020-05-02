@@ -31,7 +31,7 @@ class PersonAddInteractor implements IPersonAddUseCase {
 
         $entity = new Person([
             'name' => Hash::get($data, 'name'),
-            'personCategoryId' => Hash::get($data, 'person_category_id'),
+            'personCategoryId' => Hash::get($data, 'personCategoryId'),
             'memo' => Hash::get($data, 'memo'),
         ]);
 

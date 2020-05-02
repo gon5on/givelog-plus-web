@@ -12,7 +12,7 @@ class PersonController extends AppController {
     use InvokeActionTrait;
 
     public function index(IPersonListUseCase $personListUseCase, IPersonAddUseCase $personAddUseCase) {
-        $this->set('page_title', '人物リスト');
+        $this->set('pageTitle', '人物リスト');
 
         $uid = $this->Auth->user('uid');
         $persons = $personListUseCase->list($uid);

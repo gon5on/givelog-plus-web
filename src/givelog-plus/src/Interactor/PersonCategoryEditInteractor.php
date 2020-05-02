@@ -30,7 +30,7 @@ class PersonCategoryEditInteractor implements IPersonCategoryEditUseCase {
 
         $entity = new PersonCategory([
             'name' => Hash::get($data, 'name'),
-            'labelColor' => Hash::get($data, 'label_color'),
+            'labelColor' => Hash::get($data, 'labelColor'),
         ]);
 
         $this->personCategoryRepository->edit($uid, $id, $entity);

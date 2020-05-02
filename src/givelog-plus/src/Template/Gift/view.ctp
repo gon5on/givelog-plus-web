@@ -1,9 +1,9 @@
-<?php $this->assign('page_title', $page_title) ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <div class="text-right">
 <a class="small" href="<?= $this->Url->build(['controller' => 'Gift', 'action' => 'edit', $gift->id]) ?>"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
-<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
+<a href="javascript::void(0)" class="small" data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
 </div>
 
 <hr>
@@ -52,7 +52,7 @@
 <div class="label-area">
 <i class="fas fa-fw fa-image"></i><span class="text-xs font-weight-bold">画像</span>
 </div>
-<img src="<?= $this->Url->build(['controller' => 'File', 'action' => 'giftImage', $gift->id, $gift->image_file_name]) ?>">
+<img src="<?= $this->Url->build(['controller' => 'File', 'action' => 'giftImage', $gift->id, $gift->imageFileName]) ?>">
 <hr>
 <?php endif; ?>
 
@@ -60,7 +60,7 @@
 <div class="label-area">
 <i class="fas fa-fw fa-pen"></i><span class="text-xs font-weight-bold">メモ</span>
 </div>
-<span><?= nl2br($gift->memo) ?></span>
+<span><?= nl2br($this->App->autoLink($gift->memo)) ?></span>
 <hr>
 <?php endif; ?>
 

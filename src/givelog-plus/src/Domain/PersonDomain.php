@@ -10,13 +10,13 @@ class PersonDomain {
         $validator = new Validator();
 
         $validator
-            ->requirePresence('name', '入力してください')
+            ->requirePresence('name', true, '入力してください')
             ->notEmpty('name', '入力してください')
             ->maxLength('name', 15, '15文字以内で入力してください');
 
         $validator
-            ->allowEmpty('person_category_id')
-            ->add('person_category_id', 'valid', [
+            ->allowEmpty('personCategoryId')
+            ->add('personCategoryId', 'valid', [
                 'rule' => function ($value, $context) {
                     $array = Hash::extract($context, 'providers.passed.personCategories');
                     return array_key_exists($value, $array);

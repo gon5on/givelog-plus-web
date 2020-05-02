@@ -26,7 +26,7 @@ class EventAddInteractor implements IEventAddUseCase {
         
         $entity = new Event([
             'name' => Hash::get($data, 'name'),
-            'labelColor' => Hash::get($data, 'label_color'),
+            'labelColor' => Hash::get($data, 'labelColor'),
         ]);
 
         $entity->id = $this->eventRepository->add($uid, $entity);
