@@ -1,7 +1,17 @@
 $('#login').click(function(e) {
-    var email = $('#email').val();
-    var password = $('#password').val();
+    let email = $('#email').val();
+    let password = $('#password').val();
 
+    doLogin(email, password);
+});
+
+$('#start').click(function(e) {
+    $('#loginForm').attr('action', '/login?redirect=/gift/add');
+
+    doLogin(email, password);
+});
+
+function doLogin(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function() {
         //ログイン成功
@@ -15,11 +25,11 @@ $('#login').click(function(e) {
     })
     .catch(function(error) {
         //ログイン失敗
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        let errorCode = error.code;
+        let errorMessage = error.message;
 
         //TODO エラー表示
         console.log(errorCode);
         console.log(errorMessage);
     });
-});
+}

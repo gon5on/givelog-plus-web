@@ -55,5 +55,4 @@ https://github.com/rochamarcelo/cake-pimple-di
 * セキュリティコンポーネント
 * ページング
 * postしか許可してないページは500にしない
-
 * h()

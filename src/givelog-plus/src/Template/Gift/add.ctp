@@ -142,7 +142,7 @@ $('#example-multiple-optgroups').multiselect({
         if (options.length === 0) {
             return '選択してください';
         } else {
-            var labels = [];
+            let labels = [];
             options.each(function() {
                 if ($(this).attr('label') !== undefined) {
                     labels.push($(this).attr('label'));
@@ -163,7 +163,7 @@ $('#example-multiple-optgroups2').multiselect({
         if (options.length === 0) {
             return '選択してください';
         } else {
-            var labels = [];
+            let labels = [];
             options.each(function() {
                 if ($(this).attr('label') !== undefined) {
                     labels.push($(this).attr('label'));

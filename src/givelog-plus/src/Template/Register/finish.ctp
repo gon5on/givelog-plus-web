@@ -6,10 +6,12 @@
 
 <p class="mb-4">ご登録ありがとうございました！</p>
 
-<?= $this->Html->link('さっそくを使ってみる', ['controller' => 'Gift', 'action' => 'add'], ['class' => 'btn btn-primary btn-user btn-block mb-4']) ?>
+<a href="javascript:void(0)" id="start" class="btn btn-primary btn-user btn-block mb-4">さっそくを使ってみる</a>
 
 <hr>
 
 <div class="text-center">
 <?= $this->Html->link('< 戻る', ['controller' => 'Login'], ['class' => 'small']) ?>
 </div>
+
+<?= $this->element('hidden_login'); ?>

@@ -23,11 +23,4 @@
 <?= $this->Html->link('> パスワードを忘れた方はこちら', ['controller' => 'ForgetPassword'], ['class' => 'small']) ?>
 </div>
 
-<!-- Login -->
-<?= $this->AppForm->create(null, ['id' => 'loginForm']) ?>
-<?= $this->AppForm->control('token', ['type' => 'hidden']) ?>
-<?= $this->AppForm->end(); ?>
-
-<?= $this->Html->script('https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js', ['block' => true]) ?>
-<?= $this->Html->script('firebase-login', ['block' => true]) ?>
-<!-- Login -->
+<?= $this->element('hidden_login'); ?>
