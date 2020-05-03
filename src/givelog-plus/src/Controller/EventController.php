@@ -31,8 +31,8 @@ class EventController extends AppController {
         return $this->getAjaxResponse($event);
     }
 
-    public function edit(IEventEditUseCase $eventEditUseCase, string $id) {
-        if (!$this->request->is('ajax')) {
+    public function edit(IEventEditUseCase $eventEditUseCase, string $id = null) {
+        if (!$this->request->is('ajax') || !$id) {
             return $this->redirect('/event');
         }
 
@@ -43,8 +43,8 @@ class EventController extends AppController {
         return $this->getAjaxResponse($event);
     }
 
-    public function delete(IEventDeleteUseCase $eventDeleteUseCase, string $id) {
-        if ($this->request->is('post')) {
+    public function delete(IEventDeleteUseCase $eventDeleteUseCase, string $id = null) {
+        if ($this->request->is('post') && $id) {
             $uid = $this->Auth->user('uid');
             $eventDeleteUseCase->delete($uid, $id);
         }

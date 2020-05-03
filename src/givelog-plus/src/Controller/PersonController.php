@@ -21,7 +21,11 @@ class PersonController extends AppController {
         $this->set(compact('persons', 'personCategories'));
     }
 
-    public function view(IPersonViewUseCase $personViewUseCase, IPersonEditUseCase $personEditUseCase, string $id) {
+    public function view(IPersonViewUseCase $personViewUseCase, IPersonEditUseCase $personEditUseCase, string $id = null) {
+        if (!$id) {
+            return $this->redirect('/person');
+        }
+
         $uid = $this->Auth->user('uid');
         $person = $personViewUseCase->view($uid, $id);
         $personCategories = $personEditUseCase->getParsonCategoryIdNameArray($uid);
@@ -41,8 +45,8 @@ class PersonController extends AppController {
         return $this->getAjaxResponse($person);
     }
 
-    public function edit(IPersonEditUseCase $personEditUseCase, string $id) {
-        if (!$this->request->is('ajax')) {
+    public function edit(IPersonEditUseCase $personEditUseCase, string $id = null) {
+        if (!$this->request->is('ajax') || !$id) {
             return $this->redirect('/person');
         }
 
@@ -53,8 +57,8 @@ class PersonController extends AppController {
         return $this->getAjaxResponse($person);
     }
 
-    public function delete(IPersonDeleteUseCase $personDeleteUseCase, string $id) {
-        if ($this->request->is('post')) {
+    public function delete(IPersonDeleteUseCase $personDeleteUseCase, string $id = null) {
+        if ($this->request->is('post') && $id) {
             $uid = $this->Auth->user('uid');
             $personDeleteUseCase->delete($uid, $id);
         }

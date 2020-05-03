@@ -31,8 +31,8 @@ class PersonCategoryController extends AppController {
         return $this->getAjaxResponse($personCategory);
     }
 
-    public function edit(IPersonCategoryEditUseCase $personCategoryEditUseCase, string $id) {
-        if (!$this->request->is('ajax')) {
+    public function edit(IPersonCategoryEditUseCase $personCategoryEditUseCase, string $id = null) {
+        if (!$this->request->is('ajax') || !$id) {
             return $this->redirect('/person-category');
         }
 
@@ -43,8 +43,8 @@ class PersonCategoryController extends AppController {
         return $this->getAjaxResponse($personCategory);
     }
 
-    public function delete(IPersonCategoryDeleteUseCase $personCategoryDeleteUseCase, string $id) {
-        if ($this->request->is('post')) {
+    public function delete(IPersonCategoryDeleteUseCase $personCategoryDeleteUseCase, string $id = null) {
+        if ($this->request->is('post') && $id) {
             $uid = $this->Auth->user('uid');
             $personCategoryDeleteUseCase->delete($uid, $id);
         }

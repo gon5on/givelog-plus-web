@@ -39,9 +39,6 @@ extract($person->toArrayWithDefaultKey());
 
 </div>
 <div class="modal-footer">
-<?php if (isset($person)): ?>
-<?= $this->AppForm->button('削除', ['type' => 'button', 'class' => 'btn btn-danger delete']) ?>
-<?php endif; ?>
 <?= $this->AppForm->button('保存', ['type' => 'button', 'class' => 'btn btn-primary save']) ?>
 </div>
 </div>

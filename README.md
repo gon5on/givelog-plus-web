@@ -51,8 +51,6 @@ https://github.com/rochamarcelo/cake-pimple-di
 
 * ダブルクリック対策
 * authのセッション更新
-* 新規登録後の自動ログイン
 * セキュリティコンポーネント
 * ページング
-* postしか許可してないページは500にしない
 * h()

@@ -23,7 +23,11 @@ class GiftController extends AppController {
         $this->set(compact('gifts'));
     }
 
-    public function view(IGiftViewUseCase $giftViewUseCase, string $id) {
+    public function view(IGiftViewUseCase $giftViewUseCase, string $id = null) {
+        if (!$id) {
+            return $this->redirect('/gift');
+        }
+
         $this->set('pageTitle', 'プレゼント詳細');
 
         $uid = $this->Auth->user('uid');
@@ -52,7 +56,11 @@ class GiftController extends AppController {
         $this->set(compact('persons', 'events', 'personCategories'));
     }
 
-    public function edit(IGiftEditUseCase $giftEditUseCase, IPersonAddUseCase $personAddUseCase, string $id) {
+    public function edit(IGiftEditUseCase $giftEditUseCase, IPersonAddUseCase $personAddUseCase, string $id = null) {
+        if (!$id) {
+            return $this->redirect('/gift');
+        }
+
         $this->set('pageTitle', 'プレゼント編集');
 
         $uid = $this->Auth->user('uid');
@@ -74,8 +82,8 @@ class GiftController extends AppController {
         $this->render('add');
     }
 
-    public function delete(IGiftDeleteUseCase $giftDeleteUseCase, string $id) {
-        if ($this->request->is('post')) {
+    public function delete(IGiftDeleteUseCase $giftDeleteUseCase, string $id = null) {
+        if ($this->request->is('post') && $id) {
             $uid = $this->Auth->user('uid');
             $giftDeleteUseCase->delete($uid, $id);
         }
