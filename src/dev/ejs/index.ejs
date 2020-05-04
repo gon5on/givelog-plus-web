@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<%var pageData = {
+    id:'index',
+    title:'ログイン',
+    description:'',
+    keywords:''
+};%>
+<%- include('./Layout/_head', {data:pageData}) %>
+
+<body>
+    <!-- ////////// PageContents ////////// -->
+    <div class="container">
+        <div class="justify-content-center">
+
+            <div class="card">
+
+                <h1><img src="<%= config.header[4].root %>img/logo.svg" alt="givelog plus"></h1>
+
+                <div class="user">
+                    <div class="form-group email">
+                        <input type="email" name="email" class="form-control form-control-user" placeholder="メールアドレス" id="email">
+                    </div>
+                    <div class="form-group password">
+                        <input type="password" name="password" class="form-control form-control-user mb-4" placeholder="パスワード" id="password">
+                    </div>
+                    <a href="/forget-password" class="small">パスワードを忘れた方はこちら</a>
+                    <button class="btn btn-primary btn-user btn-block" id="login" type="submit">ログイン</button>
+                </div>
+
+                <hr>
+                <a href="/register" class="btn btn-info btn-user btn-block">アカウント新規作成</a>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ////////// END PageContents ////////// -->
+    <%- include('./Layout/_script',{data:pageData});%>
+</body>
+
+</html>

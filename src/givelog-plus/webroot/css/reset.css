@@ -1,0 +1,149 @@
+@charset "utf-8";
+/* =======================================
+	 CSS BrowserReset BaseElements
+ ======================================= */
+html, body, div, span, nav, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, tt, var,
+dl, dt, dd, ol, ul, li, fieldset, form, label, button, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, footer, header, hgroup,
+main, menu, nav, section, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	font-style: inherit;
+	font-weight: inherit;
+	background: transparent;
+}
+html {
+	font-size: 14px;
+	overflow-y: scroll;
+}
+img {
+	vertical-align: text-bottom;
+	-ms-interpolation-mode: bicubic;
+	-webkit-backface-visibility: hidden;
+	        backface-visibility: hidden;
+	-ms-interpolation-mode : nearest-neighbor; 
+}
+a {
+	-webkit-tap-highlight-color: transparent;
+}
+a:focus {
+	/*\*/
+	overflow: hidden;
+	/**/
+}
+strong {
+	font-weight: bold;
+}
+sup {
+	vertical-align: super;
+	font-size: 70%;
+}
+sub {
+	vertical-align: sub;
+	font-size: 70%;
+}
+ul {
+	list-style: none;
+}
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+caption,
+th,
+td {
+	vertical-align: top;
+	text-align: left;
+	font-weight: normal;
+}
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: none;
+}
+/* form */
+input {
+	outline: none;
+	border: none;
+	border-radius: 0;
+	background: none;
+	vertical-align: middle;
+	font-family: inherit;
+}
+input[type="radio"],
+input[type="checkbox"] {
+	margin: 0;
+}
+textarea {
+	outline: none;
+	border: none;
+	border-radius: 0;
+	background: none;
+	font-family: inherit;
+	resize: vertical;
+}
+button {
+	outline: none;
+	border: none;
+	border-radius: 0;
+	background: none;
+	font-family: inherit;
+	cursor: pointer;
+
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+}
+select {
+	outline: none;
+	border: none;
+	border-radius: 0;
+	background: none;
+	vertical-align: middle;
+	font-family: inherit;
+	cursor: pointer;
+
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+}
+/* for IE select */
+select::-ms-expand {
+	display: none;
+}
+/* for IE clear */
+input::-ms-clear {
+	display: none;
+}
+/* for IE password */
+input::-ms-reveal {
+	display: none;
+}
+option {
+	padding-right: 10px;
+}
+
+/* ------------------------------
+	HTML5 ELEMENTS
+------------------------------ */
+header, footer, article, section, aside,
+main, nav, menu, details, summary, figcaption, figure {
+	display: block;
+}
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}

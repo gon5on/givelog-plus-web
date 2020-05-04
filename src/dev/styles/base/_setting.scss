@@ -1,0 +1,71 @@
+//※このコメントは出ない
+
+//フォント
+$font-family-base: 'Source Sans Pro', "Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
+
+$font-size-giant: 24px;
+$font-size-large: 18px;
+$font-size-medium: 16px;
+$font-size-small: 14px;
+$font-size-slight: 13px;
+$font-size-tiny: 10px;
+
+//カラー
+$color-back: #effaff;
+$color-darkblue: #43425d;
+$color-gray: #a7a7a7;
+$color-white: #ffffff;
+
+$color-blue: #11b1dc;
+$color-blue-gr: linear-gradient(to left, rgba(17,177,220,1) 0%, rgba(103,223,255,1) 100% );
+$color-orange: #faa848;
+$color-orange-gr: linear-gradient(to left, rgba(250,168,72,1) 0%, rgba(255,215,124,1) 100% );
+$color-pink: #fe719d;
+$color-pink-gr: linear-gradient(to left, rgba(254,113,157,1) 0%, rgba(255,198,216,1) 100% );
+$color-purple: #deabfc;
+$color-purple-gr: linear-gradient(to left, rgba(222,171,252,1) 0%, rgba(237,226,255,1) 100% );
+$color-skyblue: #63D4E2;
+$color-skyblue-gr: linear-gradient(to left, rgba(99,212,226,1) 0%, rgba(168,245,255,1) 100% );
+
+
+// Width
+$width-pc: 960px;
+$width-tablet: 748px;
+$width-smartphone: 460px;
+$width-scrollbar: 20px;
+//@mixin に続いてお好みの名前を定義し、@include で呼び出します。
+//.class{ @include hoge(**); }  ←（）は引数
+//@include で呼び出すときに括弧内（）に値を入れると、その部分に当てはめて出力されます。
+@mixin mq980 {
+	// PC表示: 768+20=788px～
+	@media only screen and (max-width: $width-pc + $width-scrollbar) {
+		@content;
+	}
+}
+@mixin mq768 {
+	// タブレット表示: 0 ～ 768+20-1=787px
+	@media only screen and (max-width: $width-tablet + $width-scrollbar) {
+		@content;
+	}
+}
+@mixin mq480 {
+	// スマートフォン表示: 480+20-1=499px～
+	@media only screen and (max-width: $width-smartphone + $width-scrollbar) {
+		@content;
+	}
+}
+//サイズ直書き @include mq(300) {....}
+@mixin mq($size) {
+	@media only screen and (max-width: $size + px) {
+		@content;
+	}
+}
+
+//親セレクタの置換
+//@include replace(".hoge", ".poge") {}
+//@include replace(".hoge , .poge", ".poge") {} ←hogeだけ外したい
+@mixin replace ($original, $replacement) {
+	@at-root #{selector-replace(&, $original, $replacement)} {
+		@content
+	}
+}

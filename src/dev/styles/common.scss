@@ -1,0 +1,136 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap");
+// font-family: 'Source Sans Pro', sans-serif;
+@import "base/setting";
+
+/* =======================================
+	Common Style
+	======================================= */
+html * {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
+
+html {
+	overflow: auto;
+	height: 100%;
+}
+
+html,
+body {
+	position: relative;
+	-webkit-overflow-scrolling: touch;
+	min-height: 100%;
+	color: $color-darkblue;
+	font-size: $font-size-medium;
+	font-family: $font-family-base;
+	line-height: 1.6rem;
+}
+
+body {
+	right: 0;
+	left: 0;
+	margin: auto;
+	max-width: 980px;
+}
+
+*:focus {
+	outline: none;
+}
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+a {
+	color: $color-darkblue;
+	text-decoration: none;
+	transition: 200ms all ease-in-out;
+
+	&:hover {
+		img {
+			opacity: .8;
+
+			@include mq768 {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+
+//CONTENT
+body {
+	background: $color-back;
+	color: $color-darkblue;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 768px;
+	width: 100%;
+}
+
+
+//BUTTON
+.btn {
+	position: relative;
+	z-index: 0;
+	display: block;
+	overflow: hidden;
+	max-width: 248px;
+	width: 100%;
+	height: 48px;
+	border-radius: 25px;
+	color: $color-white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.1rem;
+	line-height: 48px;
+	margin: auto;
+
+	&::before {
+		position: absolute;
+		left: 0;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		content: "";
+		transition: 300ms;
+	}
+
+	&:hover {
+		transition: all 300ms ease-out;
+
+		&::before {
+			opacity: 0;
+		}
+	}
+}
+
+.btn-primary {
+	background: $color-blue;
+	box-shadow: 3px 3px 10px rgba(#0c93c9, .6);
+
+	&::before {
+		background: $color-blue-gr;
+	}
+
+	&:hover {
+		box-shadow: 1px 1px 10px #0c93c9 inset;
+	}
+}
+
+.btn-info {
+	background: $color-pink;
+	box-shadow: 3px 3px 10px rgba(#af3781, .6);
+
+	&::before {
+		background: $color-pink-gr;
+	}
+
+	&:hover {
+		box-shadow: 1px 1px 10px #af3781 inset;
+	}
+}
