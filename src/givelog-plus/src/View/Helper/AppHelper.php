@@ -38,8 +38,9 @@ class AppHelper extends Helper {
     }
 
     public function giftPersonCategoryLabel(Gift $gift): string {
-        $persons = ($gift->type == GIVE) ? $gift->toPersons : $gift->fromPersons;
-        $personCategories = Hash::combine($persons, '{n}.personCategory.id', '{n}.personCategory');
+        $toPersonCategories = Hash::combine($gift->toPersons, '{n}.personCategory.id', '{n}.personCategory');
+        $fromPersonCategories = Hash::combine($gift->fromPersons, '{n}.personCategory.id', '{n}.personCategory');
+        $personCategories = $toPersonCategories + $fromPersonCategories;
 
         if (!$personCategories) {
             return '';

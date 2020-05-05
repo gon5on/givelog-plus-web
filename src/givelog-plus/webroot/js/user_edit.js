@@ -2,7 +2,7 @@ $('#userEditModal').find('.save').on('click', function() {
     let obj = $('#userEditModal');
 
     $.ajax({
-        url: '/setting/user-edit/',
+        url: '/user/edit/',
         type: 'POST',
         data:{
             'email': obj.find('input[name="email"]').val(),
@@ -14,7 +14,6 @@ $('#userEditModal').find('.save').on('click', function() {
         },
     })
     .done(function(data) {
-       location.href = '/setting';
        obj.modal('hide');
     })
     .fail(function(data, textStatus, xhr) {

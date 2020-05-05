@@ -15,9 +15,12 @@
     ```
 4. access  
 http://givelog-plus.local
-
+ 
 
 # Library / Plugin
+
+* CakePHP3  
+https://book.cakephp.org/3/ja/index.html
 
 * Bootstrap4  
 https://getbootstrap.com
@@ -43,8 +46,16 @@ https://fontawesome.com
 * Firebase Admin SDK for PHP  
 https://github.com/kreait/firebase-php
 
-* CakePimpleDi
+* CakePimpleDi  
 https://github.com/rochamarcelo/cake-pimple-di
+
+
+# My Clean Architecture Rule
+
+* フレームワークとの相性が悪いので、Presenterは使わない（コントローラが直接UIに値を返す）
+* Cakeの機能は全面的に使用してOKとする
+* InteractorとRepositoryは直接newせず、DIする
+* どこに何を置いたらよいか迷ったら、テストを書きやすいかどうかで判断する
 
 
 # TODO

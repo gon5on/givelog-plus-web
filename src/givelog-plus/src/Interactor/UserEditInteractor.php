@@ -16,15 +16,10 @@ class UserEditInteractor implements IUserEditUseCase {
     }
 
     public function edit(string $uid, array $data): User {
-        if (!$this->userRepository->exist($uid)) {
-            throw new RecordNotFoundException('TODO');
-        }
+        $entity = new User();
 
-        $userEditDomain = new UserEditDomain();
-
-        $errors = $userEditDomain->validation($uid, $data);
+        $errors = (new UserEditDomain())->validation($uid, $data);
         if ($errors) {
-            $entity = new User();
             return $entity->setErrors($errors);
         }
 

@@ -28,31 +28,13 @@ class GiftEditInteractor implements IGiftEditUseCase {
 
         $events = $this->getEventIdNameArray($uid);
         $persons = $this->getPersonIdNameArrayWithCategory($uid);
-
-        $GiftDomain = new GiftDomain();
-        $errors = $GiftDomain->validation($data, $events, $persons);
-
+        $errors = (new GiftDomain())->validation($data, $events, $persons);
         if ($errors) {
             return $entity->setErrors($errors);
         }
 
-        $entity = new Gift([
-            'type' => Hash::get($data, 'type'),
-            'date' => new Timestamp(new DateTime(Hash::get($data, 'date'))),
-            'fromPersonIds' => Hash::get($data, 'fromPersonIds'),
-            'toPersonIds' => Hash::get($data, 'toPersonIds'),
-            'gift' => Hash::get($data, 'gift'),
-            'eventId' => Hash::get($data, 'eventId'),
-            'price' => Hash::get($data, 'price'),
-            'url' => Hash::get($data, 'url'),
-            'imageDeleteFlg' => Hash::get($data, 'imageDeleteFlg'),
-            'memo' => Hash::get($data, 'memo'),
-        ]);
-
-        if (Hash::check($data, 'image')) {
-            $entity->imagePath = ImageUtils::uploadTmpFile(Hash::get($data, 'image'), GiftDomain::IMAGE_TMP_PATH, GiftDomain::IMAGE_TMP_EXPIRE_SEC);
-        }
-
+        $entity = $this->__createEntity($data);
+        
         $entity->id = $this->giftRepository->edit($uid, $id, $entity);
 
         ImageUtils::deleteOldTmpFile(GiftDomain::IMAGE_TMP_PATH, GiftDomain::IMAGE_TMP_EXPIRE_SEC);
@@ -70,5 +52,26 @@ class GiftEditInteractor implements IGiftEditUseCase {
 
     public function getEventIdNameArray(string $uid): array {
         return $this->eventRepository->idNameArray($uid);
+    }
+
+    private function __createEntity(array $data) {
+        $entity = new Gift([
+            'type' => Hash::get($data, 'type'),
+            'date' => new Timestamp(new DateTime(Hash::get($data, 'date'))),
+            'fromPersonIds' => Hash::get($data, 'fromPersonIds'),
+            'toPersonIds' => Hash::get($data, 'toPersonIds'),
+            'gift' => Hash::get($data, 'gift'),
+            'eventId' => Hash::get($data, 'eventId'),
+            'price' => Hash::get($data, 'price'),
+            'url' => Hash::get($data, 'url'),
+            'imageDeleteFlg' => Hash::get($data, 'imageDeleteFlg'),
+            'memo' => Hash::get($data, 'memo'),
+        ]);
+
+        if (Hash::check($data, 'image')) {
+            $entity->imagePath = ImageUtils::uploadTmpFile(Hash::get($data, 'image'), GiftDomain::IMAGE_TMP_PATH, GiftDomain::IMAGE_TMP_EXPIRE_SEC);
+        }
+
+        return $entity;
     }
 }

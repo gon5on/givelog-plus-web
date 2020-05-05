@@ -11,9 +11,7 @@
 <tbody>
 
 <?php foreach ($events as $event): ?>
-<tr data-id="<?= $event->id ?>" data-name="<?= $event->name ?>">
-<td><?= $this->App->badge($event->labelColor, '&nbsp;'); ?>&nbsp;&nbsp;<span><?= $event->name ?></span></td>
-</tr>
+<?= $this->element('event_table_tr', ['event' => $event]) ?>
 <?php endforeach; ?>
 
 </tbody>
@@ -26,25 +24,4 @@
 
 <?= $this->element('color_picker') ?>
 
-<?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
-$('#add').on('click', function(e) {
-    let obj = $('#eventAddModal');
-
-    obj.find('.delete').hide();
-    obj.find('input[name="name"]').val('');
-    obj.find('input[name="id"]').val('');
-    obj.modal('show');
-});
-
-$('tbody tr').on('click', function(e) {
-    let id = $(this).data('id');
-    let obj = $('#eventAddModal');
-
-    $('#deleteConfirmModal').find('form').attr('action', '/event/delete/' + id);
-
-    obj.find('.delete').show();
-    obj.find('input[name="name"]').val($(this).data('name'));
-    obj.find('input[name="id"]').val(id);
-    obj.modal('show');
-});
-<?= $this->Html->scriptEnd() ?>
+<?= $this->Html->script('event_list', ['block' => true]) ?>

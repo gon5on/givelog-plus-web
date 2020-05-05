@@ -20,11 +20,8 @@ class PersonAddInteractor implements IPersonAddUseCase {
     public function add(string $uid, array $data): Person {
         $entity = new Person();
 
-        $personDomain = new PersonDomain();
-
         $personCategories = $this->getParsonCategoryIdNameArray($uid);
-
-        $errors = $personDomain->validation($data, $personCategories);
+        $errors = (new PersonDomain())->validation($data, $personCategories);
         if ($errors) {
             return $entity->setErrors($errors);
         }

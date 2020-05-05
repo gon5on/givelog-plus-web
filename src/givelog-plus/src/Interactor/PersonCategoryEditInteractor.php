@@ -16,15 +16,10 @@ class PersonCategoryEditInteractor implements IPersonCategoryEditUseCase {
     }
 
     public function edit(string $uid, string $id, array $data): PersonCategory {
-        if (!$this->personCategoryRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
+        $entity = new PersonCategory();
 
-        $personCategoryDomain = new PersonCategoryDomain();
-
-        $errors = $personCategoryDomain->validation($data);
+        $errors = (new PersonCategoryDomain())->validation($data);
         if ($errors) {
-            $entity = new PersonCategory();
             return $entity->setErrors($errors);
         }
 
@@ -33,7 +28,7 @@ class PersonCategoryEditInteractor implements IPersonCategoryEditUseCase {
             'labelColor' => Hash::get($data, 'labelColor'),
         ]);
 
-        $this->personCategoryRepository->edit($uid, $id, $entity);
+        $entity->id = $this->personCategoryRepository->edit($uid, $id, $entity);
 
         return $entity;
     }

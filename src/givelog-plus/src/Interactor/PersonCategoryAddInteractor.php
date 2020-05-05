@@ -17,9 +17,7 @@ class PersonCategoryAddInteractor implements IPersonCategoryAddUseCase {
     public function add(string $uid, array $data): PersonCategory {
         $entity = new PersonCategory();
 
-        $personCategoryDomain = new PersonCategoryDomain();
-
-        $errors = $personCategoryDomain->validation($data);
+        $errors = (new PersonCategoryDomain())->validation($data);
         if ($errors) {
             return $entity->setErrors($errors);
         }

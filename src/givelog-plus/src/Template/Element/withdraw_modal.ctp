@@ -17,7 +17,7 @@
 
 <div class="modal-footer">
 <button class="btn btn-secondary" type="button" data-dismiss="modal">キャンセル</button>
-<?= $this->Form->postLink('退会', ['controller' => 'Withdraw'], ['class' => 'btn btn-danger']) ?>
+<?= $this->Form->postLink('退会', ['controller' => 'User', 'action' => 'withdraw'], ['class' => 'btn btn-danger']) ?>
 </div>
 </div>
 </div>

@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use Cake\Event\Event;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
 use App\UseCase\IPersonListUseCase;
 use App\UseCase\IPersonAddUseCase;
@@ -10,6 +12,16 @@ use App\UseCase\IPersonViewUseCase;
 
 class PersonController extends AppController {
     use InvokeActionTrait;
+    
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+
+        if (in_array($this->request->action, ['add', 'edit', 'delete'])) {
+            if (!$this->request->is('ajax')) {
+                return $this->redirect('/person');
+            }
+        }
+    }
 
     public function index(IPersonListUseCase $personListUseCase, IPersonAddUseCase $personAddUseCase) {
         $this->set('pageTitle', '人物リスト');
@@ -34,35 +46,62 @@ class PersonController extends AppController {
     }
 
     public function add(IPersonAddUseCase $personAddUseCase) {
-        if (!$this->request->is('ajax')) {
-            return $this->redirect('/person');
+        try {
+            $uid = $this->Auth->user('uid');
+            $data = $this->request->getData();
+            $person = $personAddUseCase->add($uid, $data);
+
+            if ($person->getErrors()) {
+                return $this->_getErrorAjaxResponse($person->getErrors());
+            }
+
+            $this->set(compact('person'));
+            $this->render('/Element/person_table_tr');
+
+            return $this->_getSuccessAjaxResponse('保存しました', $person, $this->response->body());
+    
+        } catch (\Exception $e) {
+            return $this->_catchExceptionForAjax($e);
         }
-
-        $uid = $this->Auth->user('uid');
-        $data = $this->request->getData();
-        $person = $personAddUseCase->add($uid, $data);
-
-        return $this->getAjaxResponse($person);
     }
 
     public function edit(IPersonEditUseCase $personEditUseCase, string $id = null) {
-        if (!$this->request->is('ajax') || !$id) {
-            return $this->redirect('/person');
+        try {
+            if (!$id) {
+                throw new RecordNotFoundException('"id" is empty');
+            }
+
+            $uid = $this->Auth->user('uid');
+            $data = $this->request->getData();
+            $person = $personEditUseCase->edit($uid, $id, $data);
+
+            if ($person->getErrors()) {
+                return $this->_getErrorAjaxResponse($person->getErrors());
+            }
+
+            $this->set(compact('person'));
+            $this->render('/Element/person_table_tr');
+
+            return $this->_getSuccessAjaxResponse('保存しました', $person, $this->response->body());
+
+        } catch (\Exception $e) {
+            return $this->_catchExceptionForAjax($e);
         }
-
-        $uid = $this->Auth->user('uid');
-        $data = $this->request->getData();
-        $person = $personEditUseCase->edit($uid, $id, $data);
-
-        return $this->getAjaxResponse($person);
     }
 
     public function delete(IPersonDeleteUseCase $personDeleteUseCase, string $id = null) {
-        if ($this->request->is('post') && $id) {
+        try {
+            if (!$id) {
+                throw new RecordNotFoundException('"id" is empty');
+            }
+
             $uid = $this->Auth->user('uid');
             $personDeleteUseCase->delete($uid, $id);
-        }
 
-        return $this->redirect('/person');
+            return $this->_getSuccessAjaxResponse('削除しました');
+
+        } catch (\Exception $e) {
+            return $this->_catchExceptionForAjax($e);
+        }
     }
 }

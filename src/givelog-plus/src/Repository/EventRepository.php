@@ -5,6 +5,7 @@ use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Utility\Hash;
 use App\Model\Entity\Event;
 
@@ -40,19 +41,31 @@ class EventRepository extends AppRepository implements IEventRepository {
     }
 
     public function edit(string $uid, string $documentId, Event $entity): string {
+        $ref = $this->getRef($uid, $documentId);
+
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "events"');
+        }
+
         $data = [
             ['path' => 'name', 'value' => $entity->name],
             ['path' => 'labelColor', 'value' => $entity->labelColor],
             ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
         ];
 
-        $this->__getQuery($uid)->document($documentId)->update($data);
+        $ref->update($data);
 
         return $documentId;
     }
 
     public function delete(string $uid, string $documentId): string {
-        $this->__getQuery($uid)->document($documentId)->delete();
+        $ref = $this->getRef($uid, $documentId);
+
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "events"');
+        }
+
+        $ref->delete();
 
         return $documentId;
     }

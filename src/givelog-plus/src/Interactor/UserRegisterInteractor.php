@@ -34,11 +34,10 @@ class UserRegisterInteractor implements IUserRegisterUseCase {
     }
 
     public function register(array $data): User {
-        $userRegisterDomain = new UserRegisterDomain();
+        $entity = new User();
 
-        $errors = $userRegisterDomain->validation($data);
+        $errors = (new UserRegisterDomain())->validation($data);
         if ($errors) {
-            $entity = new User();
             return $entity->setErrors($errors);
         }
 

@@ -11,9 +11,7 @@
 <tbody>
 
 <?php foreach ($personCategories as $personCategory): ?>
-<tr data-id="<?= $personCategory->id ?>" data-name="<?= $personCategory->name ?>">
-<td><?= $this->App->badge($personCategory->labelColor, '&nbsp;'); ?>&nbsp;&nbsp;<span><?= $personCategory->name ?></span></td>
-</tr>
+<?= $this->element('person_category_table_tr', ['personCategory' => $personCategory]) ?>
 <?php endforeach; ?>
 
 </tbody>
@@ -26,25 +24,4 @@
 
 <?= $this->element('color_picker') ?>
 
-<?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
-$('#add').on('click', function(e) {
-    let obj = $('#personCategoryAddModal');
-
-    obj.find('.delete').hide();
-    obj.find('input[name="name"]').val('');
-    obj.find('input[name="id"]').val('');
-    obj.modal('show');
-});
-
-$('tbody tr').on('click', function(e) {
-    let id = $(this).data('id');
-    let obj = $('#personCategoryAddModal');
-
-    $('#deleteConfirmModal').find('form').attr('action', '/person-category/delete/' + id);
-
-    obj.find('.delete').show();
-    obj.find('input[name="name"]').val($(this).data('name'));
-    obj.find('input[name="id"]').val(id);
-    obj.modal('show');
-});
-<?= $this->Html->scriptEnd() ?>
+<?= $this->Html->script('person_category_list', ['block' => true]) ?>

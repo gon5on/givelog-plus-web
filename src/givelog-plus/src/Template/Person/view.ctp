@@ -4,12 +4,12 @@
 <?php endif; ?>
 
 <div class="text-right">
-<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-edit"></i>編集</a>
+<a href="javascript::void(0)" class="small" data-toggle="modal" data-target="#personAddModal"><i class="fas fa-fw fa-edit"></i>編集</a>
 &nbsp;&nbsp;
 <?php if ($person->gifts): ?>
-<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#cantDeletePersonModal"><i class="fas fa-fw fa-trash"></i>削除</a>
+<a href="javascript::void(0)" class="small" data-toggle="modal" data-target="#cantDeletePersonModal"><i class="fas fa-fw fa-trash"></i>削除</a>
 <?php else: ?>
-<a href="javascript::void(0)" class="small " data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
+<a href="javascript::void(0)" class="small" data-toggle="modal" data-target="#deleteConfirmModal"><i class="fas fa-fw fa-trash"></i>削除</a>
 <?php endif; ?>
 </div>
 

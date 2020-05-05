@@ -17,9 +17,7 @@ class EventAddInteractor implements IEventAddUseCase {
     public function add(string $uid, array $data): Event {
         $entity = new Event();
 
-        $eventDomain = new EventDomain();
-
-        $errors = $eventDomain->validation($data);
+        $errors = (new EventDomain())->validation($data);
         if ($errors) {
             return $entity->setErrors($errors);
         }

@@ -25,7 +25,7 @@
 
 </div>
 <div class="modal-footer">
-<a href="javascript::void(0)" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteConfirmModal" style="display:none">削除</a>
+<button class="btn btn-danger delete" type="button" data-toggle="modal" data-target="#deleteConfirmModal" style="display:none">削除</button>
 <?= $this->AppForm->button('保存', ['type' => 'button', 'class' => 'btn btn-primary save']) ?>
 </div>
 </div>
@@ -35,5 +35,5 @@
 
 <?= $this->element('delete_confirm_modal', ['id' => '', 'message' => '<br><br>削除すると、プレゼントに紐づいているこのイベントは空になります']) ?>
 
-<?= $this->Html->script('event', ['block' => true]) ?>
+<?= $this->Html->script('event_add', ['block' => true]) ?>
 <!-- event add modal -->

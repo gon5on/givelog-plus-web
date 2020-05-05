@@ -19,17 +19,11 @@ class PersonEditInteractor implements IPersonEditUseCase {
     }
 
     public function edit(string $uid, string $id, array $data): Person {
-        if (!$this->personRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
+        $entity = new Person();
 
         $personCategories = $this->getParsonCategoryIdNameArray($uid);
-
-        $personDomain = new PersonDomain();
-        $errors = $personDomain->validation($data, $personCategories);
-
+        $errors = (new PersonDomain())->validation($data, $personCategories);
         if ($errors) {
-            $entity = new Person();
             return $entity->setErrors($errors);
         }
 
@@ -39,7 +33,7 @@ class PersonEditInteractor implements IPersonEditUseCase {
             'memo' => Hash::get($data, 'memo'),
         ]);
 
-        $this->personRepository->edit($uid, $id, $entity);
+        $entity->id = $this->personRepository->edit($uid, $id, $entity);
 
         return $entity;
     }

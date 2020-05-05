@@ -13,9 +13,7 @@ class PersonDeleteInteractor implements IPersonDeleteUseCase {
     }
 
     public function delete(string $uid, string $id): string {
-        if (!$this->personRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
+        //TODO ギフトを持っていたら削除不可
 
         $this->personRepository->delete($uid, $id);
 

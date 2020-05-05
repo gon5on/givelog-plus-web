@@ -13,10 +13,6 @@ class GiftDeleteInteractor implements IGiftDeleteUseCase {
     }
 
     public function delete(string $uid, string $id): string {
-        if (!$this->giftRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
-
         $this->giftRepository->delete($uid, $id);
 
         return $id;

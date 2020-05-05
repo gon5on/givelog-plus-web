@@ -14,10 +14,6 @@ class PersonViewInteractor implements IPersonViewUseCase {
     }
 
     public function view(string $uid, string $id): Person {
-        if (!$this->personRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
-
         return $this->personRepository->get($uid, $id);
     }
 }

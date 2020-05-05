@@ -68,5 +68,11 @@
 <?= $this->Html->link('< 戻る', ['controller' => 'Gift', 'action' => 'index'], ['class' => 'small']) ?>
 </div>
 
+<?= $this->AppForm->create(null) ?>
+<?= $this->AppForm->control('id', ['type' => 'hidden', 'value' => $gift->id]) ?>
+<?= $this->AppForm->end(); ?>
 
 <?= $this->element('delete_confirm_modal', ['id' => $gift->id]) ?>
+
+<?= $this->Html->script('gift_delete', ['block' => true]) ?>
+

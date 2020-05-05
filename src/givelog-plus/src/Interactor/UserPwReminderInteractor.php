@@ -16,11 +16,10 @@ class UserPwReminderInteractor implements IUserPwReminderUseCase {
     }
 
     public function reminder(array $data): User {
-        $userPwReminderDomain = new UserPwReminderDomain();
+        $entity = new User();
 
-        $errors = $userPwReminderDomain->validation($data);
+        $errors = (new UserPwReminderDomain())->validation($data);
         if ($errors) {
-            $entity = new User();
             return $entity->setErrors($errors);
         }
 

@@ -37,14 +37,34 @@ $('#personAddModal').find('.save').on('click', function() {
     });
 });
 
-$('#personAddModal').find('.delete').on('click', function() {
+$('#deleteConfirmModal').find('.delete').on('click', function() {
     let obj = $('#personAddModal');
     let id = obj.find('input[name="id"]').val();
 
-    obj.find('form').attr('action', '/person/delete/' + id);
-    obj.find('form').submit();
-});
+    $.ajax({
+        url: '/person/delete/' + id,
+        type: 'POST',
+        dataType: 'json',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-Token', obj.find('input[name="_csrfToken"]').val());
+        },
+    })
+    .done(function(data) {
+        $('#deleteConfirmModal').modal('hide');
+        obj.modal('hide');
 
+        location.href = '/person';
+    })
+    .fail(function(data, textStatus) {
+        if (data.status === 403) {
+            location.href = '/login';
+        } else if (data.status === 400) {
+            console.log(data);
+        } else {
+            console.log(data);
+        }
+    });
+});
 function addGiftPersonSelectBox(person) {
     //TODO
 }

@@ -20,17 +20,21 @@ class RegisterController extends AppController {
     public function index(IUserRegisterUseCase $userRegisterUseCase) {
         $this->set('pageTitle', 'アカウント新規作成');
 
-        if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            $user = $userRegisterUseCase->register($data);
-
-            if (!$user->getErrors()) {
-                $session = $this->getRequest()->getSession();
-                $session->write('email', Hash::get($data, 'email'));
-                $session->write('password', Hash::get($data, 'password'));
-
-                return $this->redirect(['action' => 'finish']);
+        try {
+            if ($this->request->is('post')) {
+                $data = $this->request->getData();
+                $user = $userRegisterUseCase->register($data);
+    
+                if (!$user->getErrors()) {
+                    $session = $this->getRequest()->getSession();
+                    $session->write('email', Hash::get($data, 'email'));
+                    $session->write('password', Hash::get($data, 'password'));
+    
+                    return $this->redirect(['action' => 'finish']);
+                }
             }
+        } catch (\Exception $e) {
+            return $this->_catchExceptionForPost($e, '/register');
         }
     }
 

@@ -5,6 +5,7 @@ use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Utility\Hash;
 use App\Repository\IPersonRepository;
 use App\Repository\IEventRepository;
@@ -38,7 +39,7 @@ class GiftRepository extends AppRepository implements IGiftRepository {
                 continue;
             }
 
-            $list[] = $this->__documentToEntity($document);
+            $list[] = $this->documentToEntity($document);
         }
 
         return $list;
@@ -77,6 +78,12 @@ class GiftRepository extends AppRepository implements IGiftRepository {
     }
 
     public function edit(string $uid, string $documentId, Gift $entity): string {
+        $ref = $this->getRef($uid, $documentId);
+
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "gifts"');
+        }
+
         $entity = $this->__idToRefsForSave($uid, $entity);
 
         $data = [
@@ -97,7 +104,7 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         ];
 
         if ($entity->imageDeleteFlg) {
-            $savedEntity = $this->get($uid, $documentId, false);
+            $savedEntity = $this->documentToEntity($ref->snapshot(), false);
             $this->giftImageStorageRepository->delete($savedEntity->imagePath);
 
             $data[] = ['path' => 'imagePath', 'value' => null];
@@ -108,31 +115,40 @@ class GiftRepository extends AppRepository implements IGiftRepository {
             $data[] = ['path' => 'imagePath', 'value' => $imagePath];
         }
 
-        $this->__getQuery($uid)->document($documentId)->update($data);
+        $ref->update($data);
 
         return $documentId;
     }
 
     public function delete(string $uid, string $documentId): string {
-        $entity = $this->get($uid, $documentId, false);
+        $ref = $this->getRef($uid, $documentId);
 
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "gifts"');
+        }
+
+        $entity = $this->documentToEntity($ref->snapshot(), false);
         if ($entity->imagePath) {
             $this->giftImageStorageRepository->delete($entity->imagePath);
         }
 
-        $this->__getQuery($uid)->document($documentId)->delete();
+        $ref->delete();
 
         return $documentId;
     }
 
     public function get(string $uid, string $documentId, bool $withAssociation = true): Gift {
-        $document = $this->__getRef($uid, $documentId)->snapshot();
+        $ref = $this->getRef($uid, $documentId);
 
-        return $this->__documentToEntity($document, $withAssociation);
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "gifts"');
+        }
+
+        return $this->documentToEntity($ref->snapshot(), $withAssociation);
     }
 
     public function exist(string $uid, string $documentId): bool {
-        return $this->__getRef($uid, $documentId)->snapshot()->exists();
+        return $this->getRef($uid, $documentId)->snapshot()->exists();
     }
 
     private function __addWhereToQuery(CollectionReference $query, ?array $search) {
@@ -169,11 +185,15 @@ class GiftRepository extends AppRepository implements IGiftRepository {
         return $entity;
     }
 
-    private function __getRef(string $uid, string $documentId): DocumentReference {
+    public function getRef(string $uid, ?string $documentId): ?DocumentReference {
+        if (!$documentId) {
+            return null;
+        }
+
         return $this->__getQuery($uid)->document($documentId);
     }
 
-    private function __documentToEntity(DocumentSnapshot $document, bool $withAssociation = true): Gift {
+    public function documentToEntity(DocumentSnapshot $document, bool $withAssociation = true): Gift {
         $data = $document->data();
 
         $gift = new Gift([

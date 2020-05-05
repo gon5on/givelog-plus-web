@@ -46,5 +46,5 @@ extract($person->toArrayWithDefaultKey());
 <?= $this->AppForm->end(); ?>
 </div>
 
-<?= $this->Html->script('person', ['block' => true]) ?>
+<?= $this->Html->script('person_add', ['block' => true]) ?>
 <!-- person add modal -->

@@ -13,10 +13,6 @@ class PersonCategoryDeleteInteractor implements IPersonCategoryDeleteUseCase {
     }
 
     public function delete(string $uid, string $id): string {
-        if (!$this->personCategoryRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
-
         $this->personCategoryRepository->delete($uid, $id);
 
         return $id;

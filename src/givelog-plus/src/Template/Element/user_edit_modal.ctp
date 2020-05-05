@@ -37,5 +37,5 @@
 </div>
 
 
-<?= $this->Html->script('user-edit', ['block' => true]) ?>
+<?= $this->Html->script('user_edit', ['block' => true]) ?>
 <!-- account change modal -->

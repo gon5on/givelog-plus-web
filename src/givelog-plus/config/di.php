@@ -35,11 +35,9 @@ return [
             '\App\Controller\ForgetPasswordController' => [
                 'index' => ['userPwReminderUseCase'],
             ],
-            '\App\Controller\SettingController' => [
-                'userEdit' => ['userEditUseCase'],
-            ],
-            '\App\Controller\WithdrawController' => [
-                'index' => ['userWithdrawUseCase'],
+            '\App\Controller\UserController' => [
+                'edit' => ['userEditUseCase'],
+                'withdraw' => ['userWithdrawUseCase'],
             ],
             '\App\Controller\FileController' => [
                 'giftImage' => ['giftImageReadUseCase'],

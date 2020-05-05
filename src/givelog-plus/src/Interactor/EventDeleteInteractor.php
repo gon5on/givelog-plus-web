@@ -13,10 +13,6 @@ class EventDeleteInteractor implements IEventDeleteUseCase {
     }
 
     public function delete(string $uid, string $id): string {
-        if (!$this->eventRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
-
         $this->eventRepository->delete($uid, $id);
 
         return $id;

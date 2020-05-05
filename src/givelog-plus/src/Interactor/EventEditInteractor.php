@@ -16,15 +16,10 @@ class EventEditInteractor implements IEventEditUseCase {
     }
 
     public function edit(string $uid, string $id, array $data): Event {
-        if (!$this->eventRepository->exist($uid, $id)) {
-            throw new RecordNotFoundException('TODO');
-        }
+        $entity = new Event();
 
-        $eventDomain = new EventDomain();
-
-        $errors = $eventDomain->validation($data);
+        $errors = (new EventDomain())->validation($data);
         if ($errors) {
-            $entity = new Event();
             return $entity->setErrors($errors);
         }
 
@@ -33,7 +28,7 @@ class EventEditInteractor implements IEventEditUseCase {
             'labelColor' => Hash::get($data, 'labelColor'),
         ]);
 
-        $this->eventRepository->edit($uid, $id, $entity);
+        $entity->id = $this->eventRepository->edit($uid, $id, $entity);
 
         return $entity;
     }

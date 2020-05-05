@@ -5,12 +5,18 @@ use Google\Cloud\Firestore\FieldValue;
 use Google\Cloud\Firestore\CollectionReference;
 use Google\Cloud\Firestore\DocumentSnapshot;
 use Google\Cloud\Firestore\DocumentReference;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Utility\Hash;
 use App\Repository\IPersonCategoryRepository;
 use App\Model\Entity\Person;
 use App\Model\Entity\PersonCategory;
 
 class PersonRepository extends AppRepository implements IPersonRepository {
+    const NO_CATEGORY = 999;
+
+    const TYPE_LIST = 'list';
+    const TYPE_ID_NAME_ARRAT_WITH_CATEGORY = 'idNameArrayWithCategory';
+
     private $personCategoryRepository;
 
     function __construct(IPersonCategoryRepository $personCategoryRepository) {
@@ -20,19 +26,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     }
 
     public function list(string $uid): array {
-        $list = [];
-
-        $documents = $this->__getQuery($uid)->orderBy('created', 'ASC')->documents();
-
-        foreach ($documents as $document) {
-            if (!$document->exists()) {
-                continue;
-            }
-
-            $list[] = $this->documentToEntity($document);
-        }
-
-        return $list;
+        return $this->__listWithCategory($uid, self::TYPE_LIST);
     }
 
     public function add(string $uid, Person $entity): string {
@@ -51,6 +45,12 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     }
 
     public function edit(string $uid, string $documentId, Person $entity): string {
+        $ref = $this->getRef($uid, $documentId);
+
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "persons"');
+        }
+
         $data = [
             ['path' => 'name', 'value' => $entity->name],
             ['path' => 'personCategoryId', 'value' => $entity->personCategoryId],
@@ -59,21 +59,31 @@ class PersonRepository extends AppRepository implements IPersonRepository {
             ['path' => 'modified', 'value' => FieldValue::serverTimestamp()],
         ];
 
-        $this->__getQuery($uid)->document($documentId)->update($data);
+        $ref->update($data);
 
         return $documentId;
     }
 
     public function delete(string $uid, string $documentId): string {
-        $this->__getQuery($uid)->document($documentId)->delete();
+        $ref = $this->getRef($uid, $documentId);
+
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "persons"');
+        }
+
+        $ref->delete();
 
         return $documentId;
     }
 
     public function get(string $uid, string $documentId): Person {
-        $document = $this->getRef($uid, $documentId)->snapshot();
+        $ref = $this->getRef($uid, $documentId);
 
-        return $this->documentToEntity($document);
+        if (!$ref->snapshot()->exists()) {
+            throw new RecordNotFoundException('Record not found in firestore "persons"');
+        }
+
+        return $this->documentToEntity($ref->snapshot());
     }
 
     public function exist(string $uid, string $documentId): bool {
@@ -81,20 +91,7 @@ class PersonRepository extends AppRepository implements IPersonRepository {
     }
 
     public function idNameArrayWithCategory(string $uid): array {
-        $list = [];
-
-        $tmp = $this->list($uid);
-
-        foreach ($tmp as $person) {
-            $personCategoryName = 'グループなし';
-            if ($person->personCategory) {
-                $personCategoryName = $person->personCategory->name;
-            }
-
-            $list[$personCategoryName][$person->id] = $person->name;
-        }
-
-        return $list;
+        return $this->__listWithCategory($uid, self::TYPE_ID_NAME_ARRAT_WITH_CATEGORY);
     }
 
     public function getRef(string $uid, ?string $documentId): ?DocumentReference {
@@ -111,15 +108,48 @@ class PersonRepository extends AppRepository implements IPersonRepository {
         $person = new Person([
             'id' => $document->id(),
             'name' => Hash::get($data, 'name'),
+            'personCategoryId' => Hash::get($data, 'personCategoryId'),
             'memo' => Hash::get($data, 'memo'),
         ]);
 
-        if (Hash::check($data, 'personCategory')) {
-            $pcDoc = $data['personCategory']->snapshot();
-            $person->personCategory = $this->personCategoryRepository->documentToEntity($pcDoc);
+        if ($person->personCategoryId) {
+            $personCategoryDoc = $data['personCategory']->snapshot();
+            if ($personCategoryDoc->exists()) {
+                $person->personCategory = $this->personCategoryRepository->documentToEntity($personCategoryDoc);
+            }
         }
 
         return $person;
+    }
+
+    private function __listWithCategory(string $uid, string $type) {
+        $list = [];
+        $tmpList = [];
+
+        $documents = $this->__getQuery($uid)->orderBy('created', 'ASC')->documents();
+
+        foreach ($documents as $document) {
+            if (!$document->exists()) {
+                continue;
+            }
+
+            $person = $this->documentToEntity($document);
+
+            $personCategoryId = ($person->personCategory) ? $person->personCategoryId: self::NO_CATEGORY;
+            $tmpList[$personCategoryId][] = ($type == self::TYPE_LIST) ? $person : $person->name;
+        }
+
+        $personCategories = $this->personCategoryRepository->idNameArray($uid);
+        $personCategories[self::NO_CATEGORY] = 'グループなし';
+
+        foreach ($personCategories as $personCategoryId => $name) {
+            if (Hash::check($tmpList, $personCategoryId)) {
+                $key = ($type == self::TYPE_LIST) ? $personCategoryId : $name;
+                $list[$key] = $tmpList[$personCategoryId];
+            }
+        }
+
+        return $list;
     }
 
     private function __getQuery(string $uid): CollectionReference {

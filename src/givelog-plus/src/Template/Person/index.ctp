@@ -10,15 +10,10 @@
 <table class="table" id="dataTable" width="100%" cellspacing="0">
 <tbody>
 
-<?php foreach ($persons as $person): ?>
-<tr data-id="<?= $person->id ?>">
-<td>
-<span><?= $person->name ?></span>&nbsp;&nbsp;
-<?php if ($person->personCategory): ?>
-<?= $this->App->badge($person->personCategory->labelColor, $person->personCategory->name); ?>
-<?php endif; ?>
-</td>
-</tr>
+<?php foreach ($persons as $categoryPersons): ?>
+<?php foreach ($categoryPersons as $person): ?>
+<?= $this->element('person_table_tr', ['person' => $person]) ?>
+<?php endforeach; ?>
 <?php endforeach; ?>
 
 </tbody>
@@ -29,8 +24,4 @@
 
 <?= $this->element('person_add_modal') ?>
 
-<?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
-$("tbody tr").on("click",function(e) {
-    window.location.href = "<?= $this->Url->build(['action' => 'view']) ?>/" + $(this).data('id');
-});
-<?= $this->Html->scriptEnd() ?>
+<?= $this->Html->script('person_list', ['block' => true]) ?>
