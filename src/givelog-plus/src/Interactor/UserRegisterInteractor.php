@@ -51,16 +51,20 @@ class UserRegisterInteractor implements IUserRegisterUseCase {
         $uid = $this->userRepository->register($entity);
         $entity->uid = $uid;
 
+        $this->createInitalData($uid, Hash::get($data, 'name'));
+
+        return $entity;
+    }
+
+    public function createInitalData(string $uid, string $name) {
         //ユーザを初期人物データとして登録
-        $this->__saveInitalPerson($uid, Hash::get($data, 'name'));
+        $this->__saveInitalPerson($uid, $name);
 
         //イベント初期データ登録
         $this->__saveInitalEvent($uid);
 
         //人物カテゴリ初期データ登録
         $this->__saveInitalPersonCategory($uid);
-
-        return $entity;
     }
 
     private function __saveInitalPerson(string $uid, string $name): void {

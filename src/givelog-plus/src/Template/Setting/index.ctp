@@ -1,14 +1,18 @@
-<?php $this->assign('pageTitle', $pageTitle) ?>
+<?php
+use App\Repository\UserRepository;
+?>
 
-<?php $withdrawModalTag = 'withdrawModal'; ?>
+<?php $this->assign('pageTitle', $pageTitle) ?>
 
 <div class="table table-hover">
 <table class="table" id="dataTable" width="100%" cellspacing="0" >
 <tbody>
 
+<?php if ($this->request->session()->read('Auth.User.provider') == UserRepository::PROVIDER_PASSWORD): ?>
 <tr data-modal="#userEditModal">
 <td><i class="fas fa-fw fa-key"></i><span>メールアドレス/パスワード変更</span></td>
 </tr>
+<?php endif; ?>
 
 <tr data-url="<?= $this->Url->build(['controller' => 'Information']) ?>">
 <td><i class="fas fa-fw fa-exclamation-circle"></i><span>お知らせ</span></td>
@@ -39,10 +43,11 @@
 </table>
 </div>
 
-
-<?= $this->element('user_edit_modal') ?>
-
 <?= $this->element('withdraw_modal') ?>
+
+<?php if ($this->request->session()->read('Auth.User.provider') == UserRepository::PROVIDER_PASSWORD): ?>
+<?= $this->element('user_edit_modal') ?>
+<?php endif; ?>
 
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
 $("tbody tr").on("click",function(e) {

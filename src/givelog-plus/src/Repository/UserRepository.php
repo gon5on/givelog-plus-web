@@ -1,9 +1,12 @@
 <?php
 namespace App\Repository;
 
+use Cake\Log\Log;
 use App\Model\Entity\User;
+use App\Utils\AppUtils;
 
 class UserRepository extends AppRepository implements IUserRepository {
+    const PROVIDER_PASSWORD = 'password';
 
     public function register(User $entity): string {
         $userProperties = [
@@ -20,6 +23,12 @@ class UserRepository extends AppRepository implements IUserRepository {
     }
 
     public function edit(string $uid, User $entity): string {
+        $user = $this->get($uid);
+
+        if ($user->provider != self::PROVIDER_PASSWORD) {
+            throw new \Exception('user can edit only registerd by email/password');
+        }
+
         $this->auth->changeUserEmail($uid, $entity->email);
 
         if ($entity->password) {
@@ -35,6 +44,7 @@ class UserRepository extends AppRepository implements IUserRepository {
             return true;
 
         } catch (\Exception $e) {
+            Log::write('error', AppUtils::beautifulExceptionLog($e));
             return false;
         }
     }
@@ -46,17 +56,19 @@ class UserRepository extends AppRepository implements IUserRepository {
             'uid' => $uid,
             'name' => $user->displayName,
             'email' => $user->email,
+            'provider' => $user->providerData[0]->providerId,
         ]);
     }
 
-    public function verify(string $idToken): string {
+    public function verify(string $idToken): ?string {
         try {
             $verifiedIdToken = $this->auth->verifyIdToken($idToken, false);
 
             return $verifiedIdToken->getClaim('sub');
 
         } catch (\Exception $e) {
-            return '';
+            Log::write('error', AppUtils::beautifulExceptionLog($e));
+            return null;
         }
     }
 

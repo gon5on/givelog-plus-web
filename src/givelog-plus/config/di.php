@@ -3,6 +3,9 @@
 return [
     'CakePimpleDi' => [
         'actionInjections' => [
+            '\App\Controller\LoginController' => [
+                'index' => ['userRegisterUseCase'],
+            ],
             '\App\Controller\GiftController' => [
                 'index' => ['giftListUseCase'],
                 'view' => ['giftViewUseCase'],

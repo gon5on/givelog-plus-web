@@ -17,6 +17,15 @@
 <hr>
 
 <?= $this->Html->link('アカウント新規作成', ['controller' => 'Register'], ['class' => 'btn btn-info btn-user btn-block']) ?>
+
+<hr>
+
+<button id="ssoGoogle" class ="btn btn-success btn-user btn-block">Sign in with Google</button>
+
+<!--<button id="ssoFacebook" class ="btn btn-success btn-user btn-block">Sign in with Facebook</button>-->
+
+<!--<button id="ssoTwitter" class ="btn btn-success btn-user btn-block">Sign in with Twitter</button>-->
+
 <hr>
 
 <div class="text-center">

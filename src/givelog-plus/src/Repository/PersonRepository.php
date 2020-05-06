@@ -134,11 +134,15 @@ class PersonRepository extends AppRepository implements IPersonRepository {
             }
 
             $person = $this->documentToEntity($document);
-
             $personCategoryId = ($person->personCategory) ? $person->personCategoryId: self::NO_CATEGORY;
-            $tmpList[$personCategoryId][] = ($type == self::TYPE_LIST) ? $person : $person->name;
-        }
 
+            if ($type == self::TYPE_LIST) {
+                $tmpList[$personCategoryId][] = $person;
+            } else {
+                $tmpList[$personCategoryId][$person->id] = $person->name;
+            }
+        }
+ 
         $personCategories = $this->personCategoryRepository->idNameArray($uid);
         $personCategories[self::NO_CATEGORY] = 'グループなし';
 

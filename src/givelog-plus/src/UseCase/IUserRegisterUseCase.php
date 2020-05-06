@@ -5,4 +5,6 @@ use App\Model\Entity\User;
 
 interface IUserRegisterUseCase {
     public function register(array $data): User;
+
+    public function createInitalData(string $uid, string $name);
 }

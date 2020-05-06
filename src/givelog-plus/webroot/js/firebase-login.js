@@ -2,26 +2,19 @@ $('#login').click(function(e) {
     let email = $('#email').val();
     let password = $('#password').val();
 
-    doLogin(email, password);
+    doFirebaseLogin(email, password);
 });
 
 $('#start').click(function(e) {
     $('#loginForm').attr('action', '/login?redirect=/gift/add');
 
-    doLogin(email, password);
+    doFirebaseLogin(email, password);
 });
 
-function doLogin(email, password) {
+function doFirebaseLogin(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function() {
-        //ログイン成功
-        firebase.auth().currentUser.getIdToken(false).then(function(idToken) {
-            $('#token').val(idToken);
-            $('#loginForm').submit();
-        })
-        .catch(function(error) {
-            //TODO エラー処理
-        });
+        getIdTokenAndAppLogin(false);
     })
     .catch(function(error) {
         //ログイン失敗
@@ -31,5 +24,31 @@ function doLogin(email, password) {
         //TODO エラー表示
         console.log(errorCode);
         console.log(errorMessage);
+    });
+}
+
+$('#ssoGoogle').click(function(e) {
+    let provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().languageCode = 'ja';
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        getIdTokenAndAppLogin(result.additionalUserInfo.isNewUser);
+    }).catch(function(error) {
+        //TODO エラー処理
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+    });
+});
+
+function getIdTokenAndAppLogin(registerFlg) {
+    firebase.auth().currentUser.getIdToken(false).then(function(idToken) {
+        $('input[name="token"]').val(idToken);
+        $('input[name="registerFlg"]').val(registerFlg ? 1 : 0);
+        $('#loginForm').submit();
+    })
+    .catch(function(error) {
+        //TODO エラー処理
     });
 }

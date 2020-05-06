@@ -30,7 +30,9 @@ class UserController extends AppController {
             }
 
             //セッションの値も書き換えておく
-            $this->Auth->setUser($user->toArray());
+            $authUser = $this->Auth->user();
+            $authUser['email'] = $user->email;
+            $this->Auth->setUser($authUser);
 
             return $this->_getSuccessAjaxResponse('保存しました');
 
