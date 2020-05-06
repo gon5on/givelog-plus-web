@@ -4,33 +4,18 @@
 <table class="table" id="dataTable" width="100%" cellspacing="0">
 <tbody>
 
-<tr>
+<?php foreach($informations as $information): ?>
+<tr data-id="<?= $information->id ?>">
 <td>
-<span>2020/5/12</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">メンテナンス</span><br>
-<span>定期メンテナンスのお知らせ</span>
-</td>
-</tr>
+<span><?= date('Y/m/d', strtotime($information->date)) ?></span>&nbsp;&nbsp;
+<span class="badge badge-pill badge-warning"><?= $information->type ?></span><br>
+<span><?= $information->title ?></span>
 
-<tr>
-<td>
-<span>2020/5/12</span>&nbsp;&nbsp;<span class="badge badge-pill badge-success">お知らせ</span><br>
-<span>新機能リリースのお知らせ</span>
-</td>
-</tr>
+<?= $this->element('infomation_modal', ['information' => $information]) ?>
 
-<tr>
-<td>
-<span>2020/5/12</span>&nbsp;&nbsp;<span class="badge badge-pill badge-danger">重要</span><br>
-<span>不具合のお詫び</span>
 </td>
 </tr>
-
-<tr>
-<td>
-<span>2020/5/12</span>&nbsp;&nbsp;<span class="badge badge-pill badge-warning">メンテナンス</span><br>
-<span>定期メンテナンスのお知らせ</span>
-</td>
-</tr>
+<?php endforeach; ?>
 
 </tbody>
 </table>
@@ -40,10 +25,8 @@
 <?= $this->Html->link('< 戻る', ['controller' => 'Setting'], ['class' => 'small']) ?>
 </div>
 
-<?= $this->element('infomation_modal') ?>
-
 <?= $this->Html->scriptStart(['block' => true, 'type' => 'text/javascript']) ?>
 $("tbody tr").on("click",function(e) {
-    $("#informationModal").modal('show');
+    $("#informationModal_" + $(this).data('id')).modal('show');
 });
 <?= $this->Html->scriptEnd() ?>

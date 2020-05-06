@@ -1,24 +1,21 @@
 <!-- information modal -->
-<div class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="informationModal_<?= $information->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title">定期メンテナンスのお知らせ</h5>
+<h5 class="modal-title">
+<div class="small">
+<span><?= date('Y/m/d', strtotime($information->date)) ?></span>&nbsp;&nbsp;
+<span class="badge badge-pill badge-warning"><?= $information->type ?></span>
+</div>
+<?= $information->title ?>
+</h5>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button>
 </div>
 <div class="modal-body">
-
-<p>
-下記の日程で、定期メンテナンスを行います。<br>
-<br>
-2020/3/5 22:00～24:00<br>
-<br>
-メンテナンス期間はご利用いただけません。<br>
-ご迷惑をおかけいたしますが、ご了承ください。
-</p>
-
+<?= $information->body ?>
 </div>
 <div class="modal-footer">
 <button class="btn btn-secondary" type="button" data-dismiss="modal">閉じる</button>

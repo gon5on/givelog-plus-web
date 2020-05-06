@@ -15,7 +15,18 @@
     ```
 4. access  
 http://givelog-plus.local
- 
+
+
+# Firebase Setting
+
+1. Create project
+2. Authentication sign-in method on Mail/Password, Google
+3. Database firestore on
+4. Database firesore write rule
+5. Database firesore make complex index
+6. Storage on
+7. Storage rule write
+
 
 # Library / Plugin
 

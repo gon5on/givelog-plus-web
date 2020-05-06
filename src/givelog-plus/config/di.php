@@ -32,6 +32,9 @@ return [
                 'edit' => ['personCategoryEditUseCase'],
                 'delete' => ['personCategoryDeleteUseCase'],
             ],
+            '\App\Controller\InformationController' => [
+                'index' => ['informationListUseCase'],
+            ],
             '\App\Controller\RegisterController' => [
                 'index' => ['userRegisterUseCase'],
             ],
@@ -150,6 +153,12 @@ return [
                 );
             },
 
+            'informationListUseCase' => function($c) {
+                return new App\Interactor\InformationListInteractor(
+                    $c['informationRepository'],
+                );
+            },
+
             'userRegisterUseCase' => function($c) {
                 return new App\Interactor\UserRegisterInteractor(
                     $c['userRepository'],
@@ -214,6 +223,9 @@ return [
             },
             'personCategoryTemplateRepository' => function($c) {
                 return new App\Repository\PersonCategoryTemplateRepository();
+            },
+            'informationRepository' => function($c) {
+                return new App\Repository\InformationRepository();
             },
             'userRepository' => function($c) {
                 return new App\Repository\UserRepository();
