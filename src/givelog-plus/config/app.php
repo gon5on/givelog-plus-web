@@ -298,5 +298,7 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'cookie' => 'givelog-plus',
+        'timeout' => 60 * 24
     ],
 ];
