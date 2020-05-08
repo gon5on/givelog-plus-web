@@ -38,7 +38,7 @@ return [
             '\App\Controller\RegisterController' => [
                 'index' => ['userRegisterUseCase'],
             ],
-            '\App\Controller\ForgetPasswordController' => [
+            '\App\Controller\PasswordReminderController' => [
                 'index' => ['userPwReminderUseCase'],
             ],
             '\App\Controller\UserController' => [

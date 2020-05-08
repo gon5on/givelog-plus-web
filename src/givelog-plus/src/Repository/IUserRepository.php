@@ -14,5 +14,5 @@ interface IUserRepository {
 
     public function register(User $entity): string;
 
-    public function reminder(string $email, string $url): void;
+    public function reminder(string $email): void;
 }

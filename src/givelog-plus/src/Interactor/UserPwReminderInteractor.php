@@ -27,7 +27,7 @@ class UserPwReminderInteractor implements IUserPwReminderUseCase {
             'email' => Hash::get($data, 'email'),
         ]);
 
-        $this->userRepository->reminder($entity->email, Router::url('/reset-password', true));
+        $this->userRepository->reminder($entity->email);
 
         return $entity;
     }

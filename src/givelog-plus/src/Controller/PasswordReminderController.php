@@ -5,7 +5,7 @@ use Cake\Event\Event;
 use RochaMarcelo\CakePimpleDi\Di\InvokeActionTrait;
 use App\UseCase\IUserPwReminderUseCase;
 
-class ForgetPasswordController extends AppController {
+class PasswordReminderController extends AppController {
     use InvokeActionTrait;
 
     public function beforeFilter(Event $event) {
@@ -23,15 +23,15 @@ class ForgetPasswordController extends AppController {
             $data = $this->request->getData();
             $userPwReminderUseCase->reminder($data);
 
-            $this->getRequest()->getSession()->write('forgetPasswordFlg', true);
+            $this->getRequest()->getSession()->write('passwordReminderFlg', true);
 
             return $this->redirect(['action' => 'finish']);
         }
     }
 
     public function finish() {
-        if (!$this->getRequest()->getSession()->consume('forgetPasswordFlg')) {
-            $this->redirect('/forget-password');
+        if (!$this->getRequest()->getSession()->consume('passwordReminderFlg')) {
+            $this->redirect('/password-reminder');
         }
 
         $this->set('pageTitle', 'パスワード再発行');

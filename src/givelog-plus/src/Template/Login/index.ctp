@@ -29,7 +29,7 @@
 <hr>
 
 <div class="text-center">
-<?= $this->Html->link('> パスワードを忘れた方はこちら', ['controller' => 'ForgetPassword'], ['class' => 'small']) ?>
+<?= $this->Html->link('> パスワードを忘れた方はこちら', ['controller' => 'PasswordReminder'], ['class' => 'small']) ?>
 </div>
 
 <?= $this->element('hidden_login'); ?>
