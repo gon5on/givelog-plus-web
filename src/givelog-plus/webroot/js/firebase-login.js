@@ -50,5 +50,6 @@ function getIdTokenAndAppLogin(registerFlg) {
     })
     .catch(function(error) {
         //TODO エラー処理
+        console.log(error);
     });
 }
