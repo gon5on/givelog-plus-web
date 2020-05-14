@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%var pageData = {
     id:'index',
-    title:'ログイン',
+    title:'パーツ',
     description:'',
     keywords:''
 };%>
@@ -9,31 +9,118 @@
 
 <body>
     <!-- ////////// PageContents ////////// -->
-    <div class="container">
-        <div class="justify-content-center">
-
-            <div class="card">
-
-                <h1><img src="<%= config.header[4].root %>img/logo.svg" alt="givelog plus"></h1>
-
-                <div class="user">
-                    <div class="form-group email">
-                        <input type="email" name="email" class="form-control form-control-user" placeholder="メールアドレス" id="email">
-                    </div>
-                    <div class="form-group password">
-                        <input type="password" name="password" class="form-control form-control-user mb-4" placeholder="パスワード" id="password">
-                    </div>
-                    <a href="/forget-password" class="small">パスワードを忘れた方はこちら</a>
-                    <button class="btn btn-primary btn-user btn-block" id="login" type="submit">ログイン</button>
-                </div>
-
-                <hr>
-                <a href="/register" class="btn btn-info btn-user btn-block">アカウント新規作成</a>
-
+    <header>
+        <section>
+            <a href="<%= config.path %>">
+                <h1><img src="<%= config.root %>img/logo.svg" alt="givelog plus"></h1>
+            </a>
+        </section>
+        <nav id="search-area">
+        <vue-search>
+            <div slot="body">
+                <dl>
+                    <dt>
+                        <span class="fas fa-address-book">人物カテゴリ</span>
+                    </dt>
+                    <dd class="badge-area">
+                        <span class="badge">家族</span>
+                        <span class="badge">親戚</span>
+                        <span class="badge">友達</span>
+                        <span class="badge">会社</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        <span class="fas fa-calendar-check">イベント</span>
+                    </dt>
+                    <dd class="badge-area">
+                        <span class="badge">クリスマス</span>
+                        <span class="badge">誕生日</span>
+                        <span class="badge">こどもの日</span>
+                        <span class="badge">母の日</span>
+                        <span class="badge">結婚祝い</span>
+                        <span class="badge">父の日</span>
+                        <span class="badge">出産祝い</span>
+                        <span class="badge">新築祝い</span>
+                    </dd>
+                </dl>
             </div>
+        </vue-search>
+        </nav>
+    </header>
 
-        </div>
+    <div class="container" id="toggleList">
+        <vue-accordion class="list-presents" date="2019/01/01-12/31">
+            <div slot="body">
+                <dl class="card-gift give">
+                    <dt>自分からお母さんに</dt>
+                    <dd class="item-area">
+                    <a href="<%= config.path %>">
+                        <span class="date">00/00</span>
+                        <figure>
+                            <img src="<%= config.root %>img/icon_present.png" alt="">
+                        </figure>
+                    </a>
+                    </dd>
+                    <dd class="text-area">
+                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
+                    </dd>
+                    <dd class="badge-area">
+                    <span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
+                </dl>
+                <dl class="card-gift take">
+                    <dt>自分からお母さんに</dt>
+                    <dd class="item-area">
+                    <a href="#">
+                        <span class="date">00/00</span>
+                        <figure>
+                            <img src="<%= config.root %>img/icon_present.png" alt="">
+                        </figure>
+                    </a>
+                    </dd>
+                    <dd class="text-area">
+                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
+                    </dd>
+                    <dd class="badge-area"><span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
+                </dl>
+            </div>
+        </vue-accordion>
+        <vue-accordion class="list-presents" date="2019/01/01-12/31">
+            <div slot="body">
+                <dl class="card-gift give">
+                    <dt>自分からお母さんに</dt>
+                    <dd class="item-area">
+                    <a href="#">
+                        <span class="date">00/00</span>
+                        <figure>
+                            <img src="<%= config.root %>img/icon_present.png" alt="">
+                        </figure>
+                    </a>
+                    </dd>
+                    <dd class="text-area">
+                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
+                    </dd>
+                    <dd class="badge-area"><span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
+                </dl>
+                <dl class="card-gift take">
+                    <dt>自分からお母さんに</dt>
+                    <dd class="item-area">
+                    <a href="#">
+                        <span class="date">00/00</span>
+                        <figure>
+                            <img src="<%= config.root %>img/icon_present.png" alt="">
+                        </figure>
+                    </a>
+                    </dd>
+                    <dd class="text-area">
+                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
+                    </dd>
+                    <dd class="badge-area"><span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
+                </dl>
+            </div>
+        </vue-accordion>
     </div>
+
 
     <!-- ////////// END PageContents ////////// -->
     <%- include('./Layout/_script',{data:pageData});%>

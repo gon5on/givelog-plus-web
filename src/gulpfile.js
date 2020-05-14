@@ -49,6 +49,7 @@ gulp.task('browser-sync', () => {
             proxy: "localhost:3000",
             baseDir: dir.src
         },
+        startPath: '/design/',
         ghostMode: false
     });
     watch([dir.sass + '/{,**/}*.scss'], gulp.series('sass', browserSync.reload));

@@ -8,12 +8,9 @@
         },
         {
             "keywords": ""
-        },
-        {
-            "url": "http://givelog-plus.local/"
-        },
-        {
-            "root": "/"
         }
-    ]
+    ],
+    "url": "http://givelog-plus.local/",
+    "root": "/",
+    "path": "/design/"
 }

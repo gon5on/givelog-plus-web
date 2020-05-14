@@ -1,11 +1,13 @@
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap");
 // font-family: 'Source Sans Pro', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+//font-family: 'Roboto', sans-serif;
 @import "base/setting";
 
 /* =======================================
 	Common Style
-	======================================= */
+======================================= */
 html * {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -21,8 +23,7 @@ html,
 body {
 	position: relative;
 	-webkit-overflow-scrolling: touch;
-	min-height: 100%;
-	color: $color-darkblue;
+	color: #43425d;
 	font-size: $font-size-medium;
 	font-family: $font-family-base;
 	line-height: 1.6rem;
@@ -33,6 +34,8 @@ body {
 	left: 0;
 	margin: auto;
 	max-width: 980px;
+	background: $color-back;
+	color: #43425d;
 }
 
 *:focus {
@@ -40,97 +43,547 @@ body {
 }
 
 * {
+	-webkit-appearance: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, .1);
 }
 
 a {
-	color: $color-darkblue;
+	color: #43425d;
 	text-decoration: none;
-	transition: 200ms all ease-in-out;
+}
 
-	&:hover {
-		img {
-			opacity: .8;
-
-			@include mq768 {
-				opacity: 1;
-			}
-		}
+// Typography
+h1 {
+	margin: 0 auto 1.5rem;
+	color: #11b1dc;
+	text-align: center;
+	font-weight: bold;
+	font-size: $font-size-giant;
+	img {
+		height: 3rem;
 	}
 }
 
-
-//CONTENT
-body {
-	background: $color-back;
-	color: $color-darkblue;
+.text-medium {
+	margin: 0 auto 1.5rem;
+	font-size: $font-size-medium;
+	line-height: 26px;
 }
 
+.text-small {
+	margin: 0 auto 1.5rem;
+	font-size: $font-size-small;
+	line-height: 22px;
+}
+
+.center {
+	text-align: center;
+}
+
+.small {
+	font-size: $font-size-slight;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+//CONTENT
 .container {
-	margin: 0 auto;
+	margin: 3rem auto 0;
 	max-width: 768px;
 	width: 100%;
 }
 
+//CARD
+.card {
+	margin: auto;
+	padding: 2rem 1rem .5rem;
+	width: calc(100% - 4rem);
+	border-radius: 10px;
+	&.white {
+		background: #fff;
+		box-shadow: 0 -3px 20px rgba(#c3e8f7, .7);
+	}
+}
 
+//list presents
+.list-presents {
+	margin: 0 auto 1.5rem;
+	width: 100%;
+	> dt {
+		position: relative;
+		padding: .5rem 1.5rem;
+		width: 80%;
+		border-radius: 0 2rem 2rem 0;
+		background: $color-blue-gr;
+		color: #fff;
+		font-weight: bold;
+		font-size: $font-size-giant;
+		font-family: "Roboto", sans-serif;
+		cursor: pointer;
+		&::before {
+			position: absolute;
+			right: 20px;
+			display: inline-block;
+			width: 25px;
+			content: "＋";
+			text-align: center;
+		}
+		&.open {
+			&::before {
+				content: "ー";
+			}
+		}
+	}
+	> dd {
+		position: relative;
+		visibility: hidden;
+		overflow: hidden;
+		width: 100%;
+		animation: 600ms ease-in both fadeout;
+		div {
+			visibility: hidden;
+			height: 0;
+			opacity: 0;
+			transition: all 300ms ease-out;
+		}
+		&.open {
+			display: block;
+			height: auto;
+			animation: 600ms ease-out both fadein;
+			div {
+				visibility: visible;
+				height: 100%;
+				opacity: 1;
+				transition: all 300ms ease-out;
+			}
+		}
+		dl:last-of-type {
+			margin: 0 auto;
+		}
+	}
+}
+
+@keyframes fadein {
+	0% {
+		visibility: hidden;
+		padding: 0 1rem 0 3rem;
+		opacity: 0;
+	}
+	100% {
+		visibility: visible;
+		padding: 1.5rem 1rem 0 3rem;
+		opacity: 1;
+	}
+}
+@keyframes fadeout {
+	0% {
+		visibility: visible;
+		padding: 1.5rem 1rem 0 3rem;
+		opacity: 1;
+	}
+
+	100% {
+		visibility: hidden;
+		padding: 0 1rem 0 3rem;
+		opacity: 0;
+	}
+}
+
+
+.card-gift {
+	position: relative;
+	margin: 0 auto 1.5rem;
+	padding: 1rem;
+	min-height: 115px;
+	width: 100%;
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: 3px 3px 10px rgba(#c3e8f7, .7);
+	&::before {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: -1.5rem;
+		margin: auto;
+		width: 1.5rem;
+		height: 2px;
+		background: rgba(#11b1dc, .6);
+		content: "";
+	}
+	&::after {
+		position: absolute;
+		top: calc( 100% - 150% - 1.5rem);
+		left: -1.5rem;
+		margin: auto;
+		width: 2px;
+		height: calc(100% + 1rem);
+		background: rgba(#11b1dc, .6);
+		content: "";
+	}
+	.item-area {
+		position: absolute;
+		top: 1rem;
+		text-align: center;
+		.date {
+			display: block;
+			margin: 0 auto .5rem;
+			color: #11b1dc;
+			font-weight: bold;
+			font-size: $font-size-large;
+		}
+		figure {
+			overflow: hidden;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background: $color-blue-gr;
+			box-shadow: 3px 3px 10px rgba(#11b1dc, .2);
+			text-align: center;
+			img {
+				width: 100%;
+				height: auto;
+			}
+		}
+		a{
+			display: block;
+			transition: opacity 300ms ease-out;
+			&:hover {
+			opacity: .8;
+		}}
+	}
+	&.give {
+		padding-left: 5rem;
+		.item-area {
+			left: 1rem;
+		}
+	}
+	&.take {
+		padding-right: 5rem;
+		.item-area {
+			right: 1.5rem;
+		}
+	}
+	> dt {
+		font-weight: bold;
+		font-size: $font-size-medium;
+		&::before {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: -2.1rem;
+			z-index: 10;
+			display: block;
+			margin: auto;
+			width: 20px;
+			height: 20px;
+			border: 4px solid #11b1dc;
+			border-radius: 50%;
+			background: $color-back;
+			content: "";
+		}
+	}
+}
+
+//line
+hr {
+	margin: 0 auto 1.5rem;
+	border: none;
+	&.dot_line {
+		border: 1px dashed rgba(#11b1dc, .2);
+	}
+}
+
+
+/* =======================================
+	Components
+======================================= */
 //BUTTON
 .btn {
 	position: relative;
 	z-index: 0;
 	display: block;
-	overflow: hidden;
+	margin: 0 auto 1.5rem;
 	max-width: 248px;
 	width: 100%;
 	height: 48px;
 	border-radius: 25px;
-	color: $color-white;
+	color: #fff;
 	text-align: center;
 	font-weight: bold;
 	font-size: 1.1rem;
 	line-height: 48px;
-	margin: auto;
-
-	&::before {
+	&::before,
+	&::after {
 		position: absolute;
 		left: 0;
 		z-index: -1;
 		width: 100%;
 		height: 100%;
+		border-radius: 25px;
 		content: "";
-		transition: 300ms;
+		transition: 300ms ease-out;
 	}
-
 	&:hover {
-		transition: all 300ms ease-out;
-
 		&::before {
+			opacity: 0;
+		}
+	}
+	&:active {
+		&::after {
 			opacity: 0;
 		}
 	}
 }
 
 .btn-primary {
-	background: $color-blue;
-	box-shadow: 3px 3px 10px rgba(#0c93c9, .6);
-
+	background: #11b1dc;
 	&::before {
 		background: $color-blue-gr;
 	}
-
-	&:hover {
+	&::after {
+		box-shadow: 3px 3px 10px rgba(#0c93c9, .6);
+	}
+	&:active {
 		box-shadow: 1px 1px 10px #0c93c9 inset;
 	}
 }
 
 .btn-info {
-	background: $color-pink;
-	box-shadow: 3px 3px 10px rgba(#af3781, .6);
-
+	background: #fe719d;
 	&::before {
 		background: $color-pink-gr;
 	}
-
-	&:hover {
+	&::after {
+		box-shadow: 3px 3px 10px rgba(#af3781, .6);
+	}
+	&:active {
 		box-shadow: 1px 1px 10px #af3781 inset;
+	}
+}
+
+// Link
+.link-text {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	margin: 0 auto 1.5rem;
+	line-height: 1.2rem;
+
+	// パスワード忘れた人
+	&.forget {
+		padding: 0 0 0 1.7rem;
+		&::before {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: .2rem;
+			display: inline-block;
+			margin: auto;
+			width: 1.2rem;
+			height: 1.2rem;
+			border-radius: 50%;
+			background: #fe719d;
+			color: #fff;
+			content: "？";
+			text-align: center;
+			line-height: 1.2rem;
+		}
+	}
+
+	// 戻る
+	&.back {
+		&::before {
+			display: inline-block;
+			padding: 0 .3rem 0 0;
+			color: #11b1dc;
+		}
+	}
+}
+
+// formgroup
+.form-group {
+	margin: 0 auto 1.5rem;
+	text-align: left;
+	span {
+		display: block;
+		font-size: $font-size-slight;
+	}
+
+	input {
+		padding: 1rem .5rem;
+		width: 100%;
+		height: 48px;
+		border: 1px solid #d1d1d1;
+		border-radius: 4px;
+		font-size: 1rem;
+		line-height: 1rem;
+		&::placeholder {
+			padding: .1rem 0 0 0;
+			color: #cecfd0;
+			font-size: $font-size-small;
+		}
+		&:focus {
+			border: 1px solid #a7a7a7;
+			transition: 300ms ease-out;
+		}
+	}
+}
+
+// SPINNERS
+.spinner {
+	display: block;
+	margin: 4rem auto;
+	width: 3rem;
+	height: 3rem;
+	border: 3px solid transparent;
+	border-top-color: rgba(#11b1dc, .5);
+	border-bottom-color: rgba(#11b1dc, .5);
+	border-radius: 50%;
+	animation: rotation .8s ease infinite;
+}
+
+// ANIMATIONS
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+// badge
+.badge {
+	display: inline-block;
+	padding: .4em .6em;
+	border-radius: 10rem;
+	background: #11b1dc;
+	color: #fff;
+	vertical-align: baseline;
+	text-align: center;
+	white-space: nowrap;
+	font-weight: 700;
+	font-size: 75%;
+	line-height: 1;
+}
+
+.fas::before {
+	padding-right: .5rem;
+}
+
+// Search
+#search {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	overflow: hidden;
+	width: 80px;
+	height: 80px;
+	font-size: 0;
+	pointer-events: auto;
+	&::before {
+		position: absolute;
+		z-index: 1;
+		display: block;
+		padding: 0;
+		width: 90px;
+		color: #fff;
+		text-align: center;
+		font-size: 30px;
+		line-height: 70px;
+	}
+	&::after {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 0;
+		display: block;
+		padding: 0;
+		width: 100px;
+		height: 100px;
+		border-radius: 50px;
+		background: #11b1dc;
+		color: #fff;
+		content: "";
+		text-align: center;
+		font-size: 30px;
+		line-height: 50px;
+		transition: all 300ms ease-out;
+	}
+	&.show {
+		&::before {
+			content: "✕";
+		}
+	}
+	&:hover {
+		&::after {
+			background: #0c93c9;
+		}
+	}
+}
+
+.search-wrap {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 99;
+	display: block;
+	overflow: hidden;
+	padding: 50px 0 0;
+	width: 100%;
+	height: 100vh;
+	pointer-events: none;
+	&::after {
+		position: absolute;
+		top: -20px;
+		right: -20px;
+		z-index: 0;
+		display: block;
+		border-radius: 100%;
+		background: #11b1dc;
+		content: "";
+		pointer-events: auto;
+	}
+	&.show::after{animation: 600ms ease-out both 500ms search;}
+	dl {
+		position: relative;
+		z-index: 1;
+		margin: 50px auto 0;
+		width: 80%;
+		opacity: 0;
+		dt {
+			padding: 0 0 .5rem;
+			color: #fff;
+			font-size: 1.2rem;
+		}
+		dd {
+			padding: .7rem 1rem;
+			border-radius: 10px;
+			background: #fff;
+			span {
+				margin: 0 .1rem .2rem;
+			}
+		}
+	}
+	.show dl {animation: 300ms ease-out both 1100ms fadein;}
+}
+
+@keyframes search {
+	0% {
+		top: -20px;
+		right: -20px;
+		width: 100px;
+		height: 100px;
+		opacity: .5;
+	}
+	100% {
+		top: -500px;
+		right: -500px;
+		width: 2000px;
+		height: 2000px;
+		opacity: 1;
 	}
 }
