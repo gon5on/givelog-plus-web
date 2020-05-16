@@ -576,6 +576,7 @@ hr.dot_line {
   height: 80px;
   font-size: 0;
   pointer-events: auto;
+  cursor: pointer;
 }
 
 #search::before {
@@ -644,8 +645,8 @@ hr.dot_line {
 }
 
 .search-wrap.show::after {
-  -webkit-animation: 600ms ease-out both 500ms search;
-  animation: 600ms ease-out both 500ms search;
+  -webkit-animation: 600ms ease-out both 50ms search;
+  animation: 600ms ease-out both 50ms search;
 }
 
 .search-wrap dl {
@@ -673,8 +674,8 @@ hr.dot_line {
 }
 
 .search-wrap .show dl {
-  -webkit-animation: 300ms ease-out both 1100ms fadein;
-  animation: 300ms ease-out both 1100ms fadein;
+  -webkit-animation: 300ms ease-out both 600ms fadein;
+  animation: 300ms ease-out both 600ms fadein;
 }
 
 @-webkit-keyframes search {

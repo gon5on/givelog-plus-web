@@ -484,6 +484,7 @@ hr {
 	height: 80px;
 	font-size: 0;
 	pointer-events: auto;
+	cursor: pointer;
 	&::before {
 		position: absolute;
 		z-index: 1;
@@ -547,7 +548,7 @@ hr {
 		content: "";
 		pointer-events: auto;
 	}
-	&.show::after{animation: 600ms ease-out both 500ms search;}
+	&.show::after{animation: 600ms ease-out both 50ms search;}
 	dl {
 		position: relative;
 		z-index: 1;
@@ -568,7 +569,7 @@ hr {
 			}
 		}
 	}
-	.show dl {animation: 300ms ease-out both 1100ms fadein;}
+	.show dl {animation: 300ms ease-out both 600ms fadein;}
 }
 
 @keyframes search {
