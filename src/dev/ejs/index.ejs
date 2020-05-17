@@ -10,117 +10,194 @@
 <body>
     <!-- ////////// PageContents ////////// -->
     <header>
+        <nav class="side-menu">
+            <div class="hamburger">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+            <ul class="menu-list">
+                <li><a href="#">list</a></li>
+                <li><a href="#">list</a></li>
+                <li><a href="#">list</a></li>
+            </ul>
+        </nav>
         <section>
-            <a href="<%= config.path %>">
+            <a href="<%= config.path %>before_login.html">
                 <h1><img src="<%= config.root %>img/logo.svg" alt="givelog plus"></h1>
             </a>
         </section>
-        <nav id="search-area">
-        <vue-search>
-            <div slot="body">
-                <dl>
-                    <dt>
-                        <span class="fas fa-address-book">人物カテゴリ</span>
-                    </dt>
-                    <dd class="badge-area">
-                        <span class="badge">家族</span>
-                        <span class="badge">親戚</span>
-                        <span class="badge">友達</span>
-                        <span class="badge">会社</span>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>
-                        <span class="fas fa-calendar-check">イベント</span>
-                    </dt>
-                    <dd class="badge-area">
-                        <span class="badge">クリスマス</span>
-                        <span class="badge">誕生日</span>
-                        <span class="badge">こどもの日</span>
-                        <span class="badge">母の日</span>
-                        <span class="badge">結婚祝い</span>
-                        <span class="badge">父の日</span>
-                        <span class="badge">出産祝い</span>
-                        <span class="badge">新築祝い</span>
-                    </dd>
-                </dl>
-            </div>
-        </vue-search>
-        </nav>
     </header>
+    <nav id="search-area">
+        <vue-search>
+            <dl slot="body">
+                <dt>
+                    <span class="fas fa-address-book">人物カテゴリ</span>
+                </dt>
+                <dd class="badge-area">
+                    <span class="badge badge-pill" style="background-color:#E91E63">家族</span>
+                    <span class="badge badge-pill" style="background-color:#2196F3">親戚</span>
+                    <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
+                    <span class="badge badge-pill" style="background-color:#FF9800">会社</span>
+                </dd>
+            </dl>
+            <dl slot="body">
+                <dt>
+                    <span class="fas fa-calendar-check">イベント</span>
+                </dt>
+                <dd class="badge-area">
+                    <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
+                    <span class="badge badge-pill" style="background-color:#F44336">誕生日</span>
+                    <span class="badge badge-pill" style="background-color:#673AB7">こどもの日</span>
+                    <span class="badge badge-pill" style="background-color:#3F51B5">母の日</span>
+                    <span class="badge badge-pill" style="background-color:#009688">結婚祝い</span>
+                    <span class="badge badge-pill" style="background-color:#2196F3">父の日</span>
+                    <span class="badge badge-pill" style="background-color:#4CAF50">出産祝い</span>
+                    <span class="badge badge-pill" style="background-color:#8BC34A">新築祝い</span>
+                </dd>
+            </dl>
 
-    <div class="container" id="toggleList">
-        <vue-accordion class="list-presents" date="2019/01/01-12/31">
-            <div slot="body">
-                <dl class="card-gift give">
-                    <dt>自分からお母さんに</dt>
-                    <dd class="item-area">
-                    <a href="<%= config.path %>">
-                        <span class="date">00/00</span>
-                        <figure>
-                            <img src="<%= config.root %>img/icon_present.png" alt="">
-                        </figure>
-                    </a>
-                    </dd>
-                    <dd class="text-area">
-                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
-                    </dd>
-                    <dd class="badge-area">
-                    <span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
-                </dl>
-                <dl class="card-gift take">
-                    <dt>自分からお母さんに</dt>
-                    <dd class="item-area">
-                    <a href="#">
-                        <span class="date">00/00</span>
-                        <figure>
-                            <img src="<%= config.root %>img/icon_present.png" alt="">
-                        </figure>
-                    </a>
-                    </dd>
-                    <dd class="text-area">
-                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
-                    </dd>
-                    <dd class="badge-area"><span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
-                </dl>
-            </div>
-        </vue-accordion>
-        <vue-accordion class="list-presents" date="2019/01/01-12/31">
-            <div slot="body">
-                <dl class="card-gift give">
-                    <dt>自分からお母さんに</dt>
-                    <dd class="item-area">
-                    <a href="#">
-                        <span class="date">00/00</span>
-                        <figure>
-                            <img src="<%= config.root %>img/icon_present.png" alt="">
-                        </figure>
-                    </a>
-                    </dd>
-                    <dd class="text-area">
-                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
-                    </dd>
-                    <dd class="badge-area"><span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
-                </dl>
-                <dl class="card-gift take">
-                    <dt>自分からお母さんに</dt>
-                    <dd class="item-area">
-                    <a href="#">
-                        <span class="date">00/00</span>
-                        <figure>
-                            <img src="<%= config.root %>img/icon_present.png" alt="">
-                        </figure>
-                    </a>
-                    </dd>
-                    <dd class="text-area">
-                        <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
-                    </dd>
-                    <dd class="badge-area"><span class="badge">サッカー教室ママ友</span> <span class="badge">バレンタインデー</span></dd>
-                </dl>
-            </div>
-        </vue-accordion>
-    </div>
+        </vue-search>
+    </nav>
 
+    <main>
+        <div class="container" id="toggleList">
+            <vue-accordion class="list-presents" date="2019/01/01-12/31">
+                <div slot="body">
+                    <dl class="card-gift give">
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
+                        <dd class="item-area">
+                            <a href="<%= config.path %>">
+                                <span class="date" style="color:#4CAF50">00/00</span>
+                                <figure style="background-color:#4CAF50">
+                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                </figure>
+                            </a>
+                        </dd>
+                        <dd class="text-area">
+                            <p class="text-small">カーネーションの花束と抹茶ロールケーキカーネーションの花束と抹茶ロールケーキカーネーションの花束と抹茶ロールケーキキ</p>
+                        </dd>
+                        <dd class="badge-area">
+                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
+                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
+                        </dd>
+                    </dl>
+                    <dl class="card-gift give">
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
+                        <dd class="item-area">
+                            <a href="<%= config.path %>">
+                                <span class="date" style="color:#4CAF50">00/00</span>
+                                <figure style="background-color:#4CAF50">
+                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                </figure>
+                            </a>
+                        </dd>
+                        <dd class="text-area">
+                            <p class="text-small">カーネーションの花束と抹茶ロールケーキカーネーションの花束と抹茶</p>
+                        </dd>
+                        <dd class="badge-area">
+                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
+                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
+                        </dd>
+                    </dl>
+                    <dl class="card-gift give">
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
+                        <dd class="item-area">
+                            <a href="<%= config.path %>">
+                                <span class="date" style="color:#4CAF50">00/00</span>
+                                <figure style="background-color:#4CAF50">
+                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                </figure>
+                            </a>
+                        </dd>
+                        <dd class="text-area">
+                            <p class="text-small">カーネーションの花束と抹茶ロールケーキカーネーションのーキカ</p>
+                        </dd>
+                        <dd class="badge-area">
+                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
+                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
+                        </dd>
+                    </dl>
+                    <dl class="card-gift give">
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
+                        <dd class="item-area">
+                            <a href="<%= config.path %>">
+                                <span class="date" style="color:#4CAF50">00/00</span>
+                                <figure style="background-color:#4CAF50">
+                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                </figure>
+                            </a>
+                        </dd>
+                        <dd class="text-area">
+                            <p class="text-small">カーネーシの花束と抹茶ロールケーキ</p>
+                        </dd>
+                        <dd class="badge-area">
+                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
+                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
+                        </dd>
+                    </dl>
+                    <dl class="card-gift take">
+                        <dt>自分からお母さんに</dt>
+                        <dd class="item-area">
+                            <a href="#">
+                                <span class="date" style="color:#E91E63">00/00</span>
+                                <figure style="background-color:#E91E63">
+                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                </figure>
+                            </a>
+                        </dd>
+                        <dd class="text-area">
+                            <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
+                        </dd>
+                        <dd class="badge-area">
+                            <span class="badge badge-pill" style="background-color:#E91E63">家族</span>
+                            <span class="badge badge-pill" style="background-color:#2196F3">父の日</span>
+                        </dd>
+                    </dl>
+                    <dl class="card-gift take">
+                        <dt>自分からお母さんに</dt>
+                        <dd class="item-area">
+                            <a href="#">
+                                <span class="date" style="color:#FF9800">00/00</span>
+                                <figure style="background-color:#FF9800">
+                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                </figure>
+                            </a>
+                        </dd>
+                        <dd class="text-area">
+                            <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
+                        </dd>
+                        <dd class="badge-area">
+                            <span class="badge badge-pill" style="background-color:#FF9800">会社</span>
+                            <span class="badge badge-pill" style="background-color:#F44336">誕生日</span>
+                        </dd>
+                    </dl>
+                </div>
+            </vue-accordion>
+            <vue-accordion class="list-presents" date="2019/01/01-12/31">
+                <div slot="body">
+                    <dl class="card-gift give">
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
+                        <dd class="item-area">
+                            <a href="<%= config.path %>">
+                                <span class="date" style="color:#4CAF50">00/00</span>
+                                <figure style="background-color:#4CAF50">
+                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                </figure>
+                            </a>
+                        </dd>
+                        <dd class="text-area">
+                            <p class="text-small">カーネーションの花束と抹茶ロールケーキ</p>
+                        </dd>
+                        <dd class="badge-area">
+                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
+                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
+                        </dd>
+                    </dl>
+                </div>
+            </vue-accordion>
+        </div>
+    </main>
 
     <!-- ////////// END PageContents ////////// -->
     <%- include('./Layout/_script',{data:pageData});%>

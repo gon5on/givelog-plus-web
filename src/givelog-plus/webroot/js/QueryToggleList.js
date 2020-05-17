@@ -1,17 +1,21 @@
+//Todo 直近だけ初回から開いていたい
+
 const vueAccordion = {
     template: `
     <dl v-cloak>
-        <dt v-bind:class="{ 'open': isOpened }" @click="accordionToggle()">
+        <dt v-bind:class="{ 'show': isShowed }" @click="accordionToggle()">
             {{this.date}}
         </dt>
-        <dd class="vue-accordion-target" v-bind:class="{ 'open': isOpened }">
-            <slot name="body"></slot>
-        </dd>
+        <transition name="js-accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
+            <dd class="vue-accordion-target" v-bind:class="{ 'show': isShowed }" v-show="isShowed">
+                <slot name="body"></slot>
+            </dd>
+        </transition>
     </dl>
     `,
     data() {
         return {
-            isOpened: false
+            isShowed: true
         }
     },
     props: {
@@ -21,7 +25,22 @@ const vueAccordion = {
     },
     methods: {
         accordionToggle: function () {
-            this.isOpened = !this.isOpened;
+            this.isShowed = !this.isShowed;
+        },
+        beforeEnter: function(el) {
+        el.style.height = '0';
+        },
+        enter: function(el) {
+        el.style.height = (el.scrollHeight+30) + 'px';
+        },
+        beforeLeave: function(el) {
+        el.style.height = (el.scrollHeight+30) + 'px';
+        },
+        leave: function(el) {
+        el.style.height = '0';
         }
+    },
+    mounted: function () {
+    this.accordionToggle();
     }
 };

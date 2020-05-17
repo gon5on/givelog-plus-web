@@ -33,7 +33,7 @@ body {
 	right: 0;
 	left: 0;
 	margin: auto;
-	max-width: 980px;
+	max-width: 768px;
 	background: $color-back;
 	color: #43425d;
 }
@@ -52,26 +52,83 @@ a {
 	text-decoration: none;
 }
 
-// Typography
-h1 {
-	margin: 0 auto 1.5rem;
-	color: #11b1dc;
-	text-align: center;
-	font-weight: bold;
-	font-size: $font-size-giant;
-	img {
-		height: 3rem;
+header {
+	position: relative;
+	margin: auto;
+	padding: 1rem 0 0 4rem;
+	max-width: 768px;
+	width: 100%;
+	h1 {
+		margin: 0 auto 1.5rem;
+		color: #11b1dc;
+		img {
+			height: 2.5rem;
+		}
+	}
+	.side-menu {
+		position: absolute;
+		top: 0;
+		left: 0;
+		.hamburger {
+			position: absolute;
+			top: 13px;
+			left: 10px;
+			padding: 10px;
+			width: 50px;
+			height: 50px;
+			cursor: pointer;
+			.line {
+				display: block;
+				margin: 4px auto;
+				width: 30px;
+				height: 4px;
+				background-color: #11b1dc;
+				transition: all .3s ease-in-out;
+			}
+		}
+		.menu-list {
+			display: none;
+		}
+		&.show,
+		&:hover {
+			.hamburger {
+				.line:nth-child(1),
+				.line:nth-child(3) {
+					width: 25px;
+				}
+				.line:nth-child(1) {
+					transform: translateX(-10px) rotate(-45deg);
+				}
+				.line:nth-child(3) {
+					transform: translateX(-10px) rotate(45deg);
+				}
+			}
+		}
 	}
 }
 
+// Typography
+h1.title-logo {
+	margin: 0 auto 50px;
+	max-width: 200px;
+	width: 100%;
+}
+
+h1 {
+	margin: 0 auto .5rem;
+	color: #11b1dc;
+	font-weight: bold;
+	font-size: $font-size-giant;
+}
+
 .text-medium {
-	margin: 0 auto 1.5rem;
+	margin: 0 auto .25rem;
 	font-size: $font-size-medium;
 	line-height: 26px;
 }
 
 .text-small {
-	margin: 0 auto 1.5rem;
+	margin: 0 auto .25rem;
 	font-size: $font-size-small;
 	line-height: 22px;
 }
@@ -99,8 +156,10 @@ h1 {
 .card {
 	margin: auto;
 	padding: 2rem 1rem .5rem;
-	width: calc(100% - 4rem);
+	max-width: 580px;
+	width: calc(100% - 2rem);
 	border-radius: 10px;
+
 	&.white {
 		background: #fff;
 		box-shadow: 0 -3px 20px rgba(#c3e8f7, .7);
@@ -111,6 +170,7 @@ h1 {
 .list-presents {
 	margin: 0 auto 1.5rem;
 	width: 100%;
+
 	> dt {
 		position: relative;
 		padding: .5rem 1.5rem;
@@ -122,43 +182,49 @@ h1 {
 		font-size: $font-size-giant;
 		font-family: "Roboto", sans-serif;
 		cursor: pointer;
-		&::before {
+
+		&::before,
+		&::after {
 			position: absolute;
+			top: 45%;
 			right: 20px;
 			display: inline-block;
 			width: 25px;
-			content: "＋";
+			height: 4px;
+			background: #fff;
+			content: "";
 			text-align: center;
+			transition: all 200ms;
 		}
-		&.open {
+		&::after {
+			transform: rotate(90deg);
+		}
+
+		&.show {
 			&::before {
-				content: "ー";
+				content: "";
+				opacity: 0;
+			}
+			&::after {
+				transform: rotate(0deg);
 			}
 		}
 	}
+
 	> dd {
 		position: relative;
 		visibility: hidden;
 		overflow: hidden;
-		width: 100%;
-		animation: 600ms ease-in both fadeout;
-		div {
-			visibility: hidden;
-			height: 0;
-			opacity: 0;
-			transition: all 300ms ease-out;
-		}
-		&.open {
+		transition: height 600ms ease-in-out;
+		animation: 400ms ease-in both fadeout;
+
+		&.show {
 			display: block;
+			width: 100%;
 			height: auto;
 			animation: 600ms ease-out both fadein;
-			div {
-				visibility: visible;
-				height: 100%;
-				opacity: 1;
-				transition: all 300ms ease-out;
-			}
 		}
+
 		dl:last-of-type {
 			margin: 0 auto;
 		}
@@ -171,16 +237,18 @@ h1 {
 		padding: 0 1rem 0 3rem;
 		opacity: 0;
 	}
+
 	100% {
 		visibility: visible;
-		padding: 1.5rem 1rem 0 3rem;
+		padding: 1.5rem 1rem 1rem 3rem;
 		opacity: 1;
 	}
 }
+
 @keyframes fadeout {
 	0% {
 		visibility: visible;
-		padding: 1.5rem 1rem 0 3rem;
+		padding: 1.5rem 1rem 1rem 3rem;
 		opacity: 1;
 	}
 
@@ -194,13 +262,14 @@ h1 {
 
 .card-gift {
 	position: relative;
-	margin: 0 auto 1.5rem;
+	margin: 0 auto 1rem;
 	padding: 1rem;
 	min-height: 115px;
 	width: 100%;
 	border-radius: 4px;
 	background: #fff;
 	box-shadow: 3px 3px 10px rgba(#c3e8f7, .7);
+
 	&::before {
 		position: absolute;
 		top: 0;
@@ -212,9 +281,10 @@ h1 {
 		background: rgba(#11b1dc, .6);
 		content: "";
 	}
+
 	&::after {
 		position: absolute;
-		top: calc( 100% - 150% - 1.5rem);
+		top: calc(100% - 150% - 1.5rem);
 		left: -1.5rem;
 		margin: auto;
 		width: 2px;
@@ -222,10 +292,12 @@ h1 {
 		background: rgba(#11b1dc, .6);
 		content: "";
 	}
+
 	.item-area {
 		position: absolute;
 		top: 1rem;
 		text-align: center;
+
 		.date {
 			display: block;
 			margin: 0 auto .5rem;
@@ -233,41 +305,53 @@ h1 {
 			font-weight: bold;
 			font-size: $font-size-large;
 		}
+
 		figure {
 			overflow: hidden;
 			width: 50px;
 			height: 50px;
 			border-radius: 50%;
-			background: $color-blue-gr;
+			background-image: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,.7) 100% );
 			box-shadow: 3px 3px 10px rgba(#11b1dc, .2);
 			text-align: center;
+
 			img {
 				width: 100%;
 				height: auto;
 			}
 		}
-		a{
+
+		a {
 			display: block;
 			transition: opacity 300ms ease-out;
+
 			&:hover {
-			opacity: .8;
-		}}
+				opacity: .8;
+			}
+		}
 	}
+
 	&.give {
 		padding-left: 5rem;
+
 		.item-area {
 			left: 1rem;
 		}
 	}
+
 	&.take {
 		padding-right: 5rem;
+
 		.item-area {
 			right: 1.5rem;
 		}
 	}
+
 	> dt {
+		margin: 0 auto .25rem;
 		font-weight: bold;
 		font-size: $font-size-medium;
+
 		&::before {
 			position: absolute;
 			top: 0;
@@ -283,6 +367,9 @@ h1 {
 			background: $color-back;
 			content: "";
 		}
+		a {
+			color: #0c93c9;
+		}
 	}
 }
 
@@ -290,6 +377,7 @@ h1 {
 hr {
 	margin: 0 auto 1.5rem;
 	border: none;
+
 	&.dot_line {
 		border: 1px dashed rgba(#11b1dc, .2);
 	}
@@ -314,6 +402,7 @@ hr {
 	font-weight: bold;
 	font-size: 1.1rem;
 	line-height: 48px;
+
 	&::before,
 	&::after {
 		position: absolute;
@@ -325,11 +414,13 @@ hr {
 		content: "";
 		transition: 300ms ease-out;
 	}
+
 	&:hover {
 		&::before {
 			opacity: 0;
 		}
 	}
+
 	&:active {
 		&::after {
 			opacity: 0;
@@ -339,12 +430,15 @@ hr {
 
 .btn-primary {
 	background: #11b1dc;
+
 	&::before {
 		background: $color-blue-gr;
 	}
+
 	&::after {
 		box-shadow: 3px 3px 10px rgba(#0c93c9, .6);
 	}
+
 	&:active {
 		box-shadow: 1px 1px 10px #0c93c9 inset;
 	}
@@ -352,14 +446,34 @@ hr {
 
 .btn-info {
 	background: #fe719d;
+
 	&::before {
 		background: $color-pink-gr;
 	}
+
 	&::after {
 		box-shadow: 3px 3px 10px rgba(#af3781, .6);
 	}
+
 	&:active {
 		box-shadow: 1px 1px 10px #af3781 inset;
+	}
+}
+
+.btn-filter {
+	background: #fff;
+	color: #0c93c9;
+
+	&::before {
+		background: linear-gradient(to left, rgba(#fff,1) 0%, rgba(#a7a7a7,.1) 100% );
+	}
+
+	&::after {
+		box-shadow: 3px 3px 10px rgba(#0c93c9, .6);
+	}
+
+	&:active {
+		box-shadow: 1px 1px 10px rgba(#0c93c9,.6) inset;
 	}
 }
 
@@ -373,12 +487,13 @@ hr {
 
 	// パスワード忘れた人
 	&.forget {
-		padding: 0 0 0 1.7rem;
+		padding: .1rem 0 .1rem 1.9rem;
+		line-height: 1.2rem;
 		&::before {
 			position: absolute;
 			top: 0;
 			bottom: 0;
-			left: .2rem;
+			left: .3rem;
 			display: inline-block;
 			margin: auto;
 			width: 1.2rem;
@@ -405,7 +520,9 @@ hr {
 // formgroup
 .form-group {
 	margin: 0 auto 1.5rem;
+	max-width: 480px;
 	text-align: left;
+
 	span {
 		display: block;
 		font-size: $font-size-slight;
@@ -417,13 +534,16 @@ hr {
 		height: 48px;
 		border: 1px solid #d1d1d1;
 		border-radius: 4px;
+		background: #fff;
 		font-size: 1rem;
 		line-height: 1rem;
+
 		&::placeholder {
 			padding: .1rem 0 0 0;
 			color: #cecfd0;
 			font-size: $font-size-small;
 		}
+
 		&:focus {
 			border: 1px solid #a7a7a7;
 			transition: 300ms ease-out;
@@ -449,16 +569,22 @@ hr {
 	from {
 		transform: rotate(0deg);
 	}
+
 	to {
 		transform: rotate(360deg);
 	}
 }
 
 // badge
+.badge-area {
+	padding: .25rem 0 0;
+	.badge {
+		margin: 0 .1rem .2rem;
+	}
+}
 .badge {
 	display: inline-block;
-	padding: .4em .6em;
-	border-radius: 10rem;
+	padding: .3rem .6rem;
 	background: #11b1dc;
 	color: #fff;
 	vertical-align: baseline;
@@ -467,6 +593,10 @@ hr {
 	font-weight: 700;
 	font-size: 75%;
 	line-height: 1;
+}
+
+.badge-pill {
+	border-radius: 10rem;
 }
 
 .fas::before {
@@ -483,8 +613,9 @@ hr {
 	width: 80px;
 	height: 80px;
 	font-size: 0;
-	pointer-events: auto;
 	cursor: pointer;
+	pointer-events: auto;
+
 	&::before {
 		position: absolute;
 		z-index: 1;
@@ -496,6 +627,7 @@ hr {
 		font-size: 30px;
 		line-height: 70px;
 	}
+
 	&::after {
 		position: absolute;
 		bottom: 0;
@@ -514,17 +646,24 @@ hr {
 		line-height: 50px;
 		transition: all 300ms ease-out;
 	}
+
 	&.show {
 		&::before {
 			content: "✕";
 		}
+		&::after {
+		background-color: rgba(#11b1dc,0);
+		transition: background-color 200ms;
+		}
 	}
+
 	&:hover {
 		&::after {
-			background: #0c93c9;
+		background-color: rgba(#11b1dc,1);
 		}
 	}
 }
+
 
 .search-wrap {
 	position: absolute;
@@ -533,10 +672,12 @@ hr {
 	z-index: 99;
 	display: block;
 	overflow: hidden;
-	padding: 50px 0 0;
+	padding: 50px 0 100px;
+	min-height: 100vh;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	pointer-events: none;
+	background-color: rgba(#11b1dc,0);
 	&::after {
 		position: absolute;
 		top: -20px;
@@ -548,8 +689,17 @@ hr {
 		content: "";
 		pointer-events: auto;
 	}
-	&.show::after{animation: 600ms ease-out both 50ms search;}
-	dl {
+	&.show {
+		pointer-events: auto;
+		background-color: rgba(#11b1dc,1);
+		transition: background-color 100ms 400ms;
+		overflow-y: auto;
+		&::after {
+			animation: 600ms ease-out both 50ms search;
+		}
+	}
+	dl,
+	.btn {
 		position: relative;
 		z-index: 1;
 		margin: 50px auto 0;
@@ -561,16 +711,21 @@ hr {
 			font-size: 1.2rem;
 		}
 		dd {
-			padding: .7rem 1rem;
+			padding: .7rem 1rem .6rem;
 			border-radius: 10px;
 			background: #fff;
-			span {
-				margin: 0 .1rem .2rem;
-			}
 		}
 	}
-	.show dl {animation: 300ms ease-out both 600ms fadein;}
+	.show dl {
+		animation: 300ms ease-out both 600ms fadeArea;
+		pointer-events: auto;
+	}
+	.btn.show {
+		animation: 300ms ease-out both 600ms fadeArea;
+		pointer-events: auto;
+	}
 }
+
 
 @keyframes search {
 	0% {
@@ -580,11 +735,26 @@ hr {
 		height: 100px;
 		opacity: .5;
 	}
-	100% {
+	90% {
 		top: -500px;
 		right: -500px;
 		width: 2000px;
 		height: 2000px;
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes fadeArea {
+	0% {
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	100% {
+		visibility: visible;
 		opacity: 1;
 	}
 }
