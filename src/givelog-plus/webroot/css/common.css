@@ -154,6 +154,10 @@ h1 {
   width: 100%;
 }
 
+.container-box {
+  margin: 0 auto 1rem;
+}
+
 .card {
   margin: auto;
   padding: 2rem 1rem .5rem;
@@ -166,6 +170,10 @@ h1 {
   background: #fff;
   -webkit-box-shadow: 0 -3px 20px rgba(195, 232, 247, 0.7);
   box-shadow: 0 -3px 20px rgba(195, 232, 247, 0.7);
+}
+
+.card.end {
+  border-radius: 10px 10px 0 0 / 10px 10px 0 0;
 }
 
 .list-presents {
@@ -310,7 +318,7 @@ h1 {
   margin: auto;
   width: 1.5rem;
   height: 2px;
-  background: rgba(17, 177, 220, 0.6);
+  background: rgba(17, 177, 220, 0.3);
   content: "";
 }
 
@@ -321,7 +329,7 @@ h1 {
   margin: auto;
   width: 2px;
   height: calc(100% + 1rem);
-  background: rgba(17, 177, 220, 0.6);
+  background: rgba(17, 177, 220, 0.3);
   content: "";
 }
 
@@ -672,6 +680,77 @@ hr.dot_line {
   padding-right: .5rem;
 }
 
+.badge-checkbox {
+  padding-top: .5rem;
+}
+
+.badge-checkbox span {
+  position: relative;
+  display: inline-block;
+  margin: 0 .1rem .5rem;
+  padding: .4rem 1rem .4rem 1.5rem;
+  border-radius: 10rem;
+  background: #11b1dc;
+  color: #fff;
+  vertical-align: baseline;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.badge-checkbox span input[type=checkbox] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: .5rem;
+  margin: auto;
+  width: .5rem;
+  height: .5rem;
+  border: rgba(255, 255, 255, 0.5) solid 1px;
+  border-radius: 50%;
+  line-height: 1rem;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+
+.badge-checkbox span input[type=checkbox] + label {
+  line-height: 1rem;
+  cursor: pointer;
+}
+
+.badge-checkbox span input[type=checkbox] + label::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  display: inline-block;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  border-radius: 8rem;
+  background: #fff;
+  content: "";
+  opacity: .5;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+
+.badge-checkbox span input[type=checkbox]:checked {
+  background: #fff;
+}
+
+.badge-checkbox span input[type=checkbox]:checked + label {
+  opacity: 1;
+}
+
+.badge-checkbox span input[type=checkbox]:checked + label::after {
+  opacity: 0;
+}
+
 #search {
   position: absolute;
   top: 0;
@@ -742,8 +821,8 @@ hr.dot_line {
   min-height: 100vh;
   width: 100%;
   height: 100%;
-  pointer-events: none;
   background-color: rgba(17, 177, 220, 0);
+  pointer-events: none;
 }
 
 .search-wrap::after {
@@ -759,11 +838,11 @@ hr.dot_line {
 }
 
 .search-wrap.show {
-  pointer-events: auto;
+  overflow-y: auto;
   background-color: #11b1dc;
   -webkit-transition: background-color 100ms 400ms;
   transition: background-color 100ms 400ms;
-  overflow-y: auto;
+  pointer-events: auto;
 }
 
 .search-wrap.show::after {
@@ -776,7 +855,7 @@ hr.dot_line {
   position: relative;
   z-index: 1;
   margin: 50px auto 0;
-  width: 80%;
+  width: 90%;
   opacity: 0;
 }
 
@@ -789,7 +868,7 @@ hr.dot_line {
 
 .search-wrap dl dd,
 .search-wrap .btn dd {
-  padding: .7rem 1rem .6rem;
+  padding: 0 .4rem;
   border-radius: 10px;
   background: #fff;
 }

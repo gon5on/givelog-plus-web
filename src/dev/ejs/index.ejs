@@ -34,26 +34,66 @@
                 <dt>
                     <span class="fas fa-address-book">人物カテゴリ</span>
                 </dt>
-                <dd class="badge-area">
-                    <span class="badge badge-pill" style="background-color:#E91E63">家族</span>
-                    <span class="badge badge-pill" style="background-color:#2196F3">親戚</span>
-                    <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
-                    <span class="badge badge-pill" style="background-color:#FF9800">会社</span>
+                <dd>
+                <div class="badge-checkbox">
+                    <span style="background-color: #E91E63;">
+                        <input type="checkbox" name="cbox01-01" value="家族" id="cbox01-01">
+                        <label for="cbox01-01">家族</label>
+                    </span>
+                    <span style="background-color: #2196F3">
+                        <input type="checkbox" name="cbox01-02" value="親戚" id="cbox01-02">
+                        <label for="cbox01-02">親戚</label>
+                    </span>
+                    <span style="background-color: #4CAF50">
+                        <input type="checkbox" name="cbox01-03" value="友達" id="cbox01-03">
+                        <label for="cbox01-03">友達</label>
+                    </span>
+                    <span style="background-color: #FF9800">
+                        <input type="checkbox" name="cbox01-04" value="仕事" id="cbox01-04">
+                        <label for="cbox01-04">仕事</label>
+                    </span>
+                </div>
                 </dd>
             </dl>
             <dl slot="body">
                 <dt>
                     <span class="fas fa-calendar-check">イベント</span>
                 </dt>
-                <dd class="badge-area">
-                    <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
-                    <span class="badge badge-pill" style="background-color:#F44336">誕生日</span>
-                    <span class="badge badge-pill" style="background-color:#673AB7">こどもの日</span>
-                    <span class="badge badge-pill" style="background-color:#3F51B5">母の日</span>
-                    <span class="badge badge-pill" style="background-color:#009688">結婚祝い</span>
-                    <span class="badge badge-pill" style="background-color:#2196F3">父の日</span>
-                    <span class="badge badge-pill" style="background-color:#4CAF50">出産祝い</span>
-                    <span class="badge badge-pill" style="background-color:#8BC34A">新築祝い</span>
+                <dd>
+                <div class="badge-checkbox">
+                    <span style="background-color:#00BCD4">
+                    <input type="checkbox"  name="cbox02-01" value="クリスマス" id="cbox02-01">
+                    <label for="cbox02-01">クリスマス</label>
+                    </span>
+                    <span style="background-color:#F44336">
+                    <input type="checkbox"  name="cbox02-02" value="誕生日" id="cbox02-02">
+                    <label for="cbox02-02">誕生日</label>
+                    </span>
+                    <span style="background-color:#673AB7">
+                    <input type="checkbox"  name="cbox02-03" value="こどもの日" id="cbox02-03">
+                    <label for="cbox02-03">こどもの日</label>
+                    </span>
+                    <span style="background-color:#3F51B5">
+                    <input type="checkbox"  name="cbox02-04" value="母の日" id="cbox02-04">
+                    <label for="cbox02-04">母の日</label>
+                    </span>
+                    <span style="background-color:#009688">
+                    <input type="checkbox"  name="cbox02-05" value="結婚祝い" id="cbox02-05">
+                    <label for="cbox02-05">結婚祝い</label>
+                    </span>
+                    <span style="background-color:#2196F3">
+                    <input type="checkbox"  name="cbox02-06" value="父の日" id="cbox02-06">
+                    <label for="cbox02-06">父の日</label>
+                    </span>
+                    <span style="background-color:#4CAF50">
+                    <input type="checkbox"  name="cbox02-07" value="出産祝い" id="cbox02-07">
+                    <label for="cbox02-07">出産祝い</label>
+                    </span>
+                    <span style="background-color:#8BC34A">
+                    <input type="checkbox"  name="cbox02-08" value="新築祝い" id="cbox02-08">
+                    <label for="cbox02-08">新築祝い</label>
+                    </span>
+                </div>
                 </dd>
             </dl>
 
@@ -68,8 +108,8 @@
                         <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
                         <dd class="item-area">
                             <a href="<%= config.path %>">
-                                <span class="date" style="color:#4CAF50">00/00</span>
-                                <figure style="background-color:#4CAF50">
+                                <span class="date" style="color:#00BCD4">00/00</span>
+                                <figure style="background-color:#00BCD4">
                                     <img src="<%= config.root %>img/icon_present.png" alt="">
                                 </figure>
                             </a>
@@ -82,66 +122,12 @@
                             <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
                         </dd>
                     </dl>
-                    <dl class="card-gift give">
-                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
-                        <dd class="item-area">
-                            <a href="<%= config.path %>">
-                                <span class="date" style="color:#4CAF50">00/00</span>
-                                <figure style="background-color:#4CAF50">
-                                    <img src="<%= config.root %>img/icon_present.png" alt="">
-                                </figure>
-                            </a>
-                        </dd>
-                        <dd class="text-area">
-                            <p class="text-small">カーネーションの花束と抹茶ロールケーキカーネーションの花束と抹茶</p>
-                        </dd>
-                        <dd class="badge-area">
-                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
-                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
-                        </dd>
-                    </dl>
-                    <dl class="card-gift give">
-                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
-                        <dd class="item-area">
-                            <a href="<%= config.path %>">
-                                <span class="date" style="color:#4CAF50">00/00</span>
-                                <figure style="background-color:#4CAF50">
-                                    <img src="<%= config.root %>img/icon_present.png" alt="">
-                                </figure>
-                            </a>
-                        </dd>
-                        <dd class="text-area">
-                            <p class="text-small">カーネーションの花束と抹茶ロールケーキカーネーションのーキカ</p>
-                        </dd>
-                        <dd class="badge-area">
-                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
-                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
-                        </dd>
-                    </dl>
-                    <dl class="card-gift give">
-                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
-                        <dd class="item-area">
-                            <a href="<%= config.path %>">
-                                <span class="date" style="color:#4CAF50">00/00</span>
-                                <figure style="background-color:#4CAF50">
-                                    <img src="<%= config.root %>img/icon_present.png" alt="">
-                                </figure>
-                            </a>
-                        </dd>
-                        <dd class="text-area">
-                            <p class="text-small">カーネーシの花束と抹茶ロールケーキ</p>
-                        </dd>
-                        <dd class="badge-area">
-                            <span class="badge badge-pill" style="background-color:#4CAF50">友達</span>
-                            <span class="badge badge-pill" style="background-color:#00BCD4">クリスマス</span>
-                        </dd>
-                    </dl>
                     <dl class="card-gift take">
-                        <dt>自分からお母さんに</dt>
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
                         <dd class="item-area">
                             <a href="#">
-                                <span class="date" style="color:#E91E63">00/00</span>
-                                <figure style="background-color:#E91E63">
+                                <span class="date" style="color:#2196F3">00/00</span>
+                                <figure style="background-color:#2196F3">
                                     <img src="<%= config.root %>img/icon_present.png" alt="">
                                 </figure>
                             </a>
@@ -155,11 +141,11 @@
                         </dd>
                     </dl>
                     <dl class="card-gift take">
-                        <dt>自分からお母さんに</dt>
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
                         <dd class="item-area">
                             <a href="#">
-                                <span class="date" style="color:#FF9800">00/00</span>
-                                <figure style="background-color:#FF9800">
+                                <span class="date" style="color:#F44336">00/00</span>
+                                <figure style="background-color:#F44336">
                                     <img src="<%= config.root %>img/icon_present.png" alt="">
                                 </figure>
                             </a>
@@ -180,8 +166,8 @@
                         <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
                         <dd class="item-area">
                             <a href="<%= config.path %>">
-                                <span class="date" style="color:#4CAF50">00/00</span>
-                                <figure style="background-color:#4CAF50">
+                                <span class="date" style="color:#00BCD4">00/00</span>
+                                <figure style="background-color:#00BCD4">
                                     <img src="<%= config.root %>img/icon_present.png" alt="">
                                 </figure>
                             </a>
