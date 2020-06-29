@@ -7,7 +7,7 @@
 };%>
 <%- include('./Layout/_head', {data:pageData}) %>
 
-<body>
+<body id="app">
     <!-- ////////// PageContents ////////// -->
     <div class="container">
         <div class="spinner"></div>
@@ -27,6 +27,9 @@
                 </div>
                 <a href="<%= config.path %>forget-password" class="link-text small bold forget">パスワードを忘れた方はこちら</a>
                 <button class="btn btn-primary btn-user btn-block" id="login" type="submit">ログイン</button>
+
+                <p class="text-message small">or Login using social media</p>
+                <button class="btn btn-google btn-user btn-block" id="login" type="submit"><img src="<%= config.root %>img/icon_google.svg" alt="">Login with Google</button>
             </div>
             <hr class="dot_line">
             <a href="#" class="btn btn-info btn-user btn-block">アカウント新規作成</a>

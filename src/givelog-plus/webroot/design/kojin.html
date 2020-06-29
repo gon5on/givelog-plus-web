@@ -1,104 +1,50 @@
 <!DOCTYPE html>
-<%var pageData = {
-    id:'index',
-    title:'パーツ',
-    description:'',
-    keywords:''
-};%>
-<%- include('./Layout/_head', {data:pageData}) %>
 
-<body>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>givelog plus | パーツ</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+
+<body id="profile">
     <!-- ////////// PageContents ////////// -->
     <header id="menuList">
     <vue-menu></vue-menu>
     <section>
-        <a href="<%= config.path %>before_login.html">
-        <h1><img src="<%= config.root %>img/logo.svg" alt="givelog plus"></h1>
+        <a href="/design/before_login.html">
+            <h1><img src="/img/logo_w.svg" alt="givelog plus"></h1>
         </a>
     </section>
     </header>
-    <nav id="search-area">
-        <vue-search>
-            <dl slot="body">
-                <dt>
-                    <span class="fas fa-address-book">人物カテゴリ</span>
-                </dt>
-                <dd>
-                <div class="badge-checkbox">
-                    <span style="background-color: #E91E63;">
-                        <input type="checkbox" name="cbox01-01" value="家族" id="cbox01-01">
-                        <label for="cbox01-01">家族</label>
-                    </span>
-                    <span style="background-color: #2196F3">
-                        <input type="checkbox" name="cbox01-02" value="親戚" id="cbox01-02">
-                        <label for="cbox01-02">親戚</label>
-                    </span>
-                    <span style="background-color: #4CAF50">
-                        <input type="checkbox" name="cbox01-03" value="友達" id="cbox01-03">
-                        <label for="cbox01-03">友達</label>
-                    </span>
-                    <span style="background-color: #FF9800">
-                        <input type="checkbox" name="cbox01-04" value="仕事" id="cbox01-04">
-                        <label for="cbox01-04">仕事</label>
-                    </span>
-                </div>
-                </dd>
-            </dl>
-            <dl slot="body">
-                <dt>
-                    <span class="fas fa-calendar-check">イベント</span>
-                </dt>
-                <dd>
-                <div class="badge-checkbox">
-                    <span style="background-color:#00BCD4">
-                    <input type="checkbox"  name="cbox02-01" value="クリスマス" id="cbox02-01">
-                    <label for="cbox02-01">クリスマス</label>
-                    </span>
-                    <span style="background-color:#F44336">
-                    <input type="checkbox"  name="cbox02-02" value="誕生日" id="cbox02-02">
-                    <label for="cbox02-02">誕生日</label>
-                    </span>
-                    <span style="background-color:#673AB7">
-                    <input type="checkbox"  name="cbox02-03" value="こどもの日" id="cbox02-03">
-                    <label for="cbox02-03">こどもの日</label>
-                    </span>
-                    <span style="background-color:#3F51B5">
-                    <input type="checkbox"  name="cbox02-04" value="母の日" id="cbox02-04">
-                    <label for="cbox02-04">母の日</label>
-                    </span>
-                    <span style="background-color:#009688">
-                    <input type="checkbox"  name="cbox02-05" value="結婚祝い" id="cbox02-05">
-                    <label for="cbox02-05">結婚祝い</label>
-                    </span>
-                    <span style="background-color:#2196F3">
-                    <input type="checkbox"  name="cbox02-06" value="父の日" id="cbox02-06">
-                    <label for="cbox02-06">父の日</label>
-                    </span>
-                    <span style="background-color:#4CAF50">
-                    <input type="checkbox"  name="cbox02-07" value="出産祝い" id="cbox02-07">
-                    <label for="cbox02-07">出産祝い</label>
-                    </span>
-                    <span style="background-color:#8BC34A">
-                    <input type="checkbox"  name="cbox02-08" value="新築祝い" id="cbox02-08">
-                    <label for="cbox02-08">新築祝い</label>
-                    </span>
-                </div>
-                </dd>
-            </dl>
 
-        </vue-search>
-    </nav>
+
     <main>
+        <div class="profile" style="color: #11b1dc;">
+            <h1 class="name">山田 太郎 くん<a href="#" class="fas fa-edit"></a></h1>
+            <span class="badge badge-pill">友達</span>
+        </div>
+        <div class="memo">
+        <p>兄の長男（甥っ子）</p>
+        <p>2010/3/12 生まれ<br>
+        車が好き、ミニカーを集めているのでプレゼントすると喜ぶ</p>
+        </div>
         <div class="container" id="toggleList">
             <vue-accordion class="list-presents" date="2019/01/01-12/31">
                 <div slot="body">
                     <dl class="card-gift give">
-                        <dt><a href="#">自分</a>から<a href="kojin.html">お母さん</a>に</dt>
+                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
                         <dd class="item-area">
-                            <a href="<%= config.path %>">
+                            <a href="/design/">
                                 <span class="date" style="color:#00BCD4">00/00</span>
                                 <figure style="background-color:#00BCD4">
-                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                    <img src="/img/icon_present.png" alt="">
                                 </figure>
                             </a>
                         </dd>
@@ -116,7 +62,7 @@
                             <a href="#">
                                 <span class="date" style="color:#2196F3">00/00</span>
                                 <figure style="background-color:#2196F3">
-                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                    <img src="/img/icon_present.png" alt="">
                                 </figure>
                             </a>
                         </dd>
@@ -134,7 +80,7 @@
                             <a href="#">
                                 <span class="date" style="color:#F44336">00/00</span>
                                 <figure style="background-color:#F44336">
-                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                    <img src="/img/icon_present.png" alt="">
                                 </figure>
                             </a>
                         </dd>
@@ -153,10 +99,10 @@
                     <dl class="card-gift give">
                         <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
                         <dd class="item-area">
-                            <a href="<%= config.path %>">
+                            <a href="/design/">
                                 <span class="date" style="color:#00BCD4">00/00</span>
                                 <figure style="background-color:#00BCD4">
-                                    <img src="<%= config.root %>img/icon_present.png" alt="">
+                                    <img src="/img/icon_present.png" alt="">
                                 </figure>
                             </a>
                         </dd>
@@ -174,7 +120,12 @@
     </main>
 
     <!-- ////////// END PageContents ////////// -->
-    <%- include('./Layout/_script',{data:pageData});%>
+    
+<script src="/js/vue.js"></script>
+<script src="/js/QueryToggleMenu.js"></script>
+<script src="/js/QueryToggleList.js"></script>
+<script src="/js/QuerySearchContent.js"></script>
+<script src="https://kit.fontawesome.com/20c48f89f2.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

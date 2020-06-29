@@ -15,24 +15,13 @@
 
 <body>
     <!-- ////////// PageContents ////////// -->
-    <header>
-        <nav class="side-menu">
-            <div class="hamburger">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </div>
-            <ul class="menu-list">
-                <li><a href="#">list</a></li>
-                <li><a href="#">list</a></li>
-                <li><a href="#">list</a></li>
-            </ul>
-        </nav>
-        <section>
-            <a href="/design/before_login.html">
-                <h1><img src="/img/logo.svg" alt="givelog plus"></h1>
-            </a>
-        </section>
+    <header id="menuList">
+    <vue-menu></vue-menu>
+    <section>
+        <a href="/design/before_login.html">
+        <h1><img src="/img/logo.svg" alt="givelog plus"></h1>
+        </a>
+    </section>
     </header>
     <nav id="search-area">
         <vue-search>
@@ -105,13 +94,12 @@
 
         </vue-search>
     </nav>
-
     <main>
         <div class="container" id="toggleList">
             <vue-accordion class="list-presents" date="2019/01/01-12/31">
                 <div slot="body">
                     <dl class="card-gift give">
-                        <dt><a href="#">自分</a>から<a href="#">お母さん</a>に</dt>
+                        <dt><a href="#">自分</a>から<a href="kojin.html">お母さん</a>に</dt>
                         <dd class="item-area">
                             <a href="/design/">
                                 <span class="date" style="color:#00BCD4">00/00</span>
@@ -194,9 +182,9 @@
     <!-- ////////// END PageContents ////////// -->
     
 <script src="/js/vue.js"></script>
+<script src="/js/QueryToggleMenu.js"></script>
 <script src="/js/QueryToggleList.js"></script>
 <script src="/js/QuerySearchContent.js"></script>
-<script src="/js/function.js"></script>
 <script src="https://kit.fontawesome.com/20c48f89f2.js" crossorigin="anonymous"></script>
 </body>
 

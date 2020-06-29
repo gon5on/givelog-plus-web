@@ -3,11 +3,11 @@
 const vueAccordion = {
     template: `
     <dl v-cloak>
-        <dt v-bind:class="{ 'show': isShowed }" @click="accordionToggle()">
+        <dt v-bind:class="{ 'show': isShowed }" @click="accordionToggle">
             {{this.date}}
         </dt>
         <transition name="js-accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
-            <dd class="vue-accordion-target" v-bind:class="{ 'show': isShowed }" v-show="isShowed">
+            <dd class="vue-accordion-target" :class="{ 'show': isShowed }" v-show="isShowed">
                 <slot name="body"></slot>
             </dd>
         </transition>
@@ -41,6 +41,12 @@ const vueAccordion = {
         }
     },
     mounted: function () {
-    this.accordionToggle();
     }
 };
+
+new Vue({
+    el: '#toggleList',
+    components: {
+        'vue-accordion': vueAccordion
+    }
+});

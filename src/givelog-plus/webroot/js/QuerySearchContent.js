@@ -19,3 +19,10 @@ const vueSearch = {
         }
     }
 };
+
+new Vue({
+    el: '#search-area',
+    components: {
+        'vue-search': vueSearch
+    }
+});
